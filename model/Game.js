@@ -3,10 +3,25 @@
 
 var Game = function(board) {
     
-    this.turn = 0;
+    // First move is by X
+    this.turn = 1;
+
     this.board = board;
 
-	var boardView = new BoardView(board);
-	var moveManager = new MoveManager(board, this, history);
+    this.isOver = function() {
+        if (this.turn === 0) {
+            return this.isTriple(this.board.os);
+        } else {
+            return this.isTriple(this.board.xs);
+        }
+    };
+
+    this.isTriple = function(pieces) {
+        if (pieces.length < 3) {
+            return false;
+        } else {
+            return true;
+        }
+    };
 
 };

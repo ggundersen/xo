@@ -8,6 +8,10 @@ var MoveManager = function(board, game) {
             board.add(squareView.pt, game.turn % 2);
 	        squareView.update();
 	        game.turn += 1;
+
+            if (game.isOver()) {
+                console.log('Game over');
+            }
 	    }
 	});
 
