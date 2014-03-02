@@ -7,9 +7,10 @@ var MoveManager = function(board, game) {
 	    if (board.get(squareView.pt) < 0) {
             board.add(squareView.pt, game.turn % 2);
 	        squareView.update();
+
 	        game.turn += 1;
 
-            if (game.isOver()) {
+            if (board.isTriple(squareView.pt)) {
                 console.log('Game over');
             }
 	    }
