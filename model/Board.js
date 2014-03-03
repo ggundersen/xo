@@ -25,7 +25,6 @@ Board.prototype.update = function(pt, piece) {
     if (pt.x + pt.y === this.N - 1) {
         this.score[2 * this.N + 1] += piece;
     }
-    console.log(this.score);
 };
 
 Board.prototype.get = function(pt) {
@@ -33,12 +32,12 @@ Board.prototype.get = function(pt) {
 };
 
 Board.prototype.index = function(pt) {
-    return pt.x + (pt.y * 3);
+    return pt.x + (pt.y * this.N);
 };
 
 Board.prototype.isWin = function() {
     for (var i = 0; i < this.score.length; i++) {
-        if (Math.abs(this.score[i]) === 3) {
+        if (Math.abs(this.score[i]) === this.N) {
             return true;
         }
     }

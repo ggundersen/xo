@@ -5,7 +5,7 @@ var Events = {
 
 	channel: {},
 
-	on: function(eventName, callback) {
+	subscribe: function(eventName, callback) {
 		if (!this.channel[eventName]) {
 			this.channel[eventName] = [];
 		}
@@ -24,6 +24,10 @@ var Events = {
 			evt.stopPropagation();
 			Events.fire(jsEvent, args);
 		});
-	}
+	},
+
+    unsubscribe: function() {
+
+    }
 
 };

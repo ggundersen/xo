@@ -1,12 +1,12 @@
 #board {
-	height: 150px;
-	width: 150px;
+	/*height: auto;
+	width: auto;*/
 }
 .square {
     border: 1px solid #000;
 	float: left;
-    height: 48px;
-    width: 48px;
+    /*height: 48px;
+    width: 48px;*/
 	text-align: center;
 }
 .square.on {

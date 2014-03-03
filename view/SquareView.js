@@ -1,10 +1,14 @@
 /* SquareView
  * --------------------------------------------------------------- */
 
-var SquareView = function(board, $parentEl, pt) {
+var SquareView = function(board, $parentEl, pt, squareWidth) {
     this.pt = pt;
     this.board = board;
 	this.$el = $('<div class="square"></div>');
+	this.$el.css({
+        'height': squareWidth + 'px',
+        'width': squareWidth + 'px'
+	});
 	$parentEl.append( this.$el );
 	Events.publish(this.$el, 'click', 'clickSquare', this);
 };
