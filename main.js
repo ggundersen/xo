@@ -13,11 +13,13 @@ var App = {
 
 $(function() {
 
-    var board = new Board(3);
-    var game = new Game(board, true);
+    var game = new GameBuilder({
+        boardSize: 3,
+        singlePlayer: true
+    });
 
     // Keep anything that is not STATEFUL out of Game, &c.
-    var boardView = new BoardView(board);
+    var boardView = new BoardView(game.board);
 
     // state = state.board.move(["Kf5", "Kd5"]);
     // var suggest = AI.suggestMove(state); // ["Kf5", "Kd5"]
