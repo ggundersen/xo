@@ -2,35 +2,35 @@
  * --------------------------------------------------------------- */
 
 var AIMoveManager = function(board, game, ai, boardView) {
-	
-	Events.subscribe('clickSquare', function(squareView) {
-	    if (game.isPlayersTurn() && board.get(squareView.pt) < 0) {
-            board.add(squareView.pt, game.getActivePlayer());
-	        squareView.update();
-	        game.turn += 1;
-            Events.fire('AITurn');
-            if (board.isWin()) {
-                console.log('Game over');
-                Events.unsubscribe('clickSquare');
-                Events.unsubscribe('AITurn');
-            }
-	    }
+
+    var self = this;
+    this.board = board;
+    this.game = game;
+    this.ai = ai;
+    this.boardView = boardView;
+
+	Events.subscribe('clickSquare', function(pt) {
+	    // TODO: Add check to see if it is the player (human's) turn
+        if (self.board.get(pt) === 0) {
+           	self.handleMove(pt, self.game.getActiveTeam());
+            Events.publish('AITurn');
+        }
 	});
 
 	Events.subscribe('AITurn', function() {
-        console.log('AI\'s turn');
-        var move = ai.suggestMove(board);
-        board.add(move);
-
-        for (var i = 0; i < boardView.views.length; i++) {
-            //console.log(boardView.views[i]);
-            if (_.isEqual(boardView.views[i].pt), move) {
-                console.log('view found!');
-                boardView.views[i].update();
-                return;
-            }
-        }
+        var pt = ai.suggestMove(board);
+        self.handleMove(pt, ai.team);
 	});
 
 };
 
+AIMoveManager.prototype.handleMove = function(pt, player) {
+    this.board.add(pt, player);
+    this.boardView.update();
+    this.game.turn += 1;
+    if (this.board.isWin()) {
+        console.log('Game over');
+        Events.unsubscribe('clickSquare');
+        Events.unsubscribe('AITurn');
+    }
+};

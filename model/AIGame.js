@@ -5,7 +5,7 @@ var AIGame = function() {
     this.turn = 0;
 };
 
-AIGame.prototype.getActivePlayer = function() {
+AIGame.prototype.getActiveTeam = function() {
     return this.turn % 2 === 0 ? 1 : -1;
 };
 

@@ -4,7 +4,7 @@
 var Board = function(N) {
     this.N = N;
     this.state = _.map(_.range(this.N * this.N), function() {
-        return -1;
+        return 0;
     });
     this.score = _.map(_.range(2 * this.N + 2), function() {
         return 0;
@@ -12,15 +12,11 @@ var Board = function(N) {
 };
 
 Board.prototype.add = function(pt, piece) {
-    console.log('board add');
-    console.log(pt);
-    console.log(piece);
-
-    this.update(pt, piece);
+    this.updateScore(pt, piece);
     this.state[this.index(pt)] = piece;
 };
 
-Board.prototype.update = function(pt, piece) {
+Board.prototype.updateScore = function(pt, piece) {
     this.score[pt.x] += piece;
     this.score[pt.y + this.N] += piece;
     if (pt.x === pt.y) {

@@ -14,7 +14,7 @@ AI.prototype.move = function(board) {
 
 AI.prototype.suggestMove = function(board) {
     for (var i = 0; i < board.state.length; i++) {
-        if (board.state[i] === -1) {
+        if (board.state[i] === 0) {
             // TODO: Use an access routine!
             return board.pt(i);
         }
