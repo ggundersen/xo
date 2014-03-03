@@ -1,8 +1,17 @@
 /* Game
  * --------------------------------------------------------------- */
 
-var Game = function() {
+var Game = function(board, singlePlayer) {
+    var ai,
+        moveManager;
+
     this.turn = 0;
+
+    if (singlePlayer) {
+        ai = new AI();
+    }
+	
+	moveManager = new MoveManagerFactory(board, this, ai).create();
 };
 
 Game.prototype.getActivePlayer = function() {
