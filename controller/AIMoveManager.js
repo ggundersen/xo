@@ -1,7 +1,7 @@
-/* MoveManager
+/* AIMoveManager
  * --------------------------------------------------------------- */
 
-var MoveManager = function(board, game) {
+var AIMoveManager = function(board, game, ai) {
 	
 	Events.subscribe('clickSquare', function(squareView) {
 	    if (board.get(squareView.pt) < 0) {
@@ -16,3 +16,4 @@ var MoveManager = function(board, game) {
 	});
 
 };
+
