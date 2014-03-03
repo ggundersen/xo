@@ -2,15 +2,9 @@
  * --------------------------------------------------------------- */
 
 var Game = function() {
+    this.turn = 0;
+};
 
-    var turn = 0;
-
-    this.setTurn = function() {
-        turn += 1;
-    };
-
-    this.getActivePlayer = function() {
-        return turn % 2 === 0 ? 1 : -1;
-    };
-
+Game.prototype.getActivePlayer = function() {
+    return this.turn % 2 === 0 ? 1 : -1;
 };

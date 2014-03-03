@@ -13,7 +13,9 @@ var Events = {
 	},
 
 	fire: function(eventName, args) {
-		if (!this.channel[eventName]) { return false; }
+		if (!this.channel[eventName]) {
+		    return false;
+		}
 		_.each(this.channel[eventName], function(callback) {
 			callback(args);
 		});
@@ -26,8 +28,8 @@ var Events = {
 		});
 	},
 
-    unsubscribe: function() {
-
+    unsubscribe: function(eventName) {
+        this.channel[eventName] = undefined;
     }
 
 };
