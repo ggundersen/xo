@@ -1,1 +1,7 @@
+# OS X
 .DS_Store
+
+# Vim temp files
+*.swp~
+*.swp
+*.js~
