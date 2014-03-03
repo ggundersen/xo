@@ -1,6 +1,8 @@
 /* xo
  * 2014-03-01
  * Gregory Gundersen
+ *
+ * http://www.ntu.edu.sg/home/ehchua/programming/java/JavaGame_TicTacToe_AI.html
  * =============================================================== */
 
 var App = {
@@ -11,8 +13,8 @@ var App = {
 
 $(function() {
 
-    var board = new Board();
-    var game = new Game(board);
+    var board = new Board(3);
+    var game = new Game();
 
     // Keep anything that is not STATEFUL out of Game, &c.
     var boardView = new BoardView(board);

@@ -1,12 +1,31 @@
 /* Board
  * --------------------------------------------------------------- */
 
-var Board = function() {
-    this.state = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
+var Board = function(N) {
+    this.N = N;
+    this.state = _.map(_.range(this.N * this.N), function() {
+        return -1;
+    });
+    this.score = _.map(_.range(2 * this.N + 2), function() {
+        return 0;
+    }); 
 };
 
 Board.prototype.add = function(pt, piece) {
+    this.update(pt, piece);
     this.state[this.index(pt)] = piece;
+};
+
+Board.prototype.update = function(pt, piece) {
+    this.score[pt.x] += piece;
+    this.score[pt.y + this.N] += piece;
+    if (pt.x === pt.y) {
+        this.score[2 * this.N] += piece;
+    }
+    if (pt.x + pt.y === this.N - 1) {
+        this.score[2 * this.N + 1] += piece;
+    }
+    console.log(this.score);
 };
 
 Board.prototype.get = function(pt) {
@@ -17,46 +36,11 @@ Board.prototype.index = function(pt) {
     return pt.x + (pt.y * 3);
 };
 
-Board.prototype.isTriple = function(pt) {
-
-    var player = this.get(pt),
-        n = 3,
-        i, j, k,
-        nextPoint;
-
-    // Search horizontally
-    var hCount = 1;
-    for (i = 1; i < n; i++) {
-        nextPoint = new Point(pt.x + i, pt.y);
-        if (player !== this.get(nextPoint)) {
-            break;
-        } else {
-            hCount += 1;
+Board.prototype.isWin = function() {
+    for (var i = 0; i < this.score.length; i++) {
+        if (Math.abs(this.score[i]) === 3) {
+            return true;
         }
     }
-
-    var vCount = 1;
-    for (j = 1; j < n; j++) {
-        nextPoint = new Point(pt.x, pt.y + j);
-        if (player !== this.get(nextPoint)) {
-            break;
-        } else {
-            vCount += 1;
-        }
-    }
-
-    var dCount = 1;
-    for (k = 1; k < n; k++) {
-        nextPoint = new Point(pt.x + k, pt.y + k);
-        if (player !== this.get(nextPoint)) {
-            break;
-        } else {
-            dCount += 1;
-        }
-    }
-
-    if (hCount === 3 || vCount === 3 || dCount === 3) {
-        console.log('game over');
-    }
-
+    return false;
 };

@@ -10,6 +10,6 @@ var SquareView = function(board, $parentEl, pt) {
 };
 
 SquareView.prototype.update = function() {
-    var piece = this.board.get(this.pt) === 0 ? '0' : 'x'
+    var piece = this.board.get(this.pt) === 1 ? 'X' : 'O'
     this.$el.text(piece);
 };

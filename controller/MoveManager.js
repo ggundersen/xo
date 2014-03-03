@@ -5,13 +5,13 @@ var MoveManager = function(board, game) {
 	
 	Events.on('clickSquare', function(squareView) {
 	    if (board.get(squareView.pt) < 0) {
-            board.add(squareView.pt, game.turn % 2);
+            board.add(squareView.pt, game.getActivePlayer());
 	        squareView.update();
 
-	        game.turn += 1;
+	        game.setTurn();;
 
-            if (board.isTriple(squareView.pt)) {
-                console.log('Game over');
+            if (board.isWin()) {
+               console.log('Game over');
             }
 	    }
 	});

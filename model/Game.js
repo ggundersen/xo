@@ -1,11 +1,16 @@
 /* Game
  * --------------------------------------------------------------- */
 
-var Game = function(board) {
-    
-    // First move is by X
-    this.turn = 1;
+var Game = function() {
 
-    this.board = board;
+    var turn = 0;
+
+    this.setTurn = function() {
+        turn += 1;
+    };
+
+    this.getActivePlayer = function() {
+        return turn % 2 === 0 ? 1 : -1;
+    };
 
 };
