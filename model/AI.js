@@ -6,9 +6,9 @@ var AI = function(team) {
 };
 
 AI.prototype.move = function(board) {
-    var move = this.suggestMove(board);
-    console.log(move);
-    board.add(move, this.team);
+    //var move = this.suggestMove(board);
+    //console.log(move);
+    //board.add(move, this.team);
 
 };
 

@@ -13,12 +13,16 @@ var BoardView = function(board) {
         'width': this.boardWidth + 'px'
 	});
 
+	this.views = [];
+
     _.each(board.state, function(val, index) {
-        new SquareView(
-            board,
-            self.$el,
-            new Point(index % board.N, Math.floor(index / board.N)),
-            self.squareWidth
+        self.views.push(
+            new SquareView(
+                board,
+                self.$el,
+                new Point(index % board.N, Math.floor(index / board.N)),
+                self.squareWidth
+            )
         );
 	});
 };
