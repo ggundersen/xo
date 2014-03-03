@@ -12,6 +12,10 @@ var Board = function(N) {
 };
 
 Board.prototype.add = function(pt, piece) {
+    console.log('board add');
+    console.log(pt);
+    console.log(piece);
+
     this.update(pt, piece);
     this.state[this.index(pt)] = piece;
 };
@@ -33,6 +37,10 @@ Board.prototype.get = function(pt) {
 
 Board.prototype.index = function(pt) {
     return pt.x + (pt.y * this.N);
+};
+
+Board.prototype.pt = function(index) {
+    return new Point(index % this.N, Math.floor(index / this.N));
 };
 
 Board.prototype.isWin = function() {
