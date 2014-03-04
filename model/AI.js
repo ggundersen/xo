@@ -15,11 +15,11 @@ var AI = function(team) {
     this.team = team;
 };
 
-AI.analyzeState(state) {
+AI.prototype.analyzeState = function(state) {
 
 };
 
-AI.getMove(board) }
+AI.prototype.getMove = function(board) {
     // iterate over board
     // if a square is empty:
     //   clone board
