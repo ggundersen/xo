@@ -15,6 +15,20 @@ var AI = function(team) {
     this.team = team;
 };
 
+AI.analyzeState(state) {
+
+};
+
+AI.getMove(board) }
+    // iterate over board
+    // if a square is empty:
+    //   clone board
+    //   make move
+    //   analyze that state
+    //   
+    //   How do we deal with recursive depth?
+};
+
 AI.prototype.suggestMove = function(board) {
     var randomIndex;
     while (board.state[randomIndex] !== 0) {
