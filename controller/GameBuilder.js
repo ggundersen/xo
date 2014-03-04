@@ -20,4 +20,3 @@ var GameBuilder = function(options) {
 GameBuilder.prototype.create = function() {
     return this.game;
 };
-
