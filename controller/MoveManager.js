@@ -1,14 +1,14 @@
 /* MoveManager
  * --------------------------------------------------------------- */
 
-var MoveManager = function(board, game) {
+var MoveManager = function(game) {
 	
 	Events.subscribe('clickSquare', function(squareView) {
-	    if (board.get(squareView.pt) < 0) {
-            board.add(squareView.pt, game.getActivePlayer());
+	    if (game.board.get(squareView.pt) < 0) {
+            game.board.add(squareView.pt, game.getActivePlayer());
 	        squareView.update();
 	        game.turn += 1;
-            if (board.isWin()) {
+            if (game.board.isWin()) {
                 console.log('Game over');
                 Events.unsubscribe('clickSquare');
             }

@@ -5,17 +5,13 @@
  * http://www.ntu.edu.sg/home/ehchua/programming/java/JavaGame_TicTacToe_AI.html
  * =============================================================== */
 
-var App = {
-	Model: {},
-	View: {},
-	Controller: {}
-};
-
 $(function() {
 
-    var game = new GameBuilder({
+    var game = GameBuilder({
         boardSize: 3,
-        singlePlayer: true
+        ai: {
+            team: -1
+        }
     });
 
 });
