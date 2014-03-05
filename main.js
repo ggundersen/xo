@@ -14,10 +14,15 @@ window.onload = function() {
         },
         css: {
             board: {
-                width: 225
+                width: 300
             },
             square: {
-                borderWidth: 1 
+                borderWidth: 1
+            },
+            piece: {
+                width: 9,
+                xColor: '#ff0000',
+                oColor: '#000000'
             }
         }
     });
