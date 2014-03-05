@@ -66,7 +66,6 @@ AI.prototype.getMove = function(state) {
             }
         }
     });
-    console.log(suggestedMove);
     if (!suggestedMove) {
         suggestedMove = this.getRandomMove(state);
     }

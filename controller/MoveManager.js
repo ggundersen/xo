@@ -9,7 +9,6 @@ var MoveManager = function(game) {
 	        squareView.update();
 	        game.turn += 1;
             if (game.board.isWin()) {
-                console.log('Game over');
                 Events.unsubscribe('clickSquare');
             }
 	    }
