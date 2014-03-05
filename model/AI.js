@@ -17,53 +17,59 @@ var AI = function(team) {
 
 AI.prototype.analyzeState = function(state) {};
 
-AI.prototype.searchX = function(state, x) {
-    var pt, y;
-    y = _.find(_.range(state.N), function(y) {
-        pt = new Point(x, y);
-        return state.get(pt) === 0;
-    });
-    return new Point(x, y);
+AI.prototype.searchXorY = function(state, x, y) {
+    var pt;
+    // TODO: Can I make this functional?
+    for (var i = 0; i < state.N; i++) {
+        pt = x !== undefined ? new Point(x, i) : new Point(i, y);
+        if (state.get(pt) === 0) {
+            return pt;
+        }
+    }
 };
 
-AI.prototype.searchY = function(state, y) {
-    console.log('searching y');
-    var pt, x;
-    x = _.find(_.range(state.N), function(x) {
-        pt = new Point(x, y);
-        console.log(pt);
-        return state.get(pt) === 0;
-    });
-    console.log(x);
-    console.log(y);
-    return new Point(x, y);
+AI.prototype.searchDiagonal = function(state, i) {
+    var flip,
+        pt;
+    if (i === 2 * state.N) {
+        for (var i = 0; i < state.N; i++) {
+            pt = new Point(i, i);
+            if (state.get(pt) === 0) {
+                return pt;
+            }
+        }
+    } else {
+        // TODO: There must be a mathematical approach.
+        flip = _.range(state.N).reverse();
+        for (var i = 0; i < state.N; i++) {
+            pt = new Point(i, flip[i]);
+            if (state.get(pt) === 0) {
+                return pt;
+            }
+        }
+    }
 };
 
-
+// TODO: Abstract away iterating over the board's squares?
 AI.prototype.getMove = function(state) {
     var self = this,
         suggestedMove;
-
     // TODO: Decompose into `block` method?
-    //console.log('analyze state');
     _.each(state.score, function(score, i) {
-        if (score == state.N - 1) {
-            switch (i) {
-                case 0: case 1: case 2:
-                    suggestedMove = self.searchX(state, i);
-                    break;
-                case 3: case 4: case 5:
-                    suggestedMove = self.searchY(state, i-3);
-                    break;
-
+        if (score === state.N - 1) {
+            if (i < state.N) {
+                suggestedMove = self.searchXorY(state, i, undefined);
+            } else if (i < 2 * state.N) {
+                suggestedMove = self.searchXorY(state, undefined, i-3);
+            } else {
+                suggestedMove = self.searchDiagonal(state, i);
             }
         }
     });
-
+    console.log(suggestedMove);
     if (!suggestedMove) {
         suggestedMove = this.getRandomMove(state);
     }
-
     return suggestedMove;
 };
 
