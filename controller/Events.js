@@ -5,11 +5,14 @@ var Events = {
 
 	channel: {},
 	
-    on: function($el, domEvent, jsEvent, args) {
-		$el.on(domEvent, function(evt) {
+    on: function(el, domEvent, jsEvent, args) {
+        el.addEventListener(domEvent, function(evt) {
+            Events.publish(jsEvent, args);
+        });
+		/*$el.on(domEvent, function(evt) {
 			evt.stopPropagation();
 			Events.publish(jsEvent, args);
-		});
+		});*/
 	},
 
 	publish: function(eventName, args) {

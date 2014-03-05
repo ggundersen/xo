@@ -12,7 +12,7 @@ $(function() {
         ai: {
             team: -1
         },
-        boardWidth: 150
+        boardWidth: 225
     });
 
 });

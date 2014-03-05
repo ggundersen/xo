@@ -1,16 +1,18 @@
 /* SquareView
  * --------------------------------------------------------------- */
 
-var SquareView = function(board, pt, $parentEl, squareDim, border) {
+var SquareView = function(board, pt, parentEl, squareDim, border) {
     this.pt = pt;
     this.lineWidth = 4;
     this.squareDim = squareDim;
     this.board = board;
-	this.$el = $('<canvas width="' + squareDim + 'px" height="' + squareDim + 'px" class="square"></canvas>');
-	this.$el.css('border', border + 'px solid #fff');
-	this.ctx = this.$el[0].getContext('2d');
-	$parentEl.append( this.$el );
-	Events.on(this.$el, 'click', 'clickSquare', this.pt);
+    this.el = document.createElement('canvas');
+    this.el.style.height = this.el.style.width = squareDim + 'px';
+    this.el.height = this.el.width = squareDim;
+    this.el.className = 'square';
+    this.ctx = this.el.getContext('2d');
+    parentEl.appendChild( this.el );
+	Events.on(this.el, 'click', 'clickSquare', this.pt);
 };
 
 SquareView.prototype.update = function() {
@@ -19,10 +21,6 @@ SquareView.prototype.update = function() {
     } else if (this.board.get(this.pt) === -1) {
         this.drawO();
     }
-};
-
-SquareView.prototype.highlight = function() {
-   this.$el.addClass('highlight'); 
 };
 
 SquareView.prototype.drawX = function() {

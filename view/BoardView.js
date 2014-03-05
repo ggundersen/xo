@@ -3,22 +3,23 @@
 
 var BoardView = function(board, boardWidth) { 
 
-	var $el = $('#board'),
+	var parentEl = document.getElementById('xo-container');
+	    el = document.createElement('div'),
 	    border = 1,
 	    squareDim = (boardWidth / board.N) - 2*border,
 	    views = [];
 
-	$el.css({
-	    'height': boardWidth + 'px',
-        'width': boardWidth + 'px'
-	});
+	el.id = 'board';
+	el.style.width = boardWidth + 'px';
+    el.style.height = boardWidth + 'px';
+    parentEl.appendChild(el);
 
     _.each(board.state, function(val, index) {
         views.push(
             new SquareView(
                 board,
                 new Point(index % board.N, Math.floor(index / board.N)),
-                $el,
+                el,
                 squareDim,
                 border
             )
