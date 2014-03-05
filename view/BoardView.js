@@ -1,7 +1,7 @@
 /* BoardView
  * --------------------------------------------------------------- */
 
-var BoardView = function(board,css) { 
+var BoardView = function(board, css) { 
 
 	var parentEl = document.getElementById('xo-container');
 	    el = document.createElement('div'),

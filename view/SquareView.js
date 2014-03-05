@@ -8,14 +8,6 @@ var SquareView = function(board, pt, parentEl, css) {
     this.xColor = css.piece.xColor;
     this.yColor = css.piece.yColor;
     this.radius = ((css.board.width / board.N) / 2) - (css.piece.width / 2) - 1;
-
-    console.log(css.board.width / board.N);
-    console.log(css.board.width / board.N / 2);
-    console.log(css.piece.width / 2);
-    console.log(this.radius);
-
-    //this.radius = 45;
-
     this.squareDim = (css.board.width / board.N) - (2 * css.square.borderWidth);
 
     this.board = board;

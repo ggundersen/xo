@@ -6,7 +6,7 @@
  * =============================================================== */
 
 window.onload = function() {
-    
+   
     var game = GameBuilder({
         boardSize: 3,
         ai: {
@@ -26,5 +26,5 @@ window.onload = function() {
             }
         }
     });
-
+    
 };
