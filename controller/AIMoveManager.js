@@ -13,7 +13,7 @@ var AIMoveManager = function(game) {
 	});
 
 	Events.subscribe('AITurn', function() {
-	    var pt = game.ai.suggestMove(game.board);
+	    var pt = game.ai.getMove(game.board);
         self.handleMove(game, pt, game.ai.team);
 	});
 

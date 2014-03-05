@@ -15,24 +15,62 @@ var AI = function(team) {
     this.team = team;
 };
 
-AI.prototype.analyzeState = function(state) {
+AI.prototype.analyzeState = function(state) {};
 
+AI.prototype.searchX = function(state, x) {
+    var pt, y;
+    y = _.find(_.range(state.N), function(y) {
+        pt = new Point(x, y);
+        return state.get(pt) === 0;
+    });
+    return new Point(x, y);
 };
 
-AI.prototype.getMove = function(board) {
-    // iterate over board
-    // if a square is empty:
-    //   clone board
-    //   make move
-    //   analyze that state
-    //   
-    //   How do we deal with recursive depth?
+AI.prototype.searchY = function(state, y) {
+    console.log('searching y');
+    var pt, x;
+    x = _.find(_.range(state.N), function(x) {
+        pt = new Point(x, y);
+        console.log(pt);
+        return state.get(pt) === 0;
+    });
+    console.log(x);
+    console.log(y);
+    return new Point(x, y);
 };
 
-AI.prototype.suggestMove = function(board) {
-    var randomIndex;
-    while (board.state[randomIndex] !== 0) {
-        randomIndex = Math.floor(Math.random() * board.N * board.N);
+
+AI.prototype.getMove = function(state) {
+    var self = this,
+        suggestedMove;
+
+    // TODO: Decompose into `block` method?
+    //console.log('analyze state');
+    _.each(state.score, function(score, i) {
+        if (score == state.N - 1) {
+            switch (i) {
+                case 0: case 1: case 2:
+                    suggestedMove = self.searchX(state, i);
+                    break;
+                case 3: case 4: case 5:
+                    suggestedMove = self.searchY(state, i-3);
+                    break;
+
+            }
+        }
+    });
+
+    if (!suggestedMove) {
+        suggestedMove = this.getRandomMove(state);
     }
-    return board.pt(randomIndex);
+
+    return suggestedMove;
+};
+
+AI.prototype.getRandomMove = function(state) {
+    var randomIndex;
+    while (state.state[randomIndex] !== 0) {
+        randomIndex = Math.floor(Math.random() * state.N * state.N);
+    }
+    return state.pt(randomIndex);
 };

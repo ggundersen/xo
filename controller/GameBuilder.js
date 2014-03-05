@@ -7,6 +7,8 @@ var GameBuilder = function(options) {
     game.boardView = new BoardView(game.board, options.boardWidth);
     
     if (options.ai) {
+        // TODO: The AI should be constructed with a use-selected
+        // algorithm.
         game.ai = new AI(options.ai.team);
         game.moveManager = new AIMoveManager(game);
     } else {
