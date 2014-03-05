@@ -1,17 +1,15 @@
 /* BoardView
  * --------------------------------------------------------------- */
 
-var BoardView = function(board, boardWidth) { 
+var BoardView = function(board,css) { 
 
 	var parentEl = document.getElementById('xo-container');
 	    el = document.createElement('div'),
-	    border = 1,
-	    squareDim = (boardWidth / board.N) - 2*border,
+	    //squareDim = (css.board.width / board.N) - 2 * css.square.borderWidth,
 	    views = [];
 
 	el.id = 'board';
-	el.style.width = boardWidth + 'px';
-    el.style.height = boardWidth + 'px';
+	el.style.width = el.style.height = css.board.width + 'px';
     parentEl.appendChild(el);
 
     _.each(board.state, function(val, index) {
@@ -20,8 +18,9 @@ var BoardView = function(board, boardWidth) {
                 board,
                 new Point(index % board.N, Math.floor(index / board.N)),
                 el,
-                squareDim,
-                border
+                css
+                //squareDim,
+                //css.square.borderWidth
             )
         );
 	});

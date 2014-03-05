@@ -4,7 +4,7 @@
 var GameBuilder = function(options) {
     var game = new Game();
     game.board = new Board(options.boardSize);
-    game.boardView = new BoardView(game.board, options.boardWidth);
+    game.boardView = new BoardView(game.board, options.css);
     
     if (options.ai) {
         // TODO: The AI should be constructed with a use-selected

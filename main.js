@@ -5,14 +5,21 @@
  * http://www.ntu.edu.sg/home/ehchua/programming/java/JavaGame_TicTacToe_AI.html
  * =============================================================== */
 
-$(function() {
-
+window.onload = function() {
+    
     var game = GameBuilder({
         boardSize: 3,
         ai: {
             team: -1
         },
-        boardWidth: 225
+        css: {
+            board: {
+                width: 225
+            },
+            square: {
+                borderWidth: 1 
+            }
+        }
     });
 
-});
+};
