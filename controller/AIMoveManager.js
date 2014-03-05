@@ -21,10 +21,18 @@ var AIMoveManager = function(game) {
 
 AIMoveManager.prototype.handleMove = function(game, pt, player) {
     game.board.add(pt, player);
-    game.boardView.update();
+    game.boardView.update(pt);
     game.turn += 1;
     if (game.board.isWin()) {
-        console.log('Game over');
+
+        // TODO: Make this a proper view
+        var gameOver = document.createElement('div'),
+            boardEl = document.getElementById('board');
+
+        gameOver.className = 'over';
+        gameOver.innerHTML = 'Game Over';
+        board.appendChild(gameOver);
+
         Events.unsubscribe('clickSquare');
         Events.unsubscribe('AITurn');
     }

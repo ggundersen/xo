@@ -1,31 +1,37 @@
 /* BoardView
  * --------------------------------------------------------------- */
 
-var BoardView = function(board) { 
-    var self = this;
-	this.$el = $('#board');
-	this.squareWidth = 48;
-	// +2 accounts for the border
-	this.boardWidth = board.N * (this.squareWidth + 2);
-	this.$el.css({
-	    'height': this.boardWidth + 'px',
-        'width': this.boardWidth + 'px'
+var BoardView = function(board, boardWidth) { 
+
+	var $el = $('#board'),
+	    border = 1,
+	    squareDim = (boardWidth / board.N) - 2*border,
+	    views = [];
+
+	$el.css({
+	    'height': boardWidth + 'px',
+        'width': boardWidth + 'px'
 	});
-    this.views = [];
+
     _.each(board.state, function(val, index) {
-        self.views.push(
+        views.push(
             new SquareView(
                 board,
                 new Point(index % board.N, Math.floor(index / board.N)),
-                self.$el,
-                self.squareWidth
+                $el,
+                squareDim,
+                border
             )
         );
 	});
-};
 
-BoardView.prototype.update = function() {
-    _.each(this.views, function(squareView) {
-        squareView.update();
-    });
+	return {
+        update: function(pt) {
+            _.each(views, function(squareView) {
+                if (_.isEqual(squareView.pt, pt)) {
+                    squareView.update();
+                }
+            });
+        }
+	};
 };

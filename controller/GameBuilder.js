@@ -4,7 +4,7 @@
 var GameBuilder = function(options) {
     var game = new Game();
     game.board = new Board(options.boardSize);
-    game.boardView = new BoardView(game.board);
+    game.boardView = new BoardView(game.board, options.boardWidth);
     
     if (options.ai) {
         game.ai = new AI(options.ai.team);

@@ -11,7 +11,8 @@ $(function() {
         boardSize: 3,
         ai: {
             team: -1
-        }
+        },
+        boardWidth: 150
     });
 
 });

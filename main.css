@@ -1,14 +1,22 @@
 #board {
-	/*height: auto;
-	width: auto;*/
+	margin: 0 auto;
+	position: relative;
+	top: 20px;
 }
 .square {
-    border: 1px solid #000;
-	float: left;
-    /*height: 48px;
-    width: 48px;*/
+    background: #ddd;
+    font-family: helvetica;
+    font-size: 40px;
+    float: left;
 	text-align: center;
 }
-.square.on {
+.square.highlight {
 	background: #FFFF66;
+}
+.over {
+    font-family: helvetica, arial, 'san-serif';
+    font-size: 14px;
+    position: relative;
+    text-align: center;
+    top: 10px
 }
