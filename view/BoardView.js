@@ -8,19 +8,9 @@ var BoardView = function(board, css) {
 
 	el.id = 'board';
 	el.style.width = el.style.height = css.board.width + 'px';
-    //parentEl.appendChild(el);
 
     _.each(board.state, function(val, index) {
-        views.push(
-            new SquareView(
-                board,
-                new Point(index % board.N, Math.floor(index / board.N)),
-                el,
-                css
-                //squareDim,
-                //css.square.borderWidth
-            )
-        );
+        views.push(new SquareView(board, board.pt(index), el, css) );
 	});
 
 	return {

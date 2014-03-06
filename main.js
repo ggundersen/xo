@@ -6,8 +6,8 @@
  * =============================================================== */
 
 window.onload = function() {
-   
-    var game = GameBuilder({
+
+    var defaults = {
         boardSize: 3,
         ai: {
             team: -1
@@ -25,6 +25,19 @@ window.onload = function() {
                 oColor: '#000000'
             }
         }
-    });
-    
+    };
+
+    var config = {
+        
+    }
+
+    document.getElementById('newGame').onclick = function() {
+        var useAI = document.getElementById('useAI').checked;
+        var playerNode = document.getElementById('playersTeam');
+        var player = playerNode.options[playerNode.selectedIndex].text;
+        
+        console.log(useAI);
+        console.log(player);
+        GameBuilder(_.extend({}, defaults, config));
+    };
 };

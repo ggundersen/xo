@@ -1,8 +1,8 @@
-/* GameBuilder
+/* BuildGame
  * --------------------------------------------------------------- */
 
-var GameBuilder = function(options) {
-    game = new Game();
+var BuildGame = function(options) {
+    var game = new Game();
     game.board = new Board(options.boardSize);
     game.boardView = new BoardView(game.board, options.css);
     
@@ -14,4 +14,6 @@ var GameBuilder = function(options) {
     } else {
         game.moveManager = new MoveManager(game);
     }
+
+    return game;
 };
