@@ -4,6 +4,9 @@
 	position: relative;
 	top: 20px;
 }
+#board {
+    border: 1px solid #000;
+}
 .square {
     background: #ddd;
     font-family: helvetica;

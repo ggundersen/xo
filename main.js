@@ -7,6 +7,8 @@
 
 window.onload = function() {
 
+    var options = {};
+
     var defaults = {
         boardSize: 3,
         ai: {
@@ -27,10 +29,6 @@ window.onload = function() {
         }
     };
 
-    var config = {
-        
-    }
-
     document.getElementById('newGame').onclick = function() {
         var useAI = document.getElementById('useAI').checked;
         var playerNode = document.getElementById('playersTeam');
@@ -38,6 +36,7 @@ window.onload = function() {
         
         console.log(useAI);
         console.log(player);
-        GameBuilder(_.extend({}, defaults, config));
+        GameBuilder(_.extend({}, defaults, options));
     };
+
 };
