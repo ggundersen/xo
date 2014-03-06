@@ -5,10 +5,10 @@ var SquareView = function(game, pt, parentEl, css) {
     this.pt = pt;    
     this.board = game.board;
 
-    this.lineWidth = css.piece.width;
+    this.lineWidth = css.piece.thickness;
     this.xColor = css.piece.xColor;
     this.yColor = css.piece.yColor;
-    this.radius = ((css.board.width / game.board.N) / 2) - (css.piece.width / 2) - 1;
+    this.radius = ((css.board.width / game.board.N) / 2) - (css.piece.thickness / 2) - 1;
     this.squareDim = (css.board.width / game.board.N) - (2 * css.square.borderWidth);
 
     this.el = document.createElement('canvas');

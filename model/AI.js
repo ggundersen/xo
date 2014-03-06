@@ -39,19 +39,20 @@ AI.prototype.searchDiagonal = function(state, i) {
             }
         }
     } else {
-        // TODO: A mathematical approach:
-        // 0 => n
-        // 1 => n-1
-        // 2 => n-2
-        // 3 => n-3
-        flip = _.range(state.N).reverse();
         for (var i = 0; i < state.N; i++) {
-            pt = new Point(i, flip[i]);
+            pt = new Point(i, this.flip(state.N - 1, i));
             if (state.get(pt) === 0) {
                 return pt;
             }
         }
     }
+};
+
+AI.prototype.flip = function(m, n) {
+    // 0 => 2-0 = 2
+    // 1 => 2-1 = 1
+    // 2 => 2-2 = 0
+    return m - n;
 };
 
 // TODO: Abstract away iterating over the board's squares?

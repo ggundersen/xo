@@ -9,8 +9,9 @@ window.onload = function() {
 
     var options = {};
 
-    // This config object isn't used, but it is a good one-stop
-    // shop.
+    // This config object does not need to be used, but it is a good
+    // one-stop shop for configuration. I believe this is the
+    // Decorator Pattern.
     var defaults = {
         human: {
             team: 1 // 'X'
@@ -28,7 +29,7 @@ window.onload = function() {
                 borderWidth: 1
             },
             piece: {
-                width: 7,
+                thickness: 7,
                 xColor: '#ff0000',
                 oColor: '#000000'
             }
