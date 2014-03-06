@@ -7,8 +7,17 @@ var AIMoveManager = function(game) {
 	Events.subscribe('clickSquare', function(pt) {
 	    // TODO: Add check to see if it is the player (human's) turn
         if (game.board.get(pt) === 0) {
+
+            // This is a race condition at the very end? 
            	self.handleMove(game, pt, game.getActiveTeam());
-            Events.publish('AITurn');
+
+           	if (!game.board.isFull()) {
+                setTimeout(function() {
+                    Events.publish('AITurn');
+                });
+            } else {
+                console.log('board is full');
+            }
         }
 	});
 
@@ -23,6 +32,7 @@ AIMoveManager.prototype.handleMove = function(game, pt, player) {
     game.board.add(pt, player);
     game.boardView.update(pt);
     game.turn += 1;
+
     if (game.board.isWin()) {
 
         // TODO: Make this a proper view

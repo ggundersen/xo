@@ -47,3 +47,12 @@ Board.prototype.isWin = function() {
     }
     return false;
 };
+
+Board.prototype.isFull = function() {
+    for (var i = 0; i < this.state.length; i++) {
+        if (this.state[i] === 0) {
+            return false;
+        }
+    }
+    return true;
+};

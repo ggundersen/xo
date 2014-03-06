@@ -39,7 +39,11 @@ AI.prototype.searchDiagonal = function(state, i) {
             }
         }
     } else {
-        // TODO: There must be a mathematical approach.
+        // TODO: A mathematical approach:
+        // 0 => n
+        // 1 => n-1
+        // 2 => n-2
+        // 3 => n-3
         flip = _.range(state.N).reverse();
         for (var i = 0; i < state.N; i++) {
             pt = new Point(i, flip[i]);
@@ -69,12 +73,17 @@ AI.prototype.getMove = function(state) {
     if (!suggestedMove) {
         suggestedMove = this.getRandomMove(state);
     }
+    console.log('ai finishes getting a move');
+    console.log(suggestedMove);
     return suggestedMove;
 };
 
 AI.prototype.getRandomMove = function(state) {
-    var randomIndex;
-    while (state.state[randomIndex] !== 0) {
+    var randomIndex,
+        count = 0,
+        MAX = 100;
+    while (state.state[randomIndex] !== 0 && count < MAX) {
+        count++;
         randomIndex = Math.floor(Math.random() * state.N * state.N);
     }
     return state.pt(randomIndex);
