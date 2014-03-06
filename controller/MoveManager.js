@@ -25,7 +25,13 @@ var MoveManager = function(game, options) {
         self.handleMove(game, pt, options.ai.team);
 	});
 
+    if (game.turn === 0 && options.ai.team === 1) {
+        console.log('first move');
+        game.events.publish('AITurn');
+    }
+
 };
+
 
 MoveManager.prototype.handleMove = function(game, pt, player) {
     game.board.add(pt, player);

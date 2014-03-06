@@ -19,7 +19,7 @@ var Game = function(options) {
                 return false;
             }
         } else {
-            if (val === 1) {
+            if (val === -1) {
                 return true;
             } else {
                 return false;
