@@ -7,7 +7,6 @@ var BoardView = function(game, elName, css) {
 	    views = [];
 
     el.innerHTML = '';
-	el.id = 'board';
 	el.style.width = el.style.height = css.board.width + 'px';
 
     _.each(game.board.state, function(val, index) {

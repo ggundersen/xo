@@ -1,15 +1,13 @@
 /* Game
  * --------------------------------------------------------------- */
 
-var Game = function() {
+// TODO: What the hell does `Game` do? Should it not just take a
+// config object and instantiate itself?
+var Game = function(options) {
     this.turn = 0;
-};
-
-Game.prototype.getActiveTeam = function() {
-    return this.turn % 2 === 0 ? 1 : -1;
-};
-
-// This does not apply to non-AI games?
-Game.prototype.isPlayersTurn = function() {
-    return this.turn % 2 === 0 ? true : false;
+    this.board = new Board(options.boardSize);
+    this.events = new Events();
+    this.boardView = new BoardView(this, options.elName, options.css);
+    this.ai = new AI(options.ai.team);
+    this.moveManager = new MoveManager(this, options);
 };

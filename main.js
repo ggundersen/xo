@@ -13,34 +13,43 @@ window.onload = function() {
         elName: 'board',
         boardSize: 3,
         ai: {
-            team: -1
+            team: -1,
+            difficulty: 0
+        },
+        player: {
+            team: 1,
         },
         css: {
             board: {
-                width: 300
+                width: 210
             },
             square: {
                 borderWidth: 1
             },
             piece: {
-                width: 9,
+                width: 7,
                 xColor: '#ff0000',
                 oColor: '#000000'
             }
         }
     };
 
-    // Build a default game
-    GameBuilder(_.extend({}, defaults, options));
+    var game = new Game( _.extend({}, defaults, options) );
 
     document.getElementById('newGame').onclick = function() {
         var useAI = document.getElementById('useAI').checked;
         var playerNode = document.getElementById('playersTeam');
         var player = playerNode.options[playerNode.selectedIndex].text;
         
-        //console.log(useAI);
-        //console.log(player);
-        GameBuilder(_.extend({}, defaults, options));
+        // TODO: Fix this silly code. I can't instantiate the options
+        // object with `player` and `ai` objects because they will
+        // override the `defaults` object. 
+        options.player = {};
+        options.player.team = player === 'X' ? 1 : -1;
+        options.ai = {}
+        options.ai.team = (options.player.team === 1 ? -1 : 1);
+        
+        game = new Game( _.extend({}, defaults, options) );
     };
 
 };
