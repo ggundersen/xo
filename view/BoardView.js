@@ -1,11 +1,9 @@
 /* BoardView
  * --------------------------------------------------------------- */
 
-var BoardView = function(game, elName, css) { 
+var BoardView = function(game, el, css) { 
 
-	var el = document.getElementById(elName),
-	    views = [];
-
+	var views = [];
     el.innerHTML = '';
 	el.style.width = el.style.height = css.board.width + 'px';
 

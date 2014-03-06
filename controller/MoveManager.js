@@ -4,21 +4,25 @@
 var MoveManager = function(game, options) {
     var self = this;
 
+    // The MoveManager should know whose turn it is and ASK them for
+    // a move. It asks the AI explicitly and it asks the user by
+    // listening.
 	game.events.subscribe('clickSquare', function(pt) {
-	    // TODO: Add check to see if it is the player (human's) turn
-        if (game.board.get(pt) === 0) {
-           	self.handleMove(game, pt, options.player.team);
+        console.log(game.isTurn(options.human.team));
+        if (game.board.get(pt) === 0 && game.isTurn(options.human.team)) {
+           	self.handleMove(game, pt, options.human.team);
            	if (!game.board.isFull()) {
-                setTimeout(function() {
-                    game.events.publish('AITurn');
-                });
+                // This event model is fundamentally flawed. We
+                // are telling the AI to go. The AI is told to
+                // go based on the turn.
+                game.events.publish('AITurn');
             }
         }
 	});
 
 	game.events.subscribe('AITurn', function() {
 	    var pt = game.ai.getMove(game.board);
-        self.handleMove(game, pt, game.ai.team);
+        self.handleMove(game, pt, options.ai.team);
 	});
 
 };

@@ -9,16 +9,17 @@ window.onload = function() {
 
     var options = {};
 
+    // This config object isn't used, but it is a good one-stop
+    // shop.
     var defaults = {
-        elName: 'board',
-        boardSize: 3,
+        human: {
+            team: 1 // 'X'
+        },
         ai: {
-            team: -1,
-            difficulty: 0
+            team: -1 // 'O'
         },
-        player: {
-            team: 1,
-        },
+        bootstrapperEl: document.getElementById('board'),
+        boardSize: 3,
         css: {
             board: {
                 width: 210
@@ -34,7 +35,7 @@ window.onload = function() {
         }
     };
 
-    var game = new Game( _.extend({}, defaults, options) );
+    var game = new Game( defaults );
 
     document.getElementById('newGame').onclick = function() {
         var useAI = document.getElementById('useAI').checked;
@@ -44,10 +45,10 @@ window.onload = function() {
         // TODO: Fix this silly code. I can't instantiate the options
         // object with `player` and `ai` objects because they will
         // override the `defaults` object. 
-        options.player = {};
-        options.player.team = player === 'X' ? 1 : -1;
+        options.human = {};
+        options.human.team = (player === 'X' ? 1 : -1);
         options.ai = {}
-        options.ai.team = (options.player.team === 1 ? -1 : 1);
+        options.ai.team = (options.human.team === 1 ? -1 : 1);
         
         game = new Game( _.extend({}, defaults, options) );
     };
