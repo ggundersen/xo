@@ -73,8 +73,6 @@ AI.prototype.getMove = function(state) {
     if (!suggestedMove) {
         suggestedMove = this.getRandomMove(state);
     }
-    console.log('ai finishes getting a move');
-    console.log(suggestedMove);
     return suggestedMove;
 };
 

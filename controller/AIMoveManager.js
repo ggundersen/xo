@@ -4,7 +4,7 @@
 var AIMoveManager = function(game) {
     var self = this;
 
-	Events.subscribe('clickSquare', function(pt) {
+	game.events.subscribe('clickSquare', function(pt) {
 	    // TODO: Add check to see if it is the player (human's) turn
         if (game.board.get(pt) === 0) {
 
@@ -13,15 +13,13 @@ var AIMoveManager = function(game) {
 
            	if (!game.board.isFull()) {
                 setTimeout(function() {
-                    Events.publish('AITurn');
+                    game.events.publish('AITurn');
                 });
-            } else {
-                console.log('board is full');
             }
         }
 	});
 
-	Events.subscribe('AITurn', function() {
+	game.events.subscribe('AITurn', function() {
 	    var pt = game.ai.getMove(game.board);
         self.handleMove(game, pt, game.ai.team);
 	});
@@ -43,7 +41,7 @@ AIMoveManager.prototype.handleMove = function(game, pt, player) {
         gameOver.innerHTML = 'Game Over';
         board.appendChild(gameOver);
 
-        Events.unsubscribe('clickSquare');
-        Events.unsubscribe('AITurn');
+        game.events.unsubscribe('clickSquare');
+        game.events.unsubscribe('AITurn');
     }
 };

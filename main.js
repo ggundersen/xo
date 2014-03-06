@@ -10,6 +10,7 @@ window.onload = function() {
     var options = {};
 
     var defaults = {
+        elName: 'board',
         boardSize: 3,
         ai: {
             team: -1
@@ -29,13 +30,16 @@ window.onload = function() {
         }
     };
 
+    // Build a default game
+    GameBuilder(_.extend({}, defaults, options));
+
     document.getElementById('newGame').onclick = function() {
         var useAI = document.getElementById('useAI').checked;
         var playerNode = document.getElementById('playersTeam');
         var player = playerNode.options[playerNode.selectedIndex].text;
         
-        console.log(useAI);
-        console.log(player);
+        //console.log(useAI);
+        //console.log(player);
         GameBuilder(_.extend({}, defaults, options));
     };
 
