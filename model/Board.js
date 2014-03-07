@@ -27,6 +27,13 @@ Board.prototype.updateScore = function(pt, piece) {
     }
 };
 
+Board.prototype.eachScore = function(fn) {
+    var i = 0;
+    for (; i < this.score.length; i++) {
+        fn(this.score[i], i);
+    }
+};
+
 Board.prototype.get = function(pt) {
     return this.state[this.index(pt)];
 };

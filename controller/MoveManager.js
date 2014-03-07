@@ -8,7 +8,6 @@ var MoveManager = function(game, options) {
     // a move. It asks the AI explicitly and it asks the user by
     // listening.
 	game.events.subscribe('clickSquare', function(pt) {
-        console.log(game.isTurn(options.human.team));
         if (game.board.get(pt) === 0 && game.isTurn(options.human.team)) {
            	self.handleMove(game, pt, options.human.team);
            	if (!game.board.isFull()) {
