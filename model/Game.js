@@ -7,32 +7,25 @@ var Game = function(options) {
     this.events = new Events();
     this.boardView = new BoardView(this, options.bootstrapperEl, options.css);
     this.ai = new AI(options.ai.val);
-    this.moveManager = new MoveManager(this, options);
-    
     this.score = _.map(_.range(2 * options.boardSize + 2), function() {
         return 0;
-    }); 
+    });
 
-    // TODO: This code smells. Can it be optimized?
-    // This will be a 1 or -1, for X or O
-    this.isTurn = function(val) {
-        if (this.turn % 2 === 0) {
-            if (val === 1) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            if (val === -1) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    };
-    
+    // TODO: This guy has to be instantiate *after* this.score,
+    // otherwise the AI won't know the score. This seems too
+    // tightly coupled.
+    this.moveManager = new MoveManager(this, options);
 };
 
+Game.prototype.isTurn = function(team) {
+    if (this.turn % 2 === 0 && team === XO.CONST.CROSSES) {
+        return true;
+    } else if (this.turn % 2 !== 0 && team === XO.CONST.NOUGHTS) {
+        return true;
+    }
+    return false;
+};
+    
 Game.prototype.updateScore = function(pt, piece) {
     this.score[pt.x] += piece;
     this.score[pt.y + this.board.N] += piece;

@@ -3,6 +3,11 @@
 
 var Events = function() {
 	this.channel = {};
+
+	// TODO: Is this a good idea?
+	this.TYPE = {
+        AI_MOVE: 'ai_move'
+	};
 };
 	
 Events.prototype.on = function(el, domEvent, jsEvent, args) {

@@ -1,14 +1,14 @@
 /* MoveManager
  * --------------------------------------------------------------- */
 
-var MoveManager = function(game, options) {
+MoveManager = function(game, options) {
     var self = this;
 
     // The MoveManager should know whose turn it is and ASK them for
     // a move. It asks the AI explicitly and it asks the user by
     // listening.
 	game.events.subscribe('clickSquare', function(pt) {
-        if (game.board.isEmpty(pt) && game.isTurn(options.human.val)) {
+        if (game.board.isEmpty(pt) && game.isTurn(options.human.team)) {
            	self.handleMove(game, pt, options.human.team, options.human.val);
            	if (!game.board.isFull()) {
                 // This event model is fundamentally flawed. We
@@ -24,12 +24,12 @@ var MoveManager = function(game, options) {
         self.handleMove(game, pt, options.ai.team, options.ai.val);
 	});
 
-    if (game.turn === 0 && options.ai.team === 1) {
+    if (game.turn === 0 && game.isTurn(options.ai.team)) {
+        console.log('ai will go first');
         game.events.publish('AITurn');
     }
 
 };
-
 
 MoveManager.prototype.handleMove = function(game, pt, player, val) {
     game.board.add(pt, player);
@@ -38,7 +38,6 @@ MoveManager.prototype.handleMove = function(game, pt, player, val) {
     game.updateScore(pt, val);
 
     if (game.isWin()) {
-
         // TODO: Make this a proper view
         var gameOver = document.createElement('div'),
             boardEl = document.getElementById('board');

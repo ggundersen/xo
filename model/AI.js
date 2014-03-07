@@ -26,6 +26,10 @@ AI.prototype.MOVE_VALUE = {
 // `getMove` is the AI's `main` function. All other functions are
 // called from here.
 AI.prototype.getMove = function(game) {
+
+    console.log('get move');
+    console.log(game);
+
     var suggestedMoves = [];
     suggestedMoves.push( this.win(game.board, game.score, this.MOVE_VALUE.WIN) );
     suggestedMoves.push( this.block(game.board, game.score, this.MOVE_VALUE.BLOCK_WIN) );
@@ -46,7 +50,7 @@ AI.prototype.analyze = function(moves) {
     return finalMove;
 };
 
-AI.prototype.win = function(board, score, val) {
+AI.prototype.win = function(board, score, moveVal) {
     var self = this,
         i = 0,
         sc,
@@ -55,43 +59,45 @@ AI.prototype.win = function(board, score, val) {
         sc = score[i];
         if (sc === (board.N - 1) * this.val) {
             if (i < board.N) {
-                suggestedMove = new Move(self.searchXorY(board, i, undefined), val);
+                suggestedMove = new Move(self.searchXorY(board, i, undefined), moveVal);
             } else if (i < 2 * board.N) {
-                suggestedMove = new Move(self.searchXorY(board, undefined, i-3), val);
+                suggestedMove = new Move(self.searchXorY(board, undefined, i-3), moveVal);
             } else {
-                suggestedMove = new Move(self.searchDiagonal(board, i), val);
+                suggestedMove = new Move(self.searchDiagonal(board, i), moveVal);
             }
         }
     };
     return suggestedMove;
 };
 
-AI.prototype.block = function(board, score, val) {
+AI.prototype.block = function(board, score, moveVal) {
     var self = this,
+        i = 0,
+        src,
         suggestedMove;
-    _.each(score, function(sc, i) {
-        // TODO: This will *only* work if the AI is 'O's, or negative number
-        if (sc === board.N - 1) {
+    for (; i < score.length; i++) {
+        sc = score[i];
+        if (sc === (board.N - 1)) {
             if (i < board.N) {
-                suggestedMove = new Move(self.searchXorY(board, i, undefined), val);
+                suggestedMove = new Move(self.searchXorY(board, i, undefined), moveVal);
             } else if (i < 2 * board.N) {
-                suggestedMove = new Move(self.searchXorY(board, undefined, i-3), val);
+                suggestedMove = new Move(self.searchXorY(board, undefined, i-3), moveVal);
             } else {
-                suggestedMove = new Move(self.searchDiagonal(board, i), val);
+                suggestedMove = new Move(self.searchDiagonal(board, i), moveVal);
             }
         }
-    });
+    };
     return suggestedMove;
 };
 
-AI.prototype.random = function(board, val) {
+AI.prototype.random = function(board, moveVal) {
     var randomIndex,
         count = 0;
     while (board.state[randomIndex] !== 0) {
         count++;
         randomIndex = Math.floor(Math.random() * board.N * board.N);
     }
-    return new Move(board.pt(randomIndex), val);
+    return new Move(board.pt(randomIndex), moveVal);
 };
 
 AI.prototype.searchXorY = function(board, x, y) {

@@ -11,7 +11,9 @@ window.onload = function() {
 
     XO.CONST = {
         CROSSES: 'X',
-        NOUGHTS: 'O'
+        NOUGHTS: 'O',
+        EASY: 'easy',
+        HARD: 'hard',
     };
 
     var options = {};
@@ -27,7 +29,8 @@ window.onload = function() {
         },
         ai: {
             val: -1,
-            team: XO.CONST.NOUGHTS
+            team: XO.CONST.NOUGHTS,
+            difficulty: XO.CONST.EASY
         },
         bootstrapperEl: document.getElementById('board'),
         boardSize: 3,
@@ -62,6 +65,8 @@ window.onload = function() {
         options.ai.team = (options.human.team === XO.CONST.CROSSES ? XO.CONST.NOUGHTS : XO.CONST.CROSSES);
         
         game = new Game( _.extend({}, defaults, options) );
+        console.log('new game');
+        console.log(game);
     };
 
 };
