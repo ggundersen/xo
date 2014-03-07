@@ -3,144 +3,127 @@
  * http://programmers.stackexchange.com/a/228680/115607
  *
  * The critical observation made by Mario is that an FP approach to
- * this problem is to have the AI consume a board state--not
+ * this problem is to have the AI consume a board board--not
  * necessarily even the current one--and return a suggested move.
  *
  * Consider an alternative, where the AI manipulates (i.e. makes the
- * move) the board's state itself. Then you would have mutation at
+ * move) the board's board itself. Then you would have mutation at
  * multiple points in the program.
  * --------------------------------------------------------------- */
 
-var AI = function(team) {
-    this.team = team;
+var AI = function(val) {
+    this.val = val;
 };
 
-AI.prototype.MOVE_VALUES = {
-    'WIN': 3,
-    'BLOCK': 1,
+AI.prototype.MOVE_VALUE = {
+    'WIN': 9,
+    'BLOCK_WIN': 8,
+    'BLOCK_FORK': 7,
     'RANDOM': 0,
     'NA': -1
 };
 
 // `getMove` is the AI's `main` function. All other functions are
 // called from here.
-AI.prototype.getMove = function(state) {
+AI.prototype.getMove = function(game) {
     var suggestedMoves = [];
-    suggestedMoves.push( this.win(state) );
-    suggestedMoves.push( this.block(state) );
-    suggestedMoves.push( this.getRandomMove(state) );
+    suggestedMoves.push( this.win(game.board, game.score, this.MOVE_VALUE.WIN) );
+    suggestedMoves.push( this.block(game.board, game.score, this.MOVE_VALUE.BLOCK_WIN) );
+    suggestedMoves.push( this.random(game.board, this.MOVE_VALUE.RANDOM) );
     return AI.prototype.analyze(suggestedMoves).pt;
 };
 
 AI.prototype.analyze = function(moves) {
-    var finalMove = {
-        pt: undefined,
-        val: -1
-    };
-
-    _.each(moves, function(move) {
-        if (move.pt !== undefined && move.val > finalMove.val) {
+    var i = 0,
+        finalMove = new Move(undefined, -1),
+        move;
+    for (; i < moves.length; i++) {
+        move = moves[i];
+        if (move && move.pt && move.val > finalMove.val) {
             finalMove = move;
         }
-    });
-
+    };
     return finalMove;
 };
 
-AI.prototype.win = function(state) {
+AI.prototype.win = function(board, score, val) {
     var self = this,
-        suggestedMove = {
-            val: this.MOVE_VALUES.WIN
-        };
-
-    state.eachScore(function(score, i) {
-        // TODO: Don't bake this in.
-        if (score === -2) {
-            if (i < state.N) {
-                suggestedMove.pt = self.searchXorY(state, i, undefined);
-            } else if (i < 2 * state.N) {
-                suggestedMove.pt = self.searchXorY(state, undefined, i-3);
+        i = 0,
+        sc,
+        suggestedMove;
+    for (; i < score.length; i++) {
+        sc = score[i];
+        if (sc === (board.N - 1) * this.val) {
+            if (i < board.N) {
+                suggestedMove = new Move(self.searchXorY(board, i, undefined), val);
+            } else if (i < 2 * board.N) {
+                suggestedMove = new Move(self.searchXorY(board, undefined, i-3), val);
             } else {
-                suggestedMove.pt = self.searchDiagonal(state, i);
+                suggestedMove = new Move(self.searchDiagonal(board, i), val);
             }
         }
-    });
-
-    console.log(suggestedMove);
-
+    };
     return suggestedMove;
 };
 
-AI.prototype.block = function(state) {
+AI.prototype.block = function(board, score, val) {
     var self = this,
-        suggestedMove = {
-            val: this.MOVE_VALUES.BLOCK
-        };
-
-    state.eachScore(function(score, i) {
+        suggestedMove;
+    _.each(score, function(sc, i) {
         // TODO: This will *only* work if the AI is 'O's, or negative number
-        if (score === state.N - 1) {
-            if (i < state.N) {
-                suggestedMove.pt = self.searchXorY(state, i, undefined);
-            } else if (i < 2 * state.N) {
-                suggestedMove.pt = self.searchXorY(state, undefined, i-3);
+        if (sc === board.N - 1) {
+            if (i < board.N) {
+                suggestedMove = new Move(self.searchXorY(board, i, undefined), val);
+            } else if (i < 2 * board.N) {
+                suggestedMove = new Move(self.searchXorY(board, undefined, i-3), val);
             } else {
-                suggestedMove.pt = self.searchDiagonal(state, i);
+                suggestedMove = new Move(self.searchDiagonal(board, i), val);
             }
         }
     });
-
     return suggestedMove;
 };
 
-AI.prototype.searchXorY = function(state, x, y) {
+AI.prototype.random = function(board, val) {
+    var randomIndex,
+        count = 0;
+    while (board.state[randomIndex] !== 0) {
+        count++;
+        randomIndex = Math.floor(Math.random() * board.N * board.N);
+    }
+    return new Move(board.pt(randomIndex), val);
+};
+
+AI.prototype.searchXorY = function(board, x, y) {
     var pt;
-    // TODO: Can I make this functional?
-    for (var i = 0; i < state.N; i++) {
+    for (var i = 0; i < board.N; i++) {
         pt = x !== undefined ? new Point(x, i) : new Point(i, y);
-        if (state.get(pt) === 0) {
+        if (board.get(pt) === 0) {
             return pt;
         }
     }
 };
 
-AI.prototype.searchDiagonal = function(state, i) {
+AI.prototype.searchDiagonal = function(board, i) {
     var pt;
-    if (i === 2 * state.N) {
-        for (var i = 0; i < state.N; i++) {
+    if (i === 2 * board.N) {
+        for (var i = 0; i < board.N; i++) {
             pt = new Point(i, i);
-            if (state.get(pt) === 0) {
+            if (board.get(pt) === 0) {
                 return pt;
             }
         }
     } else {
-        for (var i = 0; i < state.N; i++) {
-            pt = new Point(i, this.flip(state.N - 1, i));
-            if (state.get(pt) === 0) {
+        for (var i = 0; i < board.N; i++) {
+            pt = new Point(i, this.flip(board.N - 1, i));
+            if (board.get(pt) === 0) {
                 return pt;
             }
         }
     }
 };
 
-AI.prototype.getRandomMove = function(state) {
-    var randomIndex,
-        count = 0,
-        MAX = 100,
-        suggestedMove = {
-            val: this.MOVE_VALUES.RANDOM
-        };
-
-    while (state.state[randomIndex] !== 0 && count < MAX) {
-        count++;
-        randomIndex = Math.floor(Math.random() * state.N * state.N);
-    }
-    suggestedMove.pt = state.pt(randomIndex);
-
-    return suggestedMove;
-};
-
-// `flip` is a elper function:
+// `flip` is a helper function:
 // 0 => 2-0 => 2
 // 1 => 2-1 => 1
 // 2 => 2-2 => 0

@@ -5,7 +5,14 @@
  * http://www.ntu.edu.sg/home/ehchua/programming/java/JavaGame_TicTacToe_AI.html
  * =============================================================== */
 
+window.XO = {};
+
 window.onload = function() {
+
+    XO.CONST = {
+        CROSSES: 'X',
+        NOUGHTS: 'O'
+    };
 
     var options = {};
 
@@ -13,11 +20,14 @@ window.onload = function() {
     // one-stop shop for configuration. I believe this is the
     // Decorator Pattern.
     var defaults = {
+        // The val is immutable; the team is not.
         human: {
-            team: 1 // 'X'
+            val: 1,
+            team: XO.CONST.CROSSES
         },
         ai: {
-            team: -1 // 'O'
+            val: -1,
+            team: XO.CONST.NOUGHTS
         },
         bootstrapperEl: document.getElementById('board'),
         boardSize: 3,
@@ -47,9 +57,9 @@ window.onload = function() {
         // object with `player` and `ai` objects because they will
         // override the `defaults` object. 
         options.human = {};
-        options.human.team = (player === 'X' ? 1 : -1);
+        options.human.team = player;
         options.ai = {}
-        options.ai.team = (options.human.team === 1 ? -1 : 1);
+        options.ai.team = (options.human.team === XO.CONST.CROSSES ? XO.CONST.NOUGHTS : XO.CONST.CROSSES);
         
         game = new Game( _.extend({}, defaults, options) );
     };
