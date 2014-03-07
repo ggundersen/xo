@@ -25,7 +25,6 @@ MoveManager = function(game, options) {
 	});
 
     if (game.turn === 0 && game.isTurn(options.ai.team)) {
-        console.log('ai will go first');
         game.events.publish('AITurn');
     }
 

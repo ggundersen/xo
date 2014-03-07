@@ -26,10 +26,6 @@ AI.prototype.MOVE_VALUE = {
 // `getMove` is the AI's `main` function. All other functions are
 // called from here.
 AI.prototype.getMove = function(game) {
-
-    console.log('get move');
-    console.log(game);
-
     var suggestedMoves = [];
     suggestedMoves.push( this.win(game.board, game.score, this.MOVE_VALUE.WIN) );
     suggestedMoves.push( this.block(game.board, game.score, this.MOVE_VALUE.BLOCK_WIN) );

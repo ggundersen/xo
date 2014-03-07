@@ -16,12 +16,10 @@ window.onload = function() {
         HARD: 'hard',
     };
 
-    var options = {};
-
     // This config object does not need to be used, but it is a good
     // one-stop shop for configuration. I believe this is the
     // Decorator Pattern.
-    var defaults = {
+    var config = {
         // The val is immutable; the team is not.
         human: {
             val: 1,
@@ -49,7 +47,7 @@ window.onload = function() {
         }
     };
 
-    var game = new Game( defaults );
+    var game = new Game( config );
 
     document.getElementById('newGame').onclick = function() {
         var useAI = document.getElementById('useAI').checked;
@@ -58,15 +56,11 @@ window.onload = function() {
         
         // TODO: Fix this silly code. I can't instantiate the options
         // object with `player` and `ai` objects because they will
-        // override the `defaults` object. 
-        options.human = {};
-        options.human.team = player;
-        options.ai = {}
-        options.ai.team = (options.human.team === XO.CONST.CROSSES ? XO.CONST.NOUGHTS : XO.CONST.CROSSES);
+        // override the `config` object. 
+        config.human.team = player;
+        config.ai.team = (config.human.team === XO.CONST.CROSSES ? XO.CONST.NOUGHTS : XO.CONST.CROSSES);
         
-        game = new Game( _.extend({}, defaults, options) );
-        console.log('new game');
-        console.log(game);
+        game = new Game( config );
     };
 
 };
