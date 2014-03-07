@@ -1,4 +1,4 @@
-/* AI
+/* AIAbstract
  *
  * http://programmers.stackexchange.com/a/228680/115607
  *
@@ -11,11 +11,11 @@
  * multiple points in the program.
  * --------------------------------------------------------------- */
 
-var AI = function(val) {
+var AIAbstract = function(val) {
     this.val = val;
 };
 
-AI.prototype.MOVE_VALUE = {
+AIAbstract.prototype.MOVE_VALUE = {
     'WIN': 9,
     'BLOCK_WIN': 8,
     'BLOCK_FORK': 7,
@@ -23,17 +23,16 @@ AI.prototype.MOVE_VALUE = {
     'NA': -1
 };
 
-// `getMove` is the AI's `main` function. All other functions are
-// called from here.
-AI.prototype.getMove = function(game) {
-    var suggestedMoves = [];
-    suggestedMoves.push( this.win(game.board, game.score, this.MOVE_VALUE.WIN) );
-    suggestedMoves.push( this.block(game.board, game.score, this.MOVE_VALUE.BLOCK_WIN) );
-    suggestedMoves.push( this.random(game.board, this.MOVE_VALUE.RANDOM) );
-    return AI.prototype.analyze(suggestedMoves).pt;
-};
+// `getMove` is a 'virtual method.' It is designed to be redefined by
+// 'subclasses.'
+AIAbstract.prototype.getMove = function(game) {};
 
-AI.prototype.analyze = function(moves) {
+// `analyze` takes an array of possible moves and returns the one
+// with the highest value. This seems like one way of building an AI,
+// namely returning the best move--given a set of proposed moves--
+// from a set of moves. Another way would be for the computer to have
+// a goal and to find a way of achieving it.
+AIAbstract.prototype.analyze = function(moves) {
     var i = 0,
         finalMove = new Move(undefined, -1),
         move;
@@ -46,7 +45,7 @@ AI.prototype.analyze = function(moves) {
     return finalMove;
 };
 
-AI.prototype.win = function(board, score, moveVal) {
+AIAbstract.prototype.win = function(board, score, moveVal) {
     var self = this,
         i = 0,
         sc,
@@ -66,7 +65,7 @@ AI.prototype.win = function(board, score, moveVal) {
     return suggestedMove;
 };
 
-AI.prototype.block = function(board, score, moveVal) {
+AIAbstract.prototype.block = function(board, score, moveVal) {
     var self = this,
         i = 0,
         src,
@@ -86,7 +85,7 @@ AI.prototype.block = function(board, score, moveVal) {
     return suggestedMove;
 };
 
-AI.prototype.random = function(board, moveVal) {
+AIAbstract.prototype.random = function(board, moveVal) {
     var randomIndex,
         count = 0;
     while (board.state[randomIndex] !== 0) {
@@ -96,7 +95,7 @@ AI.prototype.random = function(board, moveVal) {
     return new Move(board.pt(randomIndex), moveVal);
 };
 
-AI.prototype.searchXorY = function(board, x, y) {
+AIAbstract.prototype.searchXorY = function(board, x, y) {
     var pt;
     for (var i = 0; i < board.N; i++) {
         pt = x !== undefined ? new Point(x, i) : new Point(i, y);
@@ -106,7 +105,7 @@ AI.prototype.searchXorY = function(board, x, y) {
     }
 };
 
-AI.prototype.searchDiagonal = function(board, i) {
+AIAbstract.prototype.searchDiagonal = function(board, i) {
     var pt;
     if (i === 2 * board.N) {
         for (var i = 0; i < board.N; i++) {
@@ -129,6 +128,6 @@ AI.prototype.searchDiagonal = function(board, i) {
 // 0 => 2-0 => 2
 // 1 => 2-1 => 1
 // 2 => 2-2 => 0
-AI.prototype.flip = function(m, n) {
+AIAbstract.prototype.flip = function(m, n) {
     return m - n;
 };

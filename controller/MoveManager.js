@@ -1,52 +1,62 @@
 /* MoveManager
  * --------------------------------------------------------------- */
 
-MoveManager = function(game, options) {
+// TODO: Reconsider this program control. Currently, we *always*
+// listen for the human to click and tell the AI to go 
+var MoveManager = function(game, human, ai) {
     var self = this;
+    this.game = game;
+    this.board = game.board;
+    this.human = human;
+    this.ai = ai;
+    this.events = game.events;
 
-    // The MoveManager should know whose turn it is and ASK them for
-    // a move. It asks the AI explicitly and it asks the user by
-    // listening.
-	game.events.subscribe('clickSquare', function(pt) {
-        if (game.board.isEmpty(pt) && game.isTurn(options.human.team)) {
-           	self.handleMove(game, pt, options.human.team, options.human.val);
-           	if (!game.board.isFull()) {
-                // This event model is fundamentally flawed. We
-                // are telling the AI to go. The AI is told to
-                // go based on the turn.
-                game.events.publish('AITurn');
-            }
-        }
+	this.events.subscribe('clickSquare', function(pt) {
+	    self.handleHuman(pt);
 	});
-
-	game.events.subscribe('AITurn', function() {
-	    var pt = game.ai.getMove(game);
-        self.handleMove(game, pt, options.ai.team, options.ai.val);
-	});
-
-    if (game.turn === 0 && game.isTurn(options.ai.team)) {
-        game.events.publish('AITurn');
+    
+    if (game.isTurn(this.ai.team)) {
+        this.handleAI();
     }
+};
 
+MoveManager.prototype.handleHuman = function(pt) {
+    if (this.board.isEmpty(pt) && this.game.isTurn(this.human.team)) {
+        this.handleMove(this.game, pt, this.human.team, this.human.val);
+    }
+};
+
+MoveManager.prototype.handleAI = function() {
+    var self = this;
+    setTimeout(function() {
+        var pt = self.game.ai.getMove(self.game);
+        self.handleMove(self.game, pt, self.ai.team, self.ai.val);
+    }, 300);
 };
 
 MoveManager.prototype.handleMove = function(game, pt, player, val) {
-    game.board.add(pt, player);
-    game.boardView.update(pt);
-    game.turn += 1;
-    game.updateScore(pt, val);
+    this.board.add(pt, player);
+    this.board.view.update(pt);
+    this.game.turn += 1;
+    this.game.updateScore(pt, val);
+    
+    var gameOver = this.game.isWin();
+    var boardFull = this.board.isFull();
 
-    if (game.isWin()) {
+    if ((!gameOver || !boardFull) && game.isTurn(this.ai.team)) {
+        this.handleAI();
+    } else if (gameOver) {
         // TODO: Make this a proper view
-        var gameOver = document.createElement('div'),
+        var gameOverEl = document.createElement('div'),
             boardEl = document.getElementById('board');
 
-        gameOver.className = 'over';
-        gameOver.innerHTML = 'Game Over';
-        board.appendChild(gameOver);
+        gameOverEl.className = 'over';
+        gameOverEl.innerHTML = 'Game Over';
+        boardEl.appendChild(gameOverEl);
 
-        game.events.unsubscribe('clickSquare');
-        game.events.unsubscribe('AITurn');
+        this.events.unsubscribe('clickSquare');
+    } else if (boardFull) {
+        console.log('board full');
     }
 };
 

@@ -12,8 +12,13 @@ window.onload = function() {
     XO.CONST = {
         CROSSES: 'X',
         NOUGHTS: 'O',
-        EASY: 'easy',
-        HARD: 'hard',
+        // TODO: These are baked in values here and in the DOM. This
+        // is obviously suboptimal. Create a view for the options and
+        // pass these values in?
+        AI_TYPE: {
+            RANDOM: 'random',
+            SEARCH: 'search'
+        }
     };
 
     // This config object does not need to be used, but it is a good
@@ -28,10 +33,11 @@ window.onload = function() {
         ai: {
             val: -1,
             team: XO.CONST.NOUGHTS,
-            difficulty: XO.CONST.EASY
+            type: XO.CONST.AI_TYPE.SEARCH
         },
         bootstrapperEl: document.getElementById('board'),
         boardSize: 3,
+        // TODO: Simplify this object.
         css: {
             board: {
                 width: 210
@@ -40,6 +46,7 @@ window.onload = function() {
                 borderWidth: 1
             },
             piece: {
+                // TODO: Make the human *always* red or black?
                 thickness: 7,
                 xColor: '#ff0000',
                 oColor: '#000000'
@@ -47,20 +54,22 @@ window.onload = function() {
         }
     };
 
-    var game = new Game( config );
+    var game = new Game(config);
 
     document.getElementById('newGame').onclick = function() {
-        var useAI = document.getElementById('useAI').checked;
-        var playerNode = document.getElementById('playersTeam');
-        var player = playerNode.options[playerNode.selectedIndex].text;
-        
+        var aiNode = document.getElementById('ai'),
+            ai = aiNode.options[aiNode.selectedIndex].text,
+            playerNode = document.getElementById('playersTeam'),
+            player = playerNode.options[playerNode.selectedIndex].text;
+
         // TODO: Fix this silly code. I can't instantiate the options
         // object with `player` and `ai` objects because they will
         // override the `config` object. 
         config.human.team = player;
         config.ai.team = (config.human.team === XO.CONST.CROSSES ? XO.CONST.NOUGHTS : XO.CONST.CROSSES);
-        
-        game = new Game( config );
+        config.ai.type = ai;
+
+        game = new Game(config);
     };
 
 };
