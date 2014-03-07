@@ -43,6 +43,8 @@ MoveManager.prototype.handleMove = function(game, pt, player, val) {
     var gameOver = this.game.isWin();
     var boardFull = this.board.isFull();
 
+    // TODO: There is a bug in here. When the human wins, the AI
+    // plays another move.
     if ((!gameOver || !boardFull) && game.isTurn(this.ai.team)) {
         this.handleAI();
     } else if (gameOver) {
