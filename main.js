@@ -16,8 +16,10 @@ window.onload = function() {
         // is obviously suboptimal. Create a view for the options and
         // pass these values in?
         AI_TYPE: {
-            RANDOM: 'random',
-            SEARCH: 'search'
+            BRUTE_FORCE: 'brute_force',
+            DECISION_TREE: 'decision_tree',
+            SEARCH: 'search',
+            RANDOM: 'random'
         }
     };
 
@@ -33,6 +35,8 @@ window.onload = function() {
         ai: {
             val: -1,
             team: XO.CONST.NOUGHTS,
+            // TODO: This default is set here, but there is also a 
+            // default in AIFactory. Should I just have one?
             type: XO.CONST.AI_TYPE.SEARCH
         },
         bootstrapperEl: document.getElementById('board'),
@@ -40,14 +44,14 @@ window.onload = function() {
         // TODO: Simplify this object.
         css: {
             board: {
-                width: 210
+                width: 300
             },
             square: {
                 borderWidth: 1
             },
             piece: {
                 // TODO: Make the human *always* red or black?
-                thickness: 7,
+                thickness: 10,
                 xColor: '#ff0000',
                 oColor: '#000000'
             }

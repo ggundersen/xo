@@ -23,27 +23,10 @@ AIAbstract.prototype.MOVE_VALUE = {
     'NA': -1
 };
 
-// `getMove` is a 'virtual method.' It is designed to be redefined by
-// 'subclasses.'
-AIAbstract.prototype.getMove = function(game) {};
-
-// `analyze` takes an array of possible moves and returns the one
-// with the highest value. This seems like one way of building an AI,
-// namely returning the best move--given a set of proposed moves--
-// from a set of moves. Another way would be for the computer to have
-// a goal and to find a way of achieving it.
-AIAbstract.prototype.analyze = function(moves) {
-    var i = 0,
-        finalMove = new Move(undefined, -1),
-        move;
-    for (; i < moves.length; i++) {
-        move = moves[i];
-        if (move && move.pt && move.val > finalMove.val) {
-            finalMove = move;
-        }
-    };
-    return finalMove;
-};
+// `getMove` and `analyzeMove` are virtual methods. What ultimately
+// defines an AI "subclass" are these two methods.
+AIAbstract.prototype.getMove = function() {};
+AIAbstract.prototype.analyzeMove = function() {};
 
 AIAbstract.prototype.win = function(board, score, moveVal) {
     var self = this,
