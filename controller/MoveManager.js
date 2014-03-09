@@ -48,7 +48,7 @@ MoveManager.prototype.handleMove = function(game, pt, player, val) {
     if ((!gameOver && !boardFull) && game.isTurn(this.ai.team)) {
         this.handleAI();
     } else if (gameOver) {
-        this.gameOver('game over');
+        this.gameOver(player + ' wins');
     } else if (boardFull) {
         this.gameOver('draw');
     }
