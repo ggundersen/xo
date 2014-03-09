@@ -13,7 +13,7 @@ var AIFactory = function(options) {
     } else if (type === XO.CONST.AI_TYPE.LOOKAHEAD) {
         ai = new AILookahead(val);
     } else {
-        ai = new AIScan(val);
+        ai = new AILookahead(val);
     }
 
     return ai;

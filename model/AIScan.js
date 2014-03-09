@@ -32,4 +32,3 @@ AIScan.prototype.analyzeMove = function(moves) {
     };
     return finalMove;
 };
-
