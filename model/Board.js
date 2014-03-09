@@ -13,7 +13,7 @@ Board.prototype.add = function(pt, piece) {
     this.state[this.index(pt)] = piece;
 };
 
-Board.prototype.isEmpty = function(pt) {
+Board.prototype.ptIsEmpty = function(pt) {
     if (this.state[this.index(pt)] === 0) {
         return true;
     }

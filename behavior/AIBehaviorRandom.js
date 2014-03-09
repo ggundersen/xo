@@ -2,7 +2,11 @@
  * --------------------------------------------------------------- */
 
 var AIBehaviorRandom = {
-    
+
+    getMove: function(game) {
+        return this.getRandomMove(game.board, this.MOVE_VALUE.RANDOM).pt; 
+    },
+
     getRandomMove: function(board, moveVal) {
         var randomIndex,
             count = 0;

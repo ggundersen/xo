@@ -24,7 +24,7 @@ var MoveManager = function(game, human, ai) {
 };
 
 MoveManager.prototype.handleHuman = function(pt) {
-    if (this.board.isEmpty(pt) && this.game.isTurn(this.human.team)) {
+    if (this.board.ptIsEmpty(pt) && this.game.isTurn(this.human.team)) {
         this.handleMove(this.game, pt, this.human.team, this.human.val);
     }
 };

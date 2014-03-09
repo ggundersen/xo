@@ -3,8 +3,42 @@
 
 AIBehaviorLookahead = {
 
+    getMove: function(game) {
+        var suggestedMoves = [];
+        suggestedMoves.push( this.win(game.board, game.score, this.MOVE_VALUE.WIN) );
+        suggestedMoves.push( this.blockWin(game.board, game.score, this.MOVE_VALUE.BLOCK_WIN) );
+        suggestedMoves.push( this.buildRow(game.board, game.score, this.MOVE_VALUE.BUILD_ROW) );
+        //suggestedMoves.push( this.blockFork(game.board, this.MOVE_VALUE.BLOCK_FORK) );
+        suggestedMoves.push( this.getRandomMove(game.board, this.MOVE_VALUE.RANDOM) );
+        return this.analyzeMove(suggestedMoves).pt;
+    },
+
+    analyzeMove: function(moves) {
+        var i = 0,
+            finalMove = new Move(undefined, -1),
+            move;
+        for (; i < moves.length; i++) {
+            move = moves[i];
+            if (move && move.pt && move.val > finalMove.val) {
+                finalMove = move;
+            }
+        };
+        return finalMove;
+    },
+
     buildRow: function(board, score, moveVal) {
-       console.log('build row'); 
+        //console.log(this);
+        //console.log(board.state);
+        console.log( this.xIsEmpty(board, 0) );
+        //var suggestedMove;
+
+        //suggestedMove = new Move(this.searchXorY(board, i, undefined), moveVal);
+
+        //_.each(board.state, function(pt) {
+        //    console.log(pt);
+        //})
+
+        //return suggestedMove;
     },
 
     blockFork: function(board) {
@@ -24,6 +58,15 @@ AIBehaviorLookahead = {
         ) {
             console.log('corner was played');
         }
-    }
+    },
 
+    // Helpers
+    xIsEmpty: function(board, x) {
+        for (var i = 0; i < board.N; i++) {
+            if (board.state[x + (board.N * i)] !== 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 };

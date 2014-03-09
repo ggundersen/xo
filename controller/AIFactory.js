@@ -5,15 +5,16 @@ var AIFactory = function(options) {
 
     var ai,
         type = options.type,
+        team = options.team,
         val = options.val;
     
     // TODO: Should this be a switch statement?
     if (type === XO.CONST.AI_TYPE.RANDOM) {
-        ai = new AIRandom(val);
+        ai = new AI(val, team, AIBehaviorRandom);
     } else if (type === XO.CONST.AI_TYPE.LOOKAHEAD) {
-        ai = new AILookahead(val);
+        ai = new AI(val, team, AIBehaviorRandom, AIBehaviorScan, AIBehaviorLookahead);
     } else {
-        ai = new AILookahead(val);
+        ai = new AI(val, team, AIBehaviorRandom, AIBehaviorScan);
     }
 
     return ai;
