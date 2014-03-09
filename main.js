@@ -16,10 +16,9 @@ window.onload = function() {
         // is obviously suboptimal. Create a view for the options and
         // pass these values in?
         AI_TYPE: {
-            BRUTE_FORCE: 'brute_force',
-            DECISION_TREE: 'decision_tree',
-            SEARCH: 'search',
-            RANDOM: 'random'
+            RANDOM: 'random',
+            SCAN: 'scan',
+            LOOKAHEAD: 'lookahead'
         }
     };
 
@@ -32,12 +31,10 @@ window.onload = function() {
             val: 1,
             team: XO.CONST.CROSSES
         },
+        // The AI's default is in AIFactory.js
         ai: {
             val: -1,
-            team: XO.CONST.NOUGHTS,
-            // TODO: This default is set here, but there is also a 
-            // default in AIFactory. Should I just have one?
-            type: XO.CONST.AI_TYPE.SEARCH
+            team: XO.CONST.NOUGHTS
         },
         bootstrapperEl: document.getElementById('board'),
         boardSize: 3,

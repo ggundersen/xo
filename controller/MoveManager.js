@@ -8,6 +8,9 @@ var MoveManager = function(game, human, ai) {
     this.game = game;
     this.board = game.board;
     this.human = human;
+
+    // TODO: `ai` is a confi object; not the AI itself. This is
+    // confusing.
     this.ai = ai;
     this.events = game.events;
 
@@ -39,26 +42,24 @@ MoveManager.prototype.handleMove = function(game, pt, player, val) {
     this.board.view.update(pt);
     this.game.turn += 1;
     this.game.updateScore(pt, val);
-    
     var gameOver = this.game.isWin();
     var boardFull = this.board.isFull();
 
-    // TODO: There is a bug in here. When the human wins, the AI
-    // plays another move.
-    if ((!gameOver || !boardFull) && game.isTurn(this.ai.team)) {
+    if ((!gameOver && !boardFull) && game.isTurn(this.ai.team)) {
         this.handleAI();
     } else if (gameOver) {
-        // TODO: Make this a proper view
-        var gameOverEl = document.createElement('div'),
-            boardEl = document.getElementById('board');
-
-        gameOverEl.className = 'over';
-        gameOverEl.innerHTML = 'Game Over';
-        boardEl.appendChild(gameOverEl);
-
-        this.events.unsubscribe('clickSquare');
+        this.gameOver('game over');
     } else if (boardFull) {
-        console.log('board full');
+        this.gameOver('draw');
     }
 };
 
+// TODO: Make this a proper view
+MoveManager.prototype.gameOver = function(msg) {
+    var gameOverEl = document.createElement('div'),
+        boardEl = document.getElementById('board');
+    gameOverEl.className = 'over';
+    gameOverEl.innerHTML = msg;
+    boardEl.appendChild(gameOverEl);
+    this.events.unsubscribe('clickSquare');
+};

@@ -14,10 +14,9 @@
                 <option>O</option>
             </select>
             <select id='ai'>
-                <option>decision tree</option>
-                <option>brute force</option>
-                <option>search</option>
                 <option>random</option>
+                <option>scan</option>
+                <option>lookahead</option>
             </select>
         </div>
         <div id='board'></div>
@@ -35,12 +34,13 @@
 	<script src='model/Game.js' type='text/javascript'></script>
 	<script src='model/Board.js' type='text/javascript'></script>
     <script src='model/Move.js' type='text/javascript'></script>
-
-    <script src='model/AIAbstract.js' type='text/javascript'></script>
-    <script src='model/AISearch.js' type='text/javascript'></script>
+    
+    <script src='behavior/AIBehaviorAbstract.js' type='text/javascript'></script>
+    <script src='behavior/AIBehaviorRandom.js' type='text/javascript'></script>
+    <script src='behavior/AIBehaviorScan.js' type='text/javascript'></script>
+    
+    <script src='model/AIScan.js' type='text/javascript'></script>
     <script src='model/AIRandom.js' type='text/javascript'></script>
-    <script src='model/AIDecisionTree.js' type='text/javascript'></script>
-    <script src='model/AIBruteForce.js' type='text/javascript'></script>
 
 	<!-- Views -->
 	<script src='view/BoardView.js' type='text/javascript'></script>
