@@ -12,27 +12,38 @@
  * --------------------------------------------------------------- */
 
 var AI = function(val, team /*, behaviors */) {
-    this.val = val;
-    this.team = team;
-    this.mixin(Array.prototype.slice.call(arguments, 2));
+    
+    // We do not want to add behaviors to `AI.prototype`, since that
+    // would make the methods available to every instance of `AI`.
+    // Rather, we want to add them to an individual instance and
+    // return that instance.
+    var aiInstance = {
+        val: val,
+        team: team,
+        MOVE_VALUE: {
+            'WIN': 9,
+            'BLOCK_WIN': 8,
+            'BLOCK_FORK': 7,
+            'BUILD_ROW': 6,
+            'RANDOM': 0,
+            'NA': -1
+        }
+
+    };
+    this.mixin(aiInstance, Array.prototype.slice.call(arguments, 2));
+    
+    return aiInstance;
 };
 
-AI.prototype.MOVE_VALUE = {
-    'WIN': 9,
-    'BLOCK_WIN': 8,
-    'BLOCK_FORK': 7,
-    'BUILD_ROW': 6,
-    'RANDOM': 0,
-    'NA': -1
-};
-
-AI.prototype.mixin = function(behaviors) {
+AI.prototype.mixin = function(obj, behaviors) {
     for (var i = 0; i < behaviors.length; i++) {
         for (var prop in behaviors[i]) {
-            AI.prototype[prop] = behaviors[i][prop];
+            obj[prop] = behaviors[i][prop];
         }
     }
 };
 
 // Virtual method. Every AIBehavior* should have this function.
-AI.prototype.getMove = function() {};
+AI.prototype.getMove = function() {
+    throw new Error('`getMove` was not subclassed properly.');
+};
