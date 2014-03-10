@@ -15,7 +15,6 @@ var MoveManager = function(game, human, ai) {
     this.events = game.events;
 
 	this.events.subscribe('clickSquare', function(index) {
-	    console.log('square clicked: ' + index);
 	    self.handleHuman(index);
 	});
     
@@ -40,9 +39,12 @@ MoveManager.prototype.handleMove = function(game, index, player, val) {
     this.board.set(index, player);
     this.board.view.update(index);
     this.game.turn += 1;
-    this.game.updateScore(index, val);
+    this.game.scores.update(index, val);
     
-    var gameOver = this.game.isWin();
+    var gameOver = this.game.scores.isWin();
+
+    console.log(gameOver);
+
     var boardFull = this.board.isFull();
 
     if ((!gameOver && !boardFull) && game.isTurn(this.ai.team)) {

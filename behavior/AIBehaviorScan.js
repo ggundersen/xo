@@ -5,8 +5,8 @@ var AIBehaviorScan = {
 
     getMove: function(game) {
         var suggestedMoves = [];
-        suggestedMoves.push( this.win(game.board, game.score, this.MOVE_VALUE.WIN) );
-        suggestedMoves.push( this.blockWin(game.board, game.score, this.MOVE_VALUE.BLOCK_WIN) );
+        suggestedMoves.push( this.win(game.board, game.scores, this.MOVE_VALUE.WIN) );
+        suggestedMoves.push( this.blockWin(game.board, game.scores, this.MOVE_VALUE.BLOCK_WIN) );
         suggestedMoves.push( this.getRandomMove(game.board, this.MOVE_VALUE.RANDOM) );
         return this.analyzeMove(suggestedMoves).index;
     },
@@ -31,7 +31,7 @@ var AIBehaviorScan = {
             sc,
             suggestedMove;
 
-        for (; i < score.length; i++) {
+        /*for (; i < score.length; i++) {
             sc = score[i];
             if (sc === (board.N - 1) * this.val) {
                 if (i < board.N) {
@@ -44,15 +44,19 @@ var AIBehaviorScan = {
             }
         };
 
-        return suggestedMove;
+        return suggestedMove;*/
     },
 
-    blockWin: function(board, score, moveVal) {
+    // TODO: Rename score to scores everywhere. This is just me updating the param name.
+    blockWin: function(board, scores, moveVal) {
         var i = 0,
             src,
             suggestedMove;
 
-        for (; i < score.length; i++) {
+        scores.each(function(score) {
+            console.log('iterating over score');
+        });
+        /*for (; i < score.length; i++) {
             sc = score[i];
             if (sc === (board.N - 1)) {
                 if (i < board.N) {
@@ -65,7 +69,7 @@ var AIBehaviorScan = {
             }
         };
 
-        return suggestedMove;
+        return suggestedMove;*/
     },
     
     /*searchXorY: function(board, x, y) {

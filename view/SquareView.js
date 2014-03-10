@@ -23,8 +23,6 @@ var SquareView = function(game, index, parentEl, css) {
 };
 
 SquareView.prototype.update = function() {
-    console.log('square view is updating');
-    console.log(this.board.get(this.index));
     if (this.board.get(this.index) === XO.CONST.CROSSES) {
         this.drawX();
     } else if (this.board.get(this.index) === XO.CONST.NOUGHTS) {

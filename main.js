@@ -26,7 +26,7 @@ window.onload = function() {
     // one-stop shop for configuration. I believe this is the
     // Decorator Pattern.
     var config = {
-        // The val is immutable; the team is not.
+        // `val` is immutable; `team` is not.
         human: {
             val: 1,
             team: XO.CONST.CROSSES
