@@ -1,8 +1,8 @@
 /* SquareView
  * --------------------------------------------------------------- */
 
-var SquareView = function(game, pt, parentEl, css) {
-    this.pt = pt;    
+var SquareView = function(game, index, parentEl, css) {
+    this.index = index;    
     this.board = game.board;
 
     this.lineWidth = css.piece.thickness;
@@ -19,13 +19,15 @@ var SquareView = function(game, pt, parentEl, css) {
     parentEl.appendChild( this.el );
 
     this.ctx = this.el.getContext('2d');
-    game.events.on(this.el, 'click', 'clickSquare', this.pt);
+    game.events.on(this.el, 'click', 'clickSquare', this.index);
 };
 
 SquareView.prototype.update = function() {
-    if (this.board.get(this.pt) === XO.CONST.CROSSES) {
+    console.log('square view is updating');
+    console.log(this.board.get(this.index));
+    if (this.board.get(this.index) === XO.CONST.CROSSES) {
         this.drawX();
-    } else if (this.board.get(this.pt) === XO.CONST.NOUGHTS) {
+    } else if (this.board.get(this.index) === XO.CONST.NOUGHTS) {
         this.drawO();
     }
 };

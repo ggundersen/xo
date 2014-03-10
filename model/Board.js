@@ -1,42 +1,58 @@
 /* Board
+ *
+ * index <=> (x, y) conversions for board size N
+ * i = x + y * N
+ * x = i % N
+ * y = Math.floor(i / N)
  * --------------------------------------------------------------- */
 
 var Board = function(N) {
-    this.N = N;
-    this.state = _.map(_.range(this.N * this.N), function() {
+
+    var state = _.map(_.range(N * N), function() {
         return 0;
     });
 
-};
+    return {
 
-Board.prototype.add = function(pt, piece) {
-    this.state[this.index(pt)] = piece;
-};
+        N: N,
+        
+        set: function(index, piece) {
+            state[index] = piece;
+            //state[pt.x + (pt.y * this.N)] = piece;
+        },
+            
+        get: function(index) {
+            return state[index];
+            //return state[pt.x + (pt.y * this.N)];
+        },
 
-Board.prototype.ptIsEmpty = function(pt) {
-    if (this.state[this.index(pt)] === 0) {
-        return true;
-    }
-    return false;
-};
+        each: function(fn) {
+            for (var i = 0; i < state.length; i++) {
+                fn(state[i], i);
+            }
+        },
 
-Board.prototype.get = function(pt) {
-    return this.state[this.index(pt)];
-};
+        // These two access routines allows us to redefine "empty" to
+        // be anything.
+        isFull: function() {
+            for (var i = 0; i < state.length; i++) {
+                if (state[i] === 0) {
+                    return false;
+                }
+            }
+            return true;
+        },
 
-Board.prototype.index = function(pt) {
-    return pt.x + (pt.y * this.N);
-};
-
-Board.prototype.pt = function(index) {
-    return new Point(index % this.N, Math.floor(index / this.N));
-};
-
-Board.prototype.isFull = function() {
-    for (var i = 0; i < this.state.length; i++) {
-        if (this.state[i] === 0) {
+        isEmpty: function(index) {
+            if (state[index] === 0) {
+                return true;
+            }
             return false;
+            //if (state[pt.x + (pt.y * this.N)] === 0) {
+            //    return true;
+            //}
+            //return false;
         }
-    }
-    return true;
+
+    };
 };

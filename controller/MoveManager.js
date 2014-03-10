@@ -14,8 +14,9 @@ var MoveManager = function(game, human, ai) {
     this.ai = ai;
     this.events = game.events;
 
-	this.events.subscribe('clickSquare', function(pt) {
-	    self.handleHuman(pt);
+	this.events.subscribe('clickSquare', function(index) {
+	    console.log('square clicked: ' + index);
+	    self.handleHuman(index);
 	});
     
     if (game.isTurn(this.ai.team)) {
@@ -23,25 +24,24 @@ var MoveManager = function(game, human, ai) {
     }
 };
 
-MoveManager.prototype.handleHuman = function(pt) {
-    if (this.board.ptIsEmpty(pt) && this.game.isTurn(this.human.team)) {
-        this.handleMove(this.game, pt, this.human.team, this.human.val);
+MoveManager.prototype.handleHuman = function(index) {
+    if (this.board.isEmpty(index) && this.game.isTurn(this.human.team)) {
+        this.handleMove(this.game, index, this.human.team, this.human.val);
     }
 };
 
 MoveManager.prototype.handleAI = function() {
-    var self = this;
-    setTimeout(function() {
-        var pt = self.game.ai.getMove(self.game);
-        self.handleMove(self.game, pt, self.ai.team, self.ai.val);
-    }, 300);
+    var index = this.game.ai.getMove(this.game);
+    this.handleMove(this.game, index, this.ai.team, this.ai.val);
 };
 
-MoveManager.prototype.handleMove = function(game, pt, player, val) {
-    this.board.add(pt, player);
-    this.board.view.update(pt);
+MoveManager.prototype.handleMove = function(game, index, player, val) {
+
+    this.board.set(index, player);
+    this.board.view.update(index);
     this.game.turn += 1;
-    this.game.updateScore(pt, val);
+    this.game.updateScore(index, val);
+    
     var gameOver = this.game.isWin();
     var boardFull = this.board.isFull();
 
