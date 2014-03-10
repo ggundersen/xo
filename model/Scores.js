@@ -1,9 +1,9 @@
-/* Score
+/* Scores
  * --------------------------------------------------------------- */
 
 var Scores = function(N) {
     
-    var state = _.map(_.range(2 * N + 2), function() {
+    var state = window.exposedState = _.map(_.range(2 * N + 2), function() {
         return 0;
     });
 
@@ -11,8 +11,15 @@ var Scores = function(N) {
         
         update: function(index, piece) {
             var x = index % N,
-                y = Math.floor(index / N);
-        
+                y = Math.floor(index / N) + N;
+
+            console.log('updating');
+            console.log('index: ' + index);
+            console.log('x: ' + x);
+            console.log('y: ' + y);
+            console.log('N: ' + N);
+            console.log('piece: ' + piece);
+
             state[x] += piece;
             state[y] += piece;
 

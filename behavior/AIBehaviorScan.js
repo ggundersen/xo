@@ -53,8 +53,9 @@ var AIBehaviorScan = {
             src,
             suggestedMove;
 
+        console.log('iterating over score');
         scores.each(function(score) {
-            console.log('iterating over score');
+            console.log(score);
         });
         /*for (; i < score.length; i++) {
             sc = score[i];

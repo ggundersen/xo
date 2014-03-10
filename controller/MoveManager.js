@@ -35,16 +35,16 @@ MoveManager.prototype.handleAI = function() {
 };
 
 MoveManager.prototype.handleMove = function(game, index, player, val) {
-
     this.board.set(index, player);
     this.board.view.update(index);
     this.game.turn += 1;
+    console.log('-------------------------------------');
+    console.log(window.exposedState);
     this.game.scores.update(index, val);
+    console.log('-------------------------------------');
+    console.log(window.exposedState);
     
     var gameOver = this.game.scores.isWin();
-
-    console.log(gameOver);
-
     var boardFull = this.board.isFull();
 
     if ((!gameOver && !boardFull) && game.isTurn(this.ai.team)) {
