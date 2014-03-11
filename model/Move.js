@@ -1,7 +1,7 @@
 /* Move
  * --------------------------------------------------------------- */
 
-Move = function(index, val) {
-    this.index = index;
+Move = function(pt, val) {
+    this.pt = pt;
     this.val = val;
 };

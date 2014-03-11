@@ -8,7 +8,7 @@ var AIBehaviorScan = {
         suggestedMoves.push( this.win(game.board, game.scores, this.MOVE_VALUE.WIN) );
         suggestedMoves.push( this.blockWin(game.board, game.scores, this.MOVE_VALUE.BLOCK_WIN) );
         suggestedMoves.push( this.getRandomMove(game.board, this.MOVE_VALUE.RANDOM) );
-        return this.analyzeMove(suggestedMoves).index;
+        return this.analyzeMove(suggestedMoves).pt;
     },
 
     analyzeMove: function(moves) {
@@ -17,7 +17,7 @@ var AIBehaviorScan = {
             move;
         for (; i < moves.length; i++) {
             move = moves[i];
-            if (move && move.index && move.val > finalMove.val) {
+            if (move && move.pt && move.val > finalMove.val) {
                 finalMove = move;
             }
         };
@@ -27,16 +27,17 @@ var AIBehaviorScan = {
     // TODO: `win` and `blockWin` seem fundamentally related. Can you
     // simplify them by abstraction?
     win: function(board, score, moveVal) {
-        var i = 0,
+        /*var i = 0,
             sc,
+            N = board.N,
             suggestedMove;
 
-        /*for (; i < score.length; i++) {
+        for (; i < score.length; i++) {
             sc = score[i];
-            if (sc === (board.N - 1) * this.val) {
-                if (i < board.N) {
+            if (sc === (N - 1) * this.val) {
+                if (i < N) {
                     suggestedMove = new Move(this.searchX(board, i), moveVal);
-                } else if (i < 2 * board.N) {
+                } else if (i < 2 * N) {
                     suggestedMove = new Move(this.searchY(board, i-3), moveVal);
                 } else {
                     suggestedMove = new Move(this.searchDiagonal(board, i), moveVal);
@@ -49,85 +50,64 @@ var AIBehaviorScan = {
 
     // TODO: Rename score to scores everywhere. This is just me updating the param name.
     blockWin: function(board, scores, moveVal) {
-        var i = 0,
-            src,
+        var self = this,
             suggestedMove;
 
-        console.log('iterating over score');
-        scores.each(function(score) {
-            console.log(score);
-        });
-        /*for (; i < score.length; i++) {
-            sc = score[i];
-            if (sc === (board.N - 1)) {
-                if (i < board.N) {
-                    suggestedMove = new Move(this.searchX(board, i), moveVal);
-                } else if (i < 2 * board.N) {
-                    suggestedMove = new Move(this.searchY(board, i-3), moveVal);
+        scores.each(function(score, index) {
+            if (score === (board.N - 1)) {
+                if (index < board.N) {
+                    suggestedMove = new Move(self.searchXY(board, index, undefined), moveVal);
+                } else if (index < 2 * board.N) {
+                    suggestedMove = new Move(self.searchXY(board, undefined, index-3), moveVal);
                 } else {
-                    suggestedMove = new Move(this.searchDiagonal(board, i), moveVal);
+                    suggestedMove = new Move(self.searchDiagonal(board, index), moveVal);
                 }
             }
-        };
+        });
 
-        return suggestedMove;*/
+        return suggestedMove;
     },
     
-    /*searchXorY: function(board, x, y) {
-        var pt;
-
-        for (var i = 0; i < board.N; i++) {
-            pt = x !== undefined ? new Point(x, i) : new Point(i, y);
-            if (board.get(pt) === 0) {
-                return pt;
+    searchXY: function(board, xIndex, yIndex) {
+        var pt,
+            tempPt;
+        board.eachRow(function(i) {
+            //tempPt = new Point(xIndex, yIndex);
+            tempPt = yIndex === undefined ? new Point(xIndex, i) : new Point(i, yIndex);
+            if (board.isEmpty(tempPt)) {
+                pt = tempPt;
             }
-        }
-    },*/
-
-    searchY: function(board, y) {
-        var index;
-        for (var i = 0; i < board.N; i++) {
-            index = y + i % board.N;
-            if (board.isEmpty(index)) {
-                return index;
-            }
-        }
-    },
-
-    searchX: function(board, x) {
-        var index;
-        for (var i = 0; i < board.N; i++) {
-            index = x + Math.floor(i / board.N); 
-            if (board.isEmpty(index)) {
-                return index;
-            }
-        }
+        });
+        return pt;
     },
 
     searchDiagonal: function(board, i) {
-        var pt;
-
+        var self = this,
+            pt,
+            tempPt;
+        
         if (i === 2 * board.N) {
-            for (var i = 0; i < board.N; i++) {
-                if (board.isEmpty(i)) {
-                    return i;
+            board.eachRow(function(i) {
+                tempPt = new Point(i, i); 
+                if (board.isEmpty(tempPt)) {
+                    pt = tempPt;
                 }
-            }
+            });
         } else {
-            for (var i = 0; i < board.N; i++) {
-                //pt = new Point(i, this.flip(board.N - 1, i));
-                
-                if (board.isEmpty(i)) {
-                    return pt;
-                }
-            }
+            board.eachRow(function(i) {
+                tempPt = new Point(i, self.flip(board.N - 1, i));
+                if (board.isEmpty(tempPt)) {
+                    pt = tempPt;
+                };
+            });
         }
+        return pt;
     },
 
-    // `flip` is a helper function:
-    // 0 => 2-0 => 2
-    // 1 => 2-1 => 1
-    // 2 => 2-2 => 0
+    // m = 2
+    // n = 0 => 2
+    // n = 1 => 1
+    // n = 2 => 0
     flip: function(m, n) {
         return m - n;
     }

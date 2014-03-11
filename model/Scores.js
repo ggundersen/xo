@@ -9,24 +9,17 @@ var Scores = function(N) {
 
     return {
         
-        update: function(index, piece) {
-            var x = index % N,
-                y = Math.floor(index / N) + N;
-
-            console.log('updating');
-            console.log('index: ' + index);
-            console.log('x: ' + x);
-            console.log('y: ' + y);
-            console.log('N: ' + N);
-            console.log('piece: ' + piece);
-
-            state[x] += piece;
-            state[y] += piece;
-
-            if (x === y) {
+        update: function(pt, piece) {
+            state[pt.x] += piece;
+            state[pt.y + N] += piece;
+            
+            // (0,0) => (1,1) => (2,2)
+            if (pt.x === pt.y) {
                 state[2 * N] += piece;
             }
-            if (x + y === N - 1) {
+
+            // (0,2) => (1,1) => (2,0)
+            if (pt.x + pt.y === N - 1) {
                 state[2 * N + 1] += piece;
             }
         },
@@ -45,7 +38,7 @@ var Scores = function(N) {
             }
             return false;
         }
-        
+
     };
 
 }; 

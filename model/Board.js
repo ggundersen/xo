@@ -8,7 +8,7 @@
 
 var Board = function(N) {
 
-    var state = _.map(_.range(N * N), function() {
+    var state = _.map(_.range(N * N), function(i) {
         return 0;
     });
 
@@ -16,26 +16,30 @@ var Board = function(N) {
 
         N: N,
         
-        set: function(index, piece) {
-            state[index] = piece;
-            //state[pt.x + (pt.y * this.N)] = piece;
+        set: function(pt, piece) {
+            state[pt.x + pt.y * N] = piece;
         },
             
-        get: function(index) {
-            return state[index];
-            //return state[pt.x + (pt.y * this.N)];
+        get: function(pt) {
+            return state[pt.x + pt.y * N];
         },
 
         each: function(fn) {
-            for (var i = 0; i < state.length; i++) {
-                fn(state[i], i);
+            for (var i = 0, len = state.length; i < len; i++) {
+                fn(state[i], new Point(i % N, Math.floor(i / N)));
+            }
+        },
+
+        eachRow: function(fn) {
+            for (var i = 0; i < N; i++) {
+                fn(i);
             }
         },
 
         // These two access routines allows us to redefine "empty" to
         // be anything.
         isFull: function() {
-            for (var i = 0; i < state.length; i++) {
+            for (var i = 0, len = state.length; i < len; i++) {
                 if (state[i] === 0) {
                     return false;
                 }
@@ -43,15 +47,11 @@ var Board = function(N) {
             return true;
         },
 
-        isEmpty: function(index) {
-            if (state[index] === 0) {
+        isEmpty: function(pt) {
+            if (this.get(pt) === 0) {
                 return true;
             }
             return false;
-            //if (state[pt.x + (pt.y * this.N)] === 0) {
-            //    return true;
-            //}
-            //return false;
         }
 
     };

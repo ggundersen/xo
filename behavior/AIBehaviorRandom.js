@@ -7,19 +7,20 @@ var AIBehaviorRandom = {
     // then returning only its index--because it is used with other
     // behaviors and needs to be compatible.
     getMove: function(game) {
-        return this.getRandomMove(game.board, this.MOVE_VALUE.RANDOM).index; 
+        return this.getRandomMove(game.board, this.MOVE_VALUE.RANDOM).pt; 
     },
 
     getRandomMove: function(board, moveVal) {
-        var randomIndex,
-            count = 0;
+        var randomPt;
 
-        while (!board.isEmpty(randomIndex)) {
-            count++;
-            randomIndex = Math.floor(Math.random() * board.N * board.N);
-        }
+        do {
+            randomPt = new Point(
+                Math.floor(Math.random() * board.N),
+                Math.floor(Math.random() * board.N)
+            );
+        } while (!board.isEmpty(randomPt));
 
-        return new Move(randomIndex, moveVal);
+        return new Move(randomPt, moveVal);
     }
 
 };
