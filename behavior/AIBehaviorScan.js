@@ -5,8 +5,8 @@ var AIBehaviorScan = {
 
     getMove: function(game) {
         var suggestedMoves = [];
-        suggestedMoves.push( this.win(game.board, game.scores, this.MOVE_VALUE.WIN) );
-        suggestedMoves.push( this.blockWin(game.board, game.scores, this.MOVE_VALUE.BLOCK_WIN) );
+        suggestedMoves.push( this.getWinningMove(game.board, game.scores, this.MOVE_VALUE.WIN) );
+        suggestedMoves.push( this.getBlockingMove(game.board, game.scores, this.MOVE_VALUE.BLOCK_WIN) );
         suggestedMoves.push( this.getRandomMove(game.board, this.MOVE_VALUE.RANDOM) );
         return this.analyzeMove(suggestedMoves).pt;
     },
@@ -24,7 +24,7 @@ var AIBehaviorScan = {
         return finalMove;
     },
 
-    win: function(board, scores, moveVal) {
+    getWinningMove: function(board, scores, moveVal) {
         var self = this,
             suggestedMove;
         scores.each(function(score, index) {
@@ -35,7 +35,7 @@ var AIBehaviorScan = {
         return suggestedMove;
     },
 
-    blockWin: function(board, scores, moveVal) {
+    getBlockingMove: function(board, scores, moveVal) {
         var self = this,
             suggestedMove;
         scores.each(function(score, index) {
@@ -50,16 +50,16 @@ var AIBehaviorScan = {
         var self = this,
             suggestedMove;
         if (index < board.N) {
-            suggestedMove = new Move(self.searchXY(board, index, undefined), val);
+            suggestedMove = new Move(self.getEmptyPtOnXY(board, index, undefined), val);
         } else if (index < 2 * board.N) {
-            suggestedMove = new Move(self.searchXY(board, undefined, index-3), val);
+            suggestedMove = new Move(self.getEmptyPtOnXY(board, undefined, index-3), val);
         } else {
-            suggestedMove = new Move(self.searchDiagonal(board, index), val);
+            suggestedMove = new Move(self.getEmptyPtOnDiagonal(board, index), val);
         }
         return suggestedMove;
     },
     
-    searchXY: function(board, xIndex, yIndex) {
+    getEmptyPtOnXY: function(board, xIndex, yIndex) {
         var pt,
             tempPt;
         board.eachRow(function(i) {
@@ -71,7 +71,7 @@ var AIBehaviorScan = {
         return pt;
     },
 
-    searchDiagonal: function(board, i) {
+    getEmptyPtOnDiagonal: function(board, i) {
         var self = this,
             pt,
             tempPt;
