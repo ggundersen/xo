@@ -24,47 +24,38 @@ var AIBehaviorScan = {
         return finalMove;
     },
 
-    // TODO: `win` and `blockWin` seem fundamentally related. Can you
-    // simplify them by abstraction?
-    win: function(board, score, moveVal) {
-        /*var i = 0,
-            sc,
-            N = board.N,
+    win: function(board, scores, moveVal) {
+        var self = this,
             suggestedMove;
-
-        for (; i < score.length; i++) {
-            sc = score[i];
-            if (sc === (N - 1) * this.val) {
-                if (i < N) {
-                    suggestedMove = new Move(this.searchX(board, i), moveVal);
-                } else if (i < 2 * N) {
-                    suggestedMove = new Move(this.searchY(board, i-3), moveVal);
-                } else {
-                    suggestedMove = new Move(this.searchDiagonal(board, i), moveVal);
-                }
+        scores.each(function(score, index) {
+            if (score === (board.N - 1) * self.val) {
+                suggestedMove = self.getEmptyPtAtRow(index, board, moveVal); 
             }
-        };
-
-        return suggestedMove;*/
+        });
+        return suggestedMove;
     },
 
-    // TODO: Rename score to scores everywhere. This is just me updating the param name.
     blockWin: function(board, scores, moveVal) {
         var self = this,
             suggestedMove;
-
         scores.each(function(score, index) {
             if (score === (board.N - 1)) {
-                if (index < board.N) {
-                    suggestedMove = new Move(self.searchXY(board, index, undefined), moveVal);
-                } else if (index < 2 * board.N) {
-                    suggestedMove = new Move(self.searchXY(board, undefined, index-3), moveVal);
-                } else {
-                    suggestedMove = new Move(self.searchDiagonal(board, index), moveVal);
-                }
+                suggestedMove = self.getEmptyPtAtRow(index, board, moveVal);
             }
         });
+        return suggestedMove;
+    },
 
+    getEmptyPtAtRow: function(index, board, val) {
+        var self = this,
+            suggestedMove;
+        if (index < board.N) {
+            suggestedMove = new Move(self.searchXY(board, index, undefined), val);
+        } else if (index < 2 * board.N) {
+            suggestedMove = new Move(self.searchXY(board, undefined, index-3), val);
+        } else {
+            suggestedMove = new Move(self.searchDiagonal(board, index), val);
+        }
         return suggestedMove;
     },
     
@@ -72,7 +63,6 @@ var AIBehaviorScan = {
         var pt,
             tempPt;
         board.eachRow(function(i) {
-            //tempPt = new Point(xIndex, yIndex);
             tempPt = yIndex === undefined ? new Point(xIndex, i) : new Point(i, yIndex);
             if (board.isEmpty(tempPt)) {
                 pt = tempPt;
@@ -85,7 +75,6 @@ var AIBehaviorScan = {
         var self = this,
             pt,
             tempPt;
-        
         if (i === 2 * board.N) {
             board.eachRow(function(i) {
                 tempPt = new Point(i, i); 
