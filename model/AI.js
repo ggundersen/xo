@@ -20,6 +20,7 @@ var AI = function(val, team /*, behaviors */) {
     var aiInstance = {
         val: val,
         team: team,
+        human: 1, // TODO: Why do these options need to be configurable?
         MOVE_VALUE: {
             'WIN': 9,
             'BLOCK_WIN': 8,

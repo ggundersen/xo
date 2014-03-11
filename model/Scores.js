@@ -3,7 +3,7 @@
 
 var Scores = function(N) {
     
-    var state = window.exposedState = _.map(_.range(2 * N + 2), function() {
+    var state = window.exposedState = _.map(_.range(2 * N + 2), function(i) {
         return 0;
     });
 
@@ -28,6 +28,23 @@ var Scores = function(N) {
             for (var i = 0; i < state.length; i++) {
                 fn(state[i], i);
             }
+        },
+
+        lookahead: function(pt, piece) {
+            var clonedState = state.slice(0);
+            clonedState[pt.x] += piece;
+            clonedState[pt.y + N] += piece;
+            
+            // (0,0) => (1,1) => (2,2)
+            if (pt.x === pt.y) {
+                clonedState[2 * N] += piece;
+            }
+
+            // (0,2) => (1,1) => (2,0)
+            if (pt.x + pt.y === N - 1) {
+                clonedState[2 * N + 1] += piece;
+            }
+            return clonedState;
         },
 
         isWin: function() {

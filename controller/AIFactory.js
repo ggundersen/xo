@@ -15,7 +15,7 @@ var AIFactory = function(options) {
         //ai = new AI(val, team, AIBehaviorRandom, AIBehaviorScan, AIBehaviorLookahead);
         ai = new AI(val, team, AIBehaviorRandom, AIBehaviorScan);
     } else {
-        ai = new AI(val, team, AIBehaviorRandom, AIBehaviorScan);
+        ai = new AI(val, team, AIBehaviorRandom, AIBehaviorScan, AIBehaviorLookahead);
     }
 
     return ai;

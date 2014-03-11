@@ -27,9 +27,9 @@ var AIBehaviorScan = {
     getWinningMove: function(board, scores, moveVal) {
         var self = this,
             suggestedMove;
-        scores.each(function(score, index) {
+        scores.each(function(score, row) {
             if (score === (board.N - 1) * self.val) {
-                suggestedMove = self.getEmptyPtAtRow(index, board, moveVal); 
+                suggestedMove = self.getEmptyPtAtRow(row, board, moveVal); 
             }
         });
         return suggestedMove;
@@ -38,23 +38,24 @@ var AIBehaviorScan = {
     getBlockingMove: function(board, scores, moveVal) {
         var self = this,
             suggestedMove;
-        scores.each(function(score, index) {
-            if (score === (board.N - 1)) {
-                suggestedMove = self.getEmptyPtAtRow(index, board, moveVal);
+        scores.each(function(score, row) {
+            if (score  === (board.N - 1)) {
+                suggestedMove = self.getEmptyPtAtRow(row, board, moveVal);
             }
         });
         return suggestedMove;
     },
 
-    getEmptyPtAtRow: function(index, board, val) {
+    // TODO: Can this algorithm be updated?
+    getEmptyPtAtRow: function(row, board, val) {
         var self = this,
             suggestedMove;
-        if (index < board.N) {
-            suggestedMove = new Move(self.getEmptyPtOnXY(board, index, undefined), val);
-        } else if (index < 2 * board.N) {
-            suggestedMove = new Move(self.getEmptyPtOnXY(board, undefined, index-3), val);
+        if (row < board.N) {
+            suggestedMove = new Move(self.getEmptyPtOnXY(board, row, undefined), val);
+        } else if (row < 2 * board.N) {
+            suggestedMove = new Move(self.getEmptyPtOnXY(board, undefined, row - 3), val);
         } else {
-            suggestedMove = new Move(self.getEmptyPtOnDiagonal(board, index), val);
+            suggestedMove = new Move(self.getEmptyPtOnDiagonal(board, row), val);
         }
         return suggestedMove;
     },
