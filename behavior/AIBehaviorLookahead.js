@@ -28,12 +28,14 @@ AIBehaviorLookahead = {
 
     getBlockingForkMove: function(board, scores) {
         console.log('block fork');
+        
         board.each(function(val, pt) {
-            if (val === 0) {
+            scores.willWin(pt, 1);
+            /*if (val === 0) {
                 console.log('square is empty');
                 console.log(pt);
                 // create a scores class and see what it tells us?
-            }
+            }*/
         });
         //console.log(scores.lookahead(new Point(0,0), 1));
     }

@@ -3,6 +3,7 @@
  * Gregory Gundersen
  *
  * http://www.ntu.edu.sg/home/ehchua/programming/java/JavaGame_TicTacToe_AI.html
+ * http://www.mathworks.com/moler/exm/chapters/tictactoe.pdf
  * =============================================================== */
 
 window.XO = {};

@@ -30,21 +30,30 @@ var Scores = function(N) {
             }
         },
 
-        lookahead: function(pt, piece) {
-            var clonedState = state.slice(0);
-            clonedState[pt.x] += piece;
-            clonedState[pt.y + N] += piece;
+        willWin: function(pt, piece) {
+            console.log('checking if move will win');
+            if (state[pt.x] + piece === N) {
+                console.log('this move will win');
+                console.log(state)
+                console.log(pt);
+            }
+
+            /*if (state[pt.y + N] + piece === N) {
+                console.log('this move will win');
+                console.log(pt);
+            }
             
             // (0,0) => (1,1) => (2,2)
-            if (pt.x === pt.y) {
-                clonedState[2 * N] += piece;
+            if (pt.x === pt.y && state[2 * N] + piece === N) {
+                console.log('this move will win');
+                console.log(pt);
             }
 
             // (0,2) => (1,1) => (2,0)
-            if (pt.x + pt.y === N - 1) {
-                clonedState[2 * N + 1] += piece;
-            }
-            return clonedState;
+            if (pt.x + pt.y === N - 1 && state[2 * N + 1] + piece === N) {
+                console.log('this move will win');
+                console.log(pt);
+            }*/
         },
 
         isWin: function() {

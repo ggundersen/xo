@@ -3,6 +3,8 @@
 
 var AIBehaviorScan = {
 
+    // TODO: I want a mathematical way of deciding if an empty square
+    // could be a winning square.
     getMove: function(game) {
         var suggestedMoves = [];
         suggestedMoves.push( this.getWinningMove(game.board, game.scores, this.MOVE_VALUE.WIN) );
