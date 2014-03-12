@@ -7,15 +7,14 @@ var BoardView = function(game, el, css) {
     el.innerHTML = '';
 	el.style.width = el.style.height = css.board.width + 'px';
 
-    game.board.each(function(val, pt) {
-        views.push(new SquareView(game, pt, el, css));
+	game.board.each(function(num) {
+        views.push(new SquareView(game, num, el, css));
 	});
 
 	return {
-        update: function(pt) {
+        update: function(num) {
             _.each(views, function(squareView) {
-                var sqPt = squareView.pt;
-                if (sqPt.x === pt.x && sqPt.y === pt.y) {
+                if (num === squareView.num) {
                     squareView.update();
                 }
             });

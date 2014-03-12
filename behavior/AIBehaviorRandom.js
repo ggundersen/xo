@@ -6,21 +6,17 @@ var AIBehaviorRandom = {
     // `getMove` is a little complicated--getting a Move instance and
     // then returning only its index--because it is used with other
     // behaviors and needs to be compatible.
-    getMove: function(game) {
-        return this.getRandomMove(game.board, this.MOVE_VALUE.RANDOM).pt; 
+    get_move: function(game) {
+        return this.get_random_move(game.board, this.MOVE_VALUE.RANDOM).num; 
     },
 
-    getRandomMove: function(board, moveVal) {
-        var randomPt;
-
+    get_random_move: function(board, moveVal) {
+        var randomNum;
         do {
-            randomPt = new Point(
-                Math.floor(Math.random() * board.N),
-                Math.floor(Math.random() * board.N)
-            );
-        } while (!board.isEmpty(randomPt));
+            randomNum = '_' + Math.floor(Math.random() * 8 + 1);
+        } while (!board.is_empty(randomNum));
 
-        return new Move(randomPt, moveVal);
+        return new Move(randomNum, moveVal);
     }
 
 };

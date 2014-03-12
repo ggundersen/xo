@@ -14,8 +14,8 @@ var MoveManager = function(game, human, ai) {
     this.ai = ai;
     this.events = game.events;
 
-	this.events.subscribe('clickSquare', function(pt) {
-	    self.handleHuman(pt);
+	this.events.subscribe('clickSquare', function(num) {
+	    self.handle_human(num);
 	});
     
     if (game.isTurn(this.ai.team)) {
@@ -23,41 +23,41 @@ var MoveManager = function(game, human, ai) {
     }
 };
 
-MoveManager.prototype.handleHuman = function(pt) {
-    if (this.board.isEmpty(pt) && this.game.isTurn(this.human.team)) {
-        this.handleMove(this.game, pt, this.human.team, this.human.val);
+MoveManager.prototype.handle_human = function(num) {
+    if (this.board.is_empty(num) && this.game.isTurn(this.human.team)) {
+        this.handle_move(this.game, num, this.human.team, this.human.val);
     }
 };
 
 MoveManager.prototype.handleAI = function() {
-    var pt = this.game.ai.getMove(this.game);
-    this.handleMove(this.game, pt, this.ai.team, this.ai.val);
+    var num = this.game.ai.get_move(this.game);
+    this.handle_move(this.game, num, this.ai.team, this.ai.val);
 };
 
-MoveManager.prototype.handleMove = function(game, pt, player, val) {
-    this.board.set(pt, player);
-    this.board.view.update(pt);
+MoveManager.prototype.handle_move = function(game, num, player, team) {
+    this.board.set(num, player);
+    this.board.view.update(num);
     this.game.turn += 1;
-    this.game.scores.update(pt, val);
+    this.game.scores.update(num, team);
     
-    var gameOver = this.game.scores.isWin();
-    var boardFull = this.board.isFull();
+    var gameOver = this.game.scores.is_over(),
+        boardFull = this.board.is_full();
 
     if ((!gameOver && !boardFull) && game.isTurn(this.ai.team)) {
         this.handleAI();
     } else if (gameOver) {
-        this.gameOver(player + ' wins');
+        this.game_over(player + ' wins');
     } else if (boardFull) {
-        this.gameOver('draw');
+        this.game_over('draw');
     }
 };
 
 // TODO: Make this a proper view
-MoveManager.prototype.gameOver = function(msg) {
-    var gameOverEl = document.createElement('div'),
+MoveManager.prototype.game_over = function(msg) {
+    var game_overEl = document.createElement('div'),
         boardEl = document.getElementById('board');
-    gameOverEl.className = 'over';
-    gameOverEl.innerHTML = msg;
-    boardEl.appendChild(gameOverEl);
+    game_overEl.className = 'over';
+    game_overEl.innerHTML = msg;
+    boardEl.appendChild(game_overEl);
     this.events.unsubscribe('clickSquare');
 };
