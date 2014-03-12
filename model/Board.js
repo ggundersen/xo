@@ -1,9 +1,6 @@
 /* Board
  *
- * index <=> (x, y) conversions for board size N
- * i = x + y * N
- * x = i % N
- * y = Math.floor(i / N)
+
  * --------------------------------------------------------------- */
 
 var Board = function() {

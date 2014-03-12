@@ -15,7 +15,11 @@ var Magic = function(board) {
     return {
 
         SUM: board.SUM,
-        
+
+        // index <=> (x, y) conversions for board size N
+        // i = x + y * N
+        // x = i % N
+        // y = Math.floor(i / N)
         update: function(num, side) {
             var pt = board.get(num).pt,
                 val = num[1] * side,

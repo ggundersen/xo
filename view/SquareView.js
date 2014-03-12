@@ -7,13 +7,15 @@ var SquareView = function(game, num, parentEl, css) {
 
     this.lineWidth = css.piece.thickness;
     this.xColor = css.piece.xColor;
-    this.yColor = css.piece.yColor;
-    this.radius = ((css.board.width / game.board.N) / 2) - (css.piece.thickness / 2) - 1;
-    this.squareDim = (css.board.width / game.board.N) - (2 * css.square.borderWidth);
+    this.oColor = css.piece.oColor;
+    this.borderWidth = 1;
+    
+    this.radius = ((css.boardWidth / game.board.N) / 2) - (css.piece.thickness / 2) - 1;
+    this.squareDim = (css.boardWidth / game.board.N) - (2 * this.borderWidth);
 
     this.el = document.createElement('canvas');
     this.el.style.height = this.el.style.width = this.squareDim + 'px';
-    this.el.style.border = css.square.borderWidth + 'px solid #fff';
+    this.el.style.border = this.borderWidth + 'px solid #fff';
     this.el.height = this.el.width = this.squareDim;
     this.el.className = 'square';
     parentEl.appendChild( this.el );

@@ -13,9 +13,8 @@ window.onload = function() {
     XO = {
         CROSSES: 'X',
         NOUGHTS: 'O',
-        // TODO: These are baked in values here and in the DOM. This
-        // is obviously suboptimal. Create a view for the options and
-        // pass these values in?
+        // TODO: These are baked in values here and in the DOM.
+        // Create a view for the options and pass these values in.
         AI_TYPE: {
             RANDOM: 'random',
             SCAN: 'scan',
@@ -27,28 +26,19 @@ window.onload = function() {
     // one-stop shop for configuration. I believe this is the
     // Decorator Pattern.
     var config = {
-        // `val` is immutable; `team` is not.
+        // `val` is immutable for scoring; `team` is not.
         human: {
             val: 1,
             team: XO.CROSSES
         },
-        // The AI's default is in AIFactory.js
         ai: {
             val: -1,
             team: XO.NOUGHTS
         },
         bootstrapperEl: document.getElementById('board'),
-        boardSize: 3,
-        // TODO: Simplify this object.
         css: {
-            board: {
-                width: 300
-            },
-            square: {
-                borderWidth: 1
-            },
+            boardWidth: 300,
             piece: {
-                // TODO: Make the human *always* red or black?
                 thickness: 10,
                 xColor: '#ff0000',
                 oColor: '#000000'
@@ -64,12 +54,18 @@ window.onload = function() {
             playerNode = document.getElementById('playersTeam'),
             player = playerNode.options[playerNode.selectedIndex].text;
 
-        // TODO: Fix this silly code. I can't instantiate the options
-        // object with `player` and `ai` objects because they will
-        // override the `config` object. 
         config.human.team = player;
         config.ai.team = (config.human.team === XO.CROSSES ? XO.NOUGHTS : XO.CROSSES);
         config.ai.type = ai;
+
+        // Set colors so human is always red
+        if (config.ai.team === XO.CROSSES) {
+            config.css.piece.xColor = '#000000';
+            config.css.piece.oColor = '#ff0000';
+        } else {
+            config.css.piece.xColor = '#ff0000';
+            config.css.piece.oColor = '#000000';
+        }
 
         game = new Game(config);
     };

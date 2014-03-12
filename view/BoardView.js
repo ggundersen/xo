@@ -5,7 +5,7 @@ var BoardView = function(game, el, css) {
 
 	var views = [];
     el.innerHTML = '';
-	el.style.width = el.style.height = css.board.width + 'px';
+	el.style.width = el.style.height = css.boardWidth + 'px';
 
 	game.board.each(function(num) {
         views.push(new SquareView(game, num, el, css));
