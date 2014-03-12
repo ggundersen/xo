@@ -38,9 +38,9 @@ MoveManager.prototype.handle_move = function(game, num, player, team) {
     this.board.set(num, player);
     this.board.view.update(num);
     this.game.turn += 1;
-    this.game.scores.update(num, team);
+    this.game.magic.update(num, team);
     
-    var gameOver = this.game.scores.is_over(),
+    var gameOver = this.game.magic.is_over(),
         boardFull = this.board.is_full();
 
     if ((!gameOver && !boardFull) && game.isTurn(this.ai.team)) {

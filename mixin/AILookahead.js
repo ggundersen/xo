@@ -1,7 +1,7 @@
-/* AIBehaviorScan
+/* AILookahead
  * --------------------------------------------------------------- */
 
-AIBehaviorLookahead = {
+AILookahead = {
 
     getMove: function(game) {
         var suggestedMoves = [];

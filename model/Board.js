@@ -31,7 +31,7 @@ var Board = function() {
 
         N: 3,
 
-        MAGIC_SUM: 15,
+        SUM: 15,
         
         set: function(num, piece) {
             state[num].piece = piece;

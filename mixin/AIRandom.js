@@ -1,7 +1,7 @@
-/* AIBehaviorRandom
+/* AIRandom
  * --------------------------------------------------------------- */
 
-var AIBehaviorRandom = {
+var AIRandom = {
   
     // `getMove` is a little complicated--getting a Move instance and
     // then returning only its index--because it is used with other

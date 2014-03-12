@@ -6,7 +6,7 @@ var Game = function(options) {
     this.board = new Board(options.boardSize);
     this.events = new Events();
     this.ai = new AIFactory(options.ai);
-    this.scores = new Scores(this.board);
+    this.magic = new Magic(this.board);
     
     /*_.map(_.range(2 * options.boardSize + 2), function() {
         return 0;

@@ -1,11 +1,9 @@
-/* Scores
+/* Magic
  * --------------------------------------------------------------- */
 
-var Scores = function(board) {
+var Magic = function(board) {
     
     var N = board.N;
-
-    var MAGIC_SUM = board.MAGIC_SUM;
 
     var state = _.map(_.range(2 * N + 2), function(i) {
         return {
@@ -15,6 +13,8 @@ var Scores = function(board) {
     });
 
     return {
+
+        SUM: board.SUM,
         
         update: function(num, side) {
             var pt = board.get(num).pt,
@@ -41,29 +41,13 @@ var Scores = function(board) {
 
         each: function(fn) {
             for (var i = 0, len = state.length; i < len; i++) {
-                fn(state[i].v, i);
+                fn(state[i], [i]);
             }
         },
-
-        get_winning_move: function() {
-            for (var i = 0, len = state.length; i < len; i++) {
-                if (state[i].n === -1 * (N - 1)) { 
-                    return '_' + (MAGIC_SUM + state[i].v);
-                }
-            }
-        },
-
-        get_blocking_move: function() {
-            for (var i = 0, len = state.length; i < len; i++) {
-                if (state[i].n === N - 1) {
-                    return '_' + (MAGIC_SUM - state[i].v);
-                }
-            }
-        },
-                
+        
         is_over: function() {
             for (var i = 0; i < state.length; i++) {
-                if (Math.abs(state[i].v) === MAGIC_SUM) {
+                if (Math.abs(state[i].v) === this.SUM) {
                     return true;
                 }
             }
