@@ -3,27 +3,26 @@
 
 AILookahead = {
 
-    getMove: function(game) {
+    get_move: function(game) {
         var suggestedMoves = [];
-        suggestedMoves.push( this.getWinningMove(game.board, game.magic, this.MOVE_VALUE.WIN) );
-        suggestedMoves.push( this.getBlockingMove(game.board, game.magic, this.MOVE_VALUE.BLOCK_WIN) );
-        suggestedMoves.push( this.getRandomMove(game.board, this.MOVE_VALUE.RANDOM) );
-        suggestedMoves.push( this.getBlockingForkMove(game.board, game.magic, this.MOVE_VALUE.BLOCK_FORK) );
-        return this.analyzeMove(suggestedMoves).pt;
+        suggestedMoves.push( this.get_winning_move(game.board, game.magic, this.MOVE_VALUE.WIN) );
+        suggestedMoves.push( this.get_blocking_move(game.board, game.magic, this.MOVE_VALUE.BLOCK_WIN) );
+        suggestedMoves.push( this.get_random_move(game.board, this.MOVE_VALUE.RANDOM) );
+        suggestedMoves.push( this.get_blocking_fork_move(game.board, game.magic, this.MOVE_VALUE.BLOCK_FORK) );
+        return this.analyze_move(suggestedMoves).num;
     },
     
-    getBlockingForkMove: function(board, magic) {
+    get_blocking_fork_move: function(board, magic) {
         console.log('block fork');
         
-        board.each(function(val, pt) {
-            magic.willWin(pt, 1);
-            /*if (val === 0) {
-                console.log('square is empty');
-                console.log(pt);
-                // create a magic class and see what it tells us?
-            }*/
+        board.each(function(num) {
+            if (board.is_empty(num)) {
+                var testState = magic.test(num);
+                for (var i = 0; i < testState.length; i++) {
+                    console.log(testState[i]);
+                }
+            }
         });
-        //console.log(magic.lookahead(new Point(0,0), 1));
     }
 
 };
