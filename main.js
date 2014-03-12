@@ -10,7 +10,7 @@ window.XO = {};
 
 window.onload = function() {
 
-    XO.CONST = {
+    XO = {
         CROSSES: 'X',
         NOUGHTS: 'O',
         // TODO: These are baked in values here and in the DOM. This
@@ -30,12 +30,12 @@ window.onload = function() {
         // `val` is immutable; `team` is not.
         human: {
             val: 1,
-            team: XO.CONST.CROSSES
+            team: XO.CROSSES
         },
         // The AI's default is in AIFactory.js
         ai: {
             val: -1,
-            team: XO.CONST.NOUGHTS
+            team: XO.NOUGHTS
         },
         bootstrapperEl: document.getElementById('board'),
         boardSize: 3,
@@ -68,7 +68,7 @@ window.onload = function() {
         // object with `player` and `ai` objects because they will
         // override the `config` object. 
         config.human.team = player;
-        config.ai.team = (config.human.team === XO.CONST.CROSSES ? XO.CONST.NOUGHTS : XO.CONST.CROSSES);
+        config.ai.team = (config.human.team === XO.CROSSES ? XO.NOUGHTS : XO.CROSSES);
         config.ai.type = ai;
 
         game = new Game(config);

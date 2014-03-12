@@ -23,9 +23,9 @@ var SquareView = function(game, num, parentEl, css) {
 };
 
 SquareView.prototype.update = function() {
-    if (this.board.get(this.num).piece === XO.CONST.CROSSES) {
+    if (this.board.get(this.num).piece === XO.CROSSES) {
         this.drawX();
-    } else if (this.board.get(this.num).piece === XO.CONST.NOUGHTS) {
+    } else if (this.board.get(this.num).piece === XO.NOUGHTS) {
         this.drawO();
     }
 };

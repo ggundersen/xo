@@ -18,13 +18,13 @@ var MoveManager = function(game, human, ai) {
 	    self.handle_human(num);
 	});
     
-    if (game.isTurn(this.ai.team)) {
+    if (game.is_turn(this.ai.team)) {
         this.handleAI();
     }
 };
 
 MoveManager.prototype.handle_human = function(num) {
-    if (this.board.is_empty(num) && this.game.isTurn(this.human.team)) {
+    if (this.board.is_empty(num) && this.game.is_turn(this.human.team)) {
         this.handle_move(this.game, num, this.human.team, this.human.val);
     }
 };
@@ -43,7 +43,7 @@ MoveManager.prototype.handle_move = function(game, num, player, team) {
     var gameOver = this.game.magic.is_over(),
         boardFull = this.board.is_full();
 
-    if ((!gameOver && !boardFull) && game.isTurn(this.ai.team)) {
+    if ((!gameOver && !boardFull) && game.is_turn(this.ai.team)) {
         this.handleAI();
     } else if (gameOver) {
         this.game_over(player + ' wins');

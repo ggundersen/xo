@@ -8,22 +8,11 @@ var AIScan = {
         suggestedMoves.push( this.get_winning_move(game.board, game.magic, this.MOVE_VALUE.WIN) );
         suggestedMoves.push( this.get_blocking_move(game.board, game.magic, this.MOVE_VALUE.BLOCK_WIN) );
         suggestedMoves.push( this.get_random_move(game.board, this.MOVE_VALUE.RANDOM) );
+
+        // `analyze_move` is defined by a separate mixin, which
+        // handles how a move out of the available moves is
+        // selected.
         return this.analyze_move(suggestedMoves).num;
-    },
-
-    analyze_move: function(moves) {
-        var i = 0,
-            finalMove = new Move(undefined, -1),
-            move;
-
-        for (; i < moves.length; i++) {
-            move = moves[i];
-            if (move && move.num && move.val > finalMove.val) {
-                finalMove = move;
-            }
-        };
-
-        return finalMove;
     },
 
     get_winning_move: function(board, magic, moveVal) {
@@ -44,16 +33,6 @@ var AIScan = {
             }
         });
         return suggestedMove;
-    },
-    
-    // m = 2
-    // n = 0 => 2
-    // n = 1 => 1
-    // n = 2 => 0
-    flip: function(m, n) {
-        return m - n;
     }
 
 };
-
-

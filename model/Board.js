@@ -14,7 +14,7 @@ var Board = function() {
     // 
     // The real benefit  of converting the board to a magic square is
     // that now we can get a *reference* to a square via a simple
-    // equation. See the `Scores` metaobject for more.
+    // equation. See the `Magic` metaobject for more.
     var state = {
         '_4': { pt: new Point(0, 0), piece: 0 },
         '_9': { pt: new Point(1, 0), piece: 0 },
@@ -44,12 +44,6 @@ var Board = function() {
         each: function(fn) {
             for (var num in state) {
                 fn(num);
-            }
-        },
-
-        eachRow: function(fn) {
-            for (var i = 0; i < N; i++) {
-                fn(i);
             }
         },
 

@@ -20,10 +20,10 @@ var Game = function(options) {
     this.moveManager = new MoveManager(this, options.human, options.ai);
 };
 
-Game.prototype.isTurn = function(team) {
-    if (this.turn % 2 === 0 && team === XO.CONST.CROSSES) {
+Game.prototype.is_turn = function(team) {
+    if (this.turn % 2 === 0 && team === XO.CROSSES) {
         return true;
-    } else if (this.turn % 2 !== 0 && team === XO.CONST.NOUGHTS) {
+    } else if (this.turn % 2 !== 0 && team === XO.NOUGHTS) {
         return true;
     }
     return false;
