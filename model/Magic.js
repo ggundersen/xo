@@ -38,6 +38,7 @@ var Magic = function(board) {
                 arr[2 * N + 1].v += val;
                 arr[2 * N + 1].n += count;
             }
+            return arr;
         },
 
         // index <=> (x, y) conversions for board size N
@@ -48,11 +49,10 @@ var Magic = function(board) {
             this.internal_update(num, side, state);
         },
 
-        // We do not need a side because only the AI will try this.
+        // We do not need `side` because only the AI will call this.
         test: function(num) {
-            var stateClone = state.slice(0);
-            this.internal_update(num, -1, stateClone);
-            return stateClone;
+            var clone = JSON.parse(JSON.stringify(state));
+            return this.internal_update(num, -1, clone);
         },
 
         each: function(fn) {

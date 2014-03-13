@@ -18,9 +18,7 @@ AILookahead = {
         board.each(function(num) {
             if (board.is_empty(num)) {
                 var testState = magic.test(num);
-                for (var i = 0; i < testState.length; i++) {
-                    console.log(testState[i]);
-                }
+                console.log(testState);
             }
         });
     }
