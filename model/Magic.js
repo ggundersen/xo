@@ -32,7 +32,6 @@ var Magic = function(board) {
                 arr[2 * N].v += val;
                 arr[2 * N].n += count;
             }
-
             // (0,2) => (1,1) => (2,0)
             if (pt.x + pt.y === N - 1) {
                 arr[2 * N + 1].v += val;
