@@ -11,15 +11,18 @@ var BoardView = function(game, el, css) {
         views.push(new SquareView(game, idx, el, css));
 	});
 
-    // TODO: Pull out Underscore.js if this is one of the only
-    // places it is used.
 	return {
         update: function(idx) {
-            _.each(views, function(squareView) {
+            var squareView,
+                i = 0,
+                len = views.length;
+
+            for (; i < len; i++) {
+                squareView = views[i];
                 if (idx === squareView.idx) {
-                    squareView.update();
+                     squareView.update();
                 }
-            });
+            }
         }
 	};
 };

@@ -20,9 +20,13 @@ Events.prototype.publish = function(eventName, args) {
     if (!this.channel[eventName]) {
         return false;
     }
-    _.each(this.channel[eventName], function(callback) {
-        callback(args);
-    });
+
+    var i = 0,
+        len = this.channel[eventName].length;
+
+    for (; i < len; i++) {
+        this.channel[eventName][i](args);
+    }
 };
 
 Events.prototype.subscribe = function(eventName, callback) {
