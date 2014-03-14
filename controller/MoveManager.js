@@ -43,7 +43,12 @@ MoveManager.prototype.handle_move = function(game, idx, player, team) {
     var gameOver = this.game.score.is_over(),
         boardFull = this.board.is_full();
 
+    console.log('is the game over?');
+    console.log(gameOver);
+    console.log(boardFull);
+
     if ((!gameOver && !boardFull) && game.is_turn(this.ai.team)) {
+        console.log('playing ai again');
         this.handleAI();
     } else if (gameOver) {
         this.game_over(player + ' wins');

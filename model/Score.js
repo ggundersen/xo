@@ -14,7 +14,7 @@ var Score = function(board) {
 
     return {
 
-        MAGIC_SUM: board.SUM,
+        MAGIC_SUM: board.MAGIC_SUM,
 
         is_win: function(obj, side) {
             if (obj.count === side * (board.N - 1)) {
@@ -86,7 +86,7 @@ var Score = function(board) {
         
         is_over: function() {
             for (var i = 0; i < state.length; i++) {
-                if (Math.abs(state[i].magic) === this.MAGIC_SUM) {
+                if (Math.abs(state[i].magic) === board.MAGIC_SUM) {
                     return true;
                 }
             }

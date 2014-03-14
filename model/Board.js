@@ -3,25 +3,14 @@
 
 var Board = function() {
 
+    // The benefit of having a magic square property is that now the
+    // AI knows *which* square to win or block on by a simple
+    // equation.
+    //
     //  4	9	2
     //  3	5	7
     //  8	1	6
-    // 
-    // The real benefit  of converting the board to a magic square is
-    // that now we can get a *reference* to a square via a simple
-    // equation. See the `Magic` metaobject for more.
-    /*var state = {
-        '_4': { pt: new Point(0, 0), piece: 0 },
-        '_9': { pt: new Point(1, 0), piece: 0 },
-        '_2': { pt: new Point(2, 0), piece: 0 },
-        '_3': { pt: new Point(0, 1), piece: 0 },
-        '_5': { pt: new Point(1, 1), piece: 0 },
-        '_7': { pt: new Point(2, 1), piece: 0 },
-        '_8': { pt: new Point(0, 2), piece: 0 },
-        '_1': { pt: new Point(1, 2), piece: 0 },
-        '_6': { pt: new Point(2, 2), piece: 0 }
-    };*/
-
+    //
     var state = [
         { piece: null, magic: 4 },
         { piece: null, magic: 9 },
@@ -38,7 +27,7 @@ var Board = function() {
 
         N: 3,
 
-        SUM: 15,
+        MAGIC_SUM: 15,
         
         set: function(idx, piece) {
             state[idx].piece = piece;
@@ -64,12 +53,10 @@ var Board = function() {
             }
         },
 
-        // These two access routines allows us to redefine "empty" to
-        // be anything.
         is_full: function() {
             var i = 0, len = state.length;
             for (; i < len; i++) {
-                if (!this.is_empty(i)) {
+                if (this.is_empty(i)) {
                     return false;
                 }
             }
