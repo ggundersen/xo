@@ -1,16 +1,23 @@
 /* Board
+ * 
+ * `Board` and `Score` rely on a Magic Square:
+ * http://en.wikipedia.org/wiki/Magic_square
+ *
+ * The Magic Square this game uses is:
+ * 4  9  2
+ * 3  5  7
+ * 8  1  6
+ *
+ * For implementation details, see the `Score` metaobject.
  * --------------------------------------------------------------- */
 
 var Board = function() {
 
-    // The benefit of having a magic square property is that now the
-    // AI knows *which* square to win or block on by a simple
-    // equation.
-    //
-    //  4	9	2
-    //  3	5	7
-    //  8	1	6
-    //
+    var N = 3;
+
+    // "Magic Constant"
+    var M = (N * (Math.pow(N, 2) + 1)) / 2;
+
     var state = [
         { piece: null, magic: 4 },
         { piece: null, magic: 9 },
@@ -25,9 +32,9 @@ var Board = function() {
 
     return {
 
-        N: 3,
+        N: N,
 
-        MAGIC_SUM: 15,
+        M: M,
         
         set: function(idx, piece) {
             state[idx].piece = piece;

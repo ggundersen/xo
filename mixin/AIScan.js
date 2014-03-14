@@ -3,13 +3,13 @@
 
 var AIScan = {
 
-    get_move: function(game) {
+    get_move: function(board, score) {
         var suggestedMoves = [];
-        suggestedMoves.push(this.win(game.board, game.score, this.MOVE_VALUE.WIN));
-        suggestedMoves.push(this.block_win(game.board, game.score, this.MOVE_VALUE.BLOCK_WIN));
-        suggestedMoves.push(this.empty_center(game.board, this.MOVE_VALUE.EMPTY_CENTER));
-        suggestedMoves.push(this.empty_corner(game.board, this.MOVE_VALUE.EMPTY_CORNER));
-        suggestedMoves.push(this.random(game.board, this.MOVE_VALUE.RANDOM));
+        suggestedMoves.push(this.win(board, score, this.MOVE_VALUE.WIN));
+        suggestedMoves.push(this.block_win(board, score, this.MOVE_VALUE.BLOCK_WIN));
+        suggestedMoves.push(this.empty_center(board, this.MOVE_VALUE.EMPTY_CENTER));
+        suggestedMoves.push(this.empty_corner(board, this.MOVE_VALUE.EMPTY_CORNER));
+        suggestedMoves.push(this.random(board, this.MOVE_VALUE.RANDOM));
 
         // `analyze_move` is defined by a separate mixin, which
         // handles how a move out of the available moves is
@@ -23,7 +23,7 @@ var AIScan = {
             // TODO: Stop baking in the AI's value as a number
             // literal.
             if (score.is_win(obj, -1)) {
-                suggestedIdx = board.get(undefined, score.MAGIC_SUM + obj.magic);
+                suggestedIdx = board.get(undefined, score.M + obj.magic);
                 suggestedMove = new Move(suggestedIdx, moveVal);
             }
         });
@@ -34,7 +34,7 @@ var AIScan = {
         var suggestedIdx, suggestedMove;
         score.each(function(obj, i) {
             if (score.is_win(obj, 1)) {
-                suggestedIdx = board.get(undefined, score.MAGIC_SUM - obj.magic);
+                suggestedIdx = board.get(undefined, score.M - obj.magic);
                 suggestedMove = new Move(suggestedIdx, moveVal);
             }
 

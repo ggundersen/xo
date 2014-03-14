@@ -30,7 +30,7 @@ MoveManager.prototype.handle_human = function(idx) {
 };
 
 MoveManager.prototype.handleAI = function() {
-    var idx = this.game.ai.get_move(this.game);
+    var idx = this.game.ai.get_move(this.game.board, this.game.score);
     this.handle_move(this.game, idx, this.ai.team, this.ai.val);
 };
 
