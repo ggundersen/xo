@@ -3,7 +3,7 @@
 
 var AIScan = {
 
-    get_move: function(board, score) {
+    /*get_move: function(board, score) {
         var suggestedMoves = [];
         suggestedMoves.push(this.win(board, score, this.MOVE_VALUE.WIN));
         suggestedMoves.push(this.block_win(board, score, this.MOVE_VALUE.BLOCK_WIN));
@@ -15,7 +15,7 @@ var AIScan = {
         // handles how a move out of the available moves is
         // selected.
         return this.analyze_move(suggestedMoves).idx;
-    },
+    },*/
 
     win: function(board, score, moveVal) {
         var suggestedIdx, suggestedMove;

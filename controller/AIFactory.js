@@ -2,21 +2,19 @@
  * --------------------------------------------------------------- */
 
 var AIFactory = function(options) {
-
-    var ai,
+    var aiInstance,
         type = options.type,
         team = options.team,
         val = options.val;
     
     // TODO: Should this be a switch statement?
-    /*if (type === XO.AI_TYPE.RANDOM) {
-        ai = new AI(val, team, AIRandom);
+    if (type === XO.AI_TYPE.RANDOM) {
+        aiInstance = new AI(val, team, AIBase, AIRandom, AIRules);
     } else if (type === XO.AI_TYPE.SCAN) {
-        ai = new AI(val, team, AIRandom, AIScan, AIRules);
+        aiInstance = new AI(val, team, AIBase, AIRandom, AIScan, AIRules);
     } else {
-        ai = new AI(val, team, AIRandom, AIScan, AILookahead, AIRules);
-    }*/
+        aiInstance = new AI(val, team, AIBase, AIRandom, AIScan, AILookahead, AIRules);
+    }
 
-    ai = new AI(val, team, AIRandom, AIScan, AILookahead, AIRules);
-    return ai;
+    return aiInstance;
 };

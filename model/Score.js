@@ -102,7 +102,6 @@ var Score = function(board) {
             return arr;
         },
 
-
         is_over: function() {
             for (var i = 0; i < state.length; i++) {
                 if (Math.abs(state[i].magic) === M) {
