@@ -23,23 +23,23 @@ var MoveManager = function(game, human, ai) {
     }
 };
 
-MoveManager.prototype.handle_human = function(num) {
-    if (this.board.is_empty(num) && this.game.is_turn(this.human.team)) {
-        this.handle_move(this.game, num, this.human.team, this.human.val);
+MoveManager.prototype.handle_human = function(idx) {
+    if (this.board.is_empty(idx) && this.game.is_turn(this.human.team)) {
+        this.handle_move(this.game, idx, this.human.team, this.human.val);
     }
 };
 
 MoveManager.prototype.handleAI = function() {
-    var num = this.game.ai.get_move(this.game);
-    this.handle_move(this.game, num, this.ai.team, this.ai.val);
+    var idx = this.game.ai.get_move(this.game);
+    this.handle_move(this.game, idx, this.ai.team, this.ai.val);
 };
 
-MoveManager.prototype.handle_move = function(game, num, player, team) {
-    this.board.set(num, player);
-    this.board.view.update(num);
+MoveManager.prototype.handle_move = function(game, idx, player, team) {
+    this.board.set(idx, player);
+    this.board.view.update(idx);
     this.game.turn += 1;
-    this.game.score.update(num, team);
-    
+    this.game.score.update(idx, team);
+
     var gameOver = this.game.score.is_over(),
         boardFull = this.board.is_full();
 

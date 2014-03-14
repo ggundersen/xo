@@ -2,21 +2,19 @@
  * --------------------------------------------------------------- */
 
 var AIRandom = {
-  
-    // `getMove` is a little complicated--getting a Move instance and
-    // then returning only its index--because it is used with other
-    // behaviors and needs to be compatible.
+
+    // TODO: AIRandom is really a way of *making* moves, alongside
+    // AIRules.
     get_move: function(game) {
-        return this.get_random_move(game.board, this.MOVE_VALUE.RANDOM).num; 
+        return this.random(game.board, this.MOVE_VALUE.RANDOM).idx; 
     },
 
     random: function(board, moveVal) {
-        var randomNum;
+        var randomIdx;
         do {
-            randomNum = '_' + Math.floor(Math.random() * 8 + 1);
-        } while (!board.is_empty(randomNum));
-
-        return new Move(randomNum, moveVal);
+            randomIdx = Math.floor(Math.random() * 8 + 1);
+        } while (!board.is_empty(randomIdx));
+        return new Move(randomIdx, moveVal);
     }
 
 };

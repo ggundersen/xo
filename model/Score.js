@@ -7,36 +7,47 @@ var Score = function(board) {
 
     var state = _.map(_.range(2 * N + 2), function(i) {
         return {
-            v: 0,
-            n: 0
+            count: 0,
+            magic: 0
         };
     });
 
     return {
 
-        SUM: board.SUM,
+        MAGIC_SUM: board.SUM,
+
+        is_win: function(obj, side) {
+            if (obj.count === side * (board.N - 1)) {
+                return true;
+            }
+            return false;
+        },
 
         // This will update whichever state object you give it.
-        internal_update: function(num, side, arr) {
-            var pt = board.get(num).pt,
-                val = num[1] * side,
-                count = 1 * side;
+        internal_update: function(idx, side, arr) {
+            var magic = board.get(idx).magic * side,
+                count = 1 * side,
+                x = idx % N,
+                y = Math.floor(idx / N);
 
-            arr[pt.x].v += val;
-            arr[pt.x].n += count;
-            arr[pt.y + N].v += val;
-            arr[pt.y + N].n += count;
+            arr[x].count += count;
+            arr[x].magic += magic;
+            arr[y + N].count += count;
+            arr[y + N].magic += magic;
             
             // (0,0) => (1,1) => (2,2)
-            if (pt.x === pt.y) {
-                arr[2 * N].v += val;
-                arr[2 * N].n += count;
+            if (x === y) {
+                arr[2 * N].count += count;
+                arr[2 * N].magic += magic;
             }
             // (0,2) => (1,1) => (2,0)
-            if (pt.x + pt.y === N - 1) {
-                arr[2 * N + 1].v += val;
-                arr[2 * N + 1].n += count;
+            if (x + y === N - 1) {
+                arr[2 * N + 1].count += count;
+                arr[2 * N + 1].magic += magic;
             }
+
+            //console.log(arr);
+
             return arr;
         },
 
@@ -75,7 +86,7 @@ var Score = function(board) {
         
         is_over: function() {
             for (var i = 0; i < state.length; i++) {
-                if (Math.abs(state[i].v) === this.SUM) {
+                if (Math.abs(state[i].magic) === this.MAGIC_SUM) {
                     return true;
                 }
             }

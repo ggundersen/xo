@@ -13,32 +13,37 @@ var AIScan = {
         // `analyze_move` is defined by a separate mixin, which
         // handles how a move out of the available moves is
         // selected.
-        return this.analyze_move(suggestedMoves).num;
+        return this.analyze_move(suggestedMoves).idx;
     },
 
     win: function(board, score, moveVal) {
-        var suggestedMove;
+        var suggestedIdx, suggestedMove;
         score.each(function(obj, i) {
-            if (obj.n === -1 * (board.N - 1)) {
-                suggestedMove = new Move('_' + (score.SUM + obj.v), moveVal);
+            // TODO: Stop baking in the AI's value as a number
+            // literal.
+            if (score.is_win(obj, -1)) {
+                suggestedIdx = board.get(undefined, score.MAGIC_SUM + obj.magic);
+                suggestedMove = new Move(suggestedIdx, moveVal);
             }
         });
         return suggestedMove;
     },
     
     block: function(board, score, moveVal) {
-        var suggestedMove;
+        var suggestedIdx, suggestedMove;
         score.each(function(obj, i) {
-            if (obj.n === board.N - 1) {
-                suggestedMove = new Move('_' + (score.SUM - obj.v), moveVal);
+            if (score.is_win(obj, 1)) {
+                suggestedIdx = board.get(undefined, score.MAGIC_SUM - obj.magic);
+                suggestedMove = new Move(suggestedIdx, moveVal);
             }
+
         });
         return suggestedMove;
     },
 
     empty_center: function(board, moveVal) {
-        if (board.is_empty('_5')) {
-            return new Move('_5', moveVal);
+        if (board.is_empty(4)) {
+            return new Move(4, moveVal);
         }
     },
 

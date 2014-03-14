@@ -10,7 +10,7 @@ var Board = function() {
     // The real benefit  of converting the board to a magic square is
     // that now we can get a *reference* to a square via a simple
     // equation. See the `Magic` metaobject for more.
-    var state = {
+    /*var state = {
         '_4': { pt: new Point(0, 0), piece: 0 },
         '_9': { pt: new Point(1, 0), piece: 0 },
         '_2': { pt: new Point(2, 0), piece: 0 },
@@ -20,19 +20,19 @@ var Board = function() {
         '_8': { pt: new Point(0, 2), piece: 0 },
         '_1': { pt: new Point(1, 2), piece: 0 },
         '_6': { pt: new Point(2, 2), piece: 0 }
-    };
+    };*/
 
-    /*var state = [
-        { val: 0, magic: 4 },
-        { val: 0, magic: 9 },
-        { val: 0, magic: 2 },
-        { val: 0, magic: 3 },
-        { val: 0, magic: 5 },
-        { val: 0, magic: 7 },
-        { val: 0, magic: 8 },
-        { val: 0, magic: 1 },
-        { val: 0, magic: 6 }
-    ];*/
+    var state = [
+        { piece: null, magic: 4 },
+        { piece: null, magic: 9 },
+        { piece: null, magic: 2 },
+        { piece: null, magic: 3 },
+        { piece: null, magic: 5 },
+        { piece: null, magic: 7 },
+        { piece: null, magic: 8 },
+        { piece: null, magic: 1 },
+        { piece: null, magic: 6 }
+    ];
 
     return {
 
@@ -40,33 +40,44 @@ var Board = function() {
 
         SUM: 15,
         
-        set: function(num, piece) {
-            state[num].piece = piece;
+        set: function(idx, piece) {
+            state[idx].piece = piece;
         },
             
-        get: function(num) {
-            return state[num];
+        get: function(idx, magic) {
+            var i = 0, len = state.length;
+            if (magic) {
+                for (; i < len; i++) {
+                    if (state[i].magic === magic) {
+                        return i;
+                    }
+                }
+            } else {
+                return state[idx];
+            }
         },
 
         each: function(fn) {
-            for (var num in state) {
-                fn(state[num], num);
+            var i = 0, len = state.length;
+            for (; i < len; i++) {
+                fn(state[i], i);
             }
         },
 
         // These two access routines allows us to redefine "empty" to
         // be anything.
         is_full: function() {
-            for (var num in state) {
-                if (state[num].piece === 0) {
+            var i = 0, len = state.length;
+            for (; i < len; i++) {
+                if (!this.is_empty(i)) {
                     return false;
                 }
             }
             return true;
         },
 
-        is_empty: function(num) {
-            if (state[num].piece === 0) {
+        is_empty: function(idx) {
+            if (state[idx].piece === null) {
                 return true;
             }
             return false;

@@ -51,5 +51,5 @@ AI.prototype.mixin = function(obj, behaviors) {
 
 // Virtual method. Every AIBehavior* should have this function.
 AI.prototype.get_move = function() {
-    throw new Error('`getMove` was not subclassed properly.');
+    throw new Error('`get_move` was not subclassed properly.');
 };
