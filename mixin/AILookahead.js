@@ -9,7 +9,7 @@ AILookahead = {
         suggestedMoves.push(this.block(game.board, game.score, this.MOVE_VALUE.BLOCK_WIN));
         suggestedMoves.push(this.fork(game, game.board, game.score, this.MOVE_VALUE.FORK));
         //suggestedMoves.push(this.test_guy(game, game.board, game.score));
-        //suggestedMoves.push(this.block_fork(game, game.board, game.score, this.MOVE_VALUE.BLOCK_FORK));
+        suggestedMoves.push(this.block_fork(game, game.board, game.score, this.MOVE_VALUE.BLOCK_FORK));
         suggestedMoves.push(this.empty_center(game.board, this.MOVE_VALUE.RANDOM));
         suggestedMoves.push(this.random(game.board, this.MOVE_VALUE.RANDOM));
         return this.analyze_move(suggestedMoves).idx;
@@ -46,33 +46,32 @@ AILookahead = {
     },
 
     block_fork: function(game, board, score, moveVal) {
-
-        var suggestedMove,
+        var i, len, count, testScore, suggestedMove,
             forkingMoves = [];
 
-        /*board.each(function(obj, idx) {
+        board.each(function(obj, idx) {
+            count = 0;
             if (board.is_empty(idx)) {
-                var win = 0;
-                var testState = score.test(idx, 1);
-                for (var i = 0, len = testState.length; i < len; i++) {
-                    var testScoreObj = testState[i];
-                    if (testScoreObj.n === 2) {
-                        win++;
+                testScore = score.test_move(idx, 1);
+                for (i = 0, len = testScore.length; i < len; i++) {
+                    if (testScore[i].count === 2) {
+                        count++;
                     }
                 }
-                if (win === 2) {
-                    forkingMoves.push(new Move(idx, moveVal));
+                if (count === 2) {
+                     forkingMoves.push(new Move(idx, moveVal));
                 }
             }
         });
 
+
         if (forkingMoves.length > 1) {
             board.each(function(obj, idx) {
-                if (board.is_empty(idx) && num !== forkingMoves[0].num && num !== forkingMoves[1].num) {
+                if (board.is_empty(idx) && idx !== forkingMoves[0].idx && idx !== forkingMoves[1].idx) {
                     suggestedMove = new Move(idx, moveVal);
                 }
             });
-        }*/
+        }
 
         return suggestedMove;
     }
