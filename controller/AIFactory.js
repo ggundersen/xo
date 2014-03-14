@@ -17,6 +17,6 @@ var AIFactory = function(options) {
         ai = new AI(val, team, AIRandom, AIScan, AILookahead, AIRules);
     }*/
 
-    ai = new AI(val, team, AIRandom, AIScan, AIRules);
+    ai = new AI(val, team, AIRandom, AIScan, AILookahead, AIRules);
     return ai;
 };

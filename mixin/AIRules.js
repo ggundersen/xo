@@ -20,7 +20,7 @@ var AIRules = {
 
         for (; i < moves.length; i++) {
             move = moves[i];
-            if (move && move.idx && move.val < finalMove.val) {
+            if (move && typeof move.idx === 'number' && move.val < finalMove.val) {
                 finalMove = move;
             }
         };

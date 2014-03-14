@@ -11,7 +11,7 @@ var Score = function(board) {
             magic: 0
         };
     });
-
+    
     return {
 
         MAGIC_SUM: board.MAGIC_SUM,
@@ -24,6 +24,10 @@ var Score = function(board) {
         },
 
         // This will update whichever state object you give it.
+        // index <=> (x, y) conversions for board size N
+        // i = x + y * N
+        // x = i % N
+        // y = Math.floor(i / N)
         internal_update: function(idx, side, arr) {
             var magic = board.get(idx).magic * side,
                 count = 1 * side,
@@ -46,23 +50,16 @@ var Score = function(board) {
                 arr[2 * N + 1].magic += magic;
             }
 
-            //console.log(arr);
-
             return arr;
         },
 
-        // index <=> (x, y) conversions for board size N
-        // i = x + y * N
-        // x = i % N
-        // y = Math.floor(i / N)
-        update: function(num, side) {
-            this.internal_update(num, side, state);
+        update: function(idx, side) {
+            this.internal_update(idx, side, state);
         },
 
-        // We do not need `side` because only the AI will call this.
-        // We create a deep clone so as to not modify the state of
-        // the game.
-        test: function(num, side) {
+        // We create a deep clone so as to not modify the actual 
+        // state of the game.
+        test_move: function(idx, side) {
             var dest, prop, src,
                 clone = [],
                 i = 0,
@@ -70,12 +67,12 @@ var Score = function(board) {
 
             for (; i < len; i++) {
                 dest = {};
-                dest.v = state[i].v;
-                dest.n = state[i].n;
+                dest.magic = state[i].magic;
+                dest.count = state[i].count;
                 clone.push(dest);
             }
             
-            return this.internal_update(num, side, clone);
+            return this.internal_update(idx, side, clone);
         },
 
         each: function(fn) {
