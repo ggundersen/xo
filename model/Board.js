@@ -22,6 +22,18 @@ var Board = function() {
         '_6': { pt: new Point(2, 2), piece: 0 }
     };
 
+    /*var state = [
+        { val: 0, magic: 4 },
+        { val: 0, magic: 9 },
+        { val: 0, magic: 2 },
+        { val: 0, magic: 3 },
+        { val: 0, magic: 5 },
+        { val: 0, magic: 7 },
+        { val: 0, magic: 8 },
+        { val: 0, magic: 1 },
+        { val: 0, magic: 6 }
+    ];*/
+
     return {
 
         N: 3,
@@ -38,7 +50,7 @@ var Board = function() {
 
         each: function(fn) {
             for (var num in state) {
-                fn(num);
+                fn(state[num], num);
             }
         },
 
@@ -54,6 +66,7 @@ var Board = function() {
         },
 
         is_empty: function(num) {
+            console.log(state[num]);
             if (state[num].piece === 0) {
                 return true;
             }

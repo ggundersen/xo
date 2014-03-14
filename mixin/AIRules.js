@@ -9,12 +9,12 @@ var AIRules = {
     
     analyze_move: function(moves) {
         var i = 0,
-            finalMove = new Move(undefined, -1),
+            finalMove = new Move(undefined, 999),
             move;
 
         for (; i < moves.length; i++) {
             move = moves[i];
-            if (move && move.num && move.val > finalMove.val) {
+            if (move && move.num && move.val < finalMove.val) {
                 finalMove = move;
             }
         };

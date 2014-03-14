@@ -10,7 +10,7 @@ var AIRandom = {
         return this.get_random_move(game.board, this.MOVE_VALUE.RANDOM).num; 
     },
 
-    get_random_move: function(board, moveVal) {
+    random: function(board, moveVal) {
         var randomNum;
         do {
             randomNum = '_' + Math.floor(Math.random() * 8 + 1);

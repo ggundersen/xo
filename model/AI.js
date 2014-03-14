@@ -11,7 +11,7 @@
  * multiple points in the program.
  * --------------------------------------------------------------- */
 
-var AI = function(val, team /*, behaviors */) {
+var AI = function(val, team /*, mixins */) {
     
     // We do not want to add behaviors to `AI.prototype`, since that
     // would make the methods available to every instance of `AI`.
@@ -21,13 +21,18 @@ var AI = function(val, team /*, behaviors */) {
         val: val,
         team: team,
         human: 1, // TODO: Why do these options need to be configurable?
+
+        // http://en.wikipedia.org/wiki/Tic-tac-toe#Strategy
         MOVE_VALUE: {
-            'WIN': 9,
-            'BLOCK_WIN': 8,
-            'BLOCK_FORK': 7,
-            'BUILD_ROW': 6,
-            'RANDOM': 0,
-            'NA': -1
+            'WIN': 1,
+            'BLOCK_WIN': 2,
+            'FORK': 3,
+            'BLOCK_FORK': 4,
+            'RANDOM': 5,
+            'OPPOSITE_CORNER': 6,
+            'EMPTY_CORNER': 7,
+            'EMPTY_SIDE': 8,
+            'RANDOM': 9
         }
 
     };

@@ -30,10 +30,12 @@ window.onload = function() {
         human: {
             val: 1,
             team: XO.CROSSES
+            //team: XO.NOUGHTS
         },
         ai: {
             val: -1,
             team: XO.NOUGHTS
+            //team: XO.CROSSES
         },
         bootstrapperEl: document.getElementById('board'),
         css: {
