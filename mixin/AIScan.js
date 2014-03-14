@@ -5,8 +5,8 @@ var AIScan = {
 
     get_move: function(game) {
         var suggestedMoves = [];
-        suggestedMoves.push(this.win(game.board, game.magic, this.MOVE_VALUE.WIN));
-        suggestedMoves.push(this.block(game.board, game.magic, this.MOVE_VALUE.BLOCK_WIN));
+        suggestedMoves.push(this.win(game.board, game.score, this.MOVE_VALUE.WIN));
+        suggestedMoves.push(this.block(game.board, game.score, this.MOVE_VALUE.BLOCK_WIN));
         suggestedMoves.push(this.empty_center(game.board, this.MOVE_VALUE.RANDOM));
         suggestedMoves.push(this.random(game.board, this.MOVE_VALUE.RANDOM));
 
@@ -16,21 +16,21 @@ var AIScan = {
         return this.analyze_move(suggestedMoves).num;
     },
 
-    win: function(board, magic, moveVal) {
+    win: function(board, score, moveVal) {
         var suggestedMove;
-        magic.each(function(obj, i) {
+        score.each(function(obj, i) {
             if (obj.n === -1 * (board.N - 1)) {
-                suggestedMove = new Move('_' + (magic.SUM + obj.v), moveVal);
+                suggestedMove = new Move('_' + (score.SUM + obj.v), moveVal);
             }
         });
         return suggestedMove;
     },
     
-    block: function(board, magic, moveVal) {
+    block: function(board, score, moveVal) {
         var suggestedMove;
-        magic.each(function(obj, i) {
+        score.each(function(obj, i) {
             if (obj.n === board.N - 1) {
-                suggestedMove = new Move('_' + (magic.SUM - obj.v), moveVal);
+                suggestedMove = new Move('_' + (score.SUM - obj.v), moveVal);
             }
         });
         return suggestedMove;

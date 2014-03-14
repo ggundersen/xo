@@ -1,7 +1,7 @@
-/* Magic
+/* Score
  * --------------------------------------------------------------- */
 
-var Magic = function(board) {
+var Score = function(board) {
     
     var N = board.N;
 
