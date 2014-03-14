@@ -5,6 +5,9 @@
  * selecting the correct rule.
  * --------------------------------------------------------------- */
 
+// TODO: Rules should not be ranked and then passed to
+// `analyze_move`. `analyze_move` should have an enumeration of the
+// move types and rank or ignore that rank accordingly.
 var AIRules = {
     
     analyze_move: function(moves) {

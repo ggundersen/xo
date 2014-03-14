@@ -7,7 +7,7 @@ var AIScan = {
         var suggestedMoves = [];
         suggestedMoves.push(this.win(game.board, game.magic, this.MOVE_VALUE.WIN));
         suggestedMoves.push(this.block(game.board, game.magic, this.MOVE_VALUE.BLOCK_WIN));
-        suggestedMoves.push(this.center(game.board, this.MOVE_VALUE.RANDOM));
+        suggestedMoves.push(this.empty_center(game.board, this.MOVE_VALUE.RANDOM));
         suggestedMoves.push(this.random(game.board, this.MOVE_VALUE.RANDOM));
 
         // `analyze_move` is defined by a separate mixin, which
@@ -36,10 +36,19 @@ var AIScan = {
         return suggestedMove;
     },
 
-    center: function(board, moveVal) {
+    empty_center: function(board, moveVal) {
         if (board.is_empty('_5')) {
             return new Move('_5', moveVal);
         }
+    },
+
+    opposite_corner: function(board, moveVal) {
+    },
+
+    empty_corner: function(board, moveVal) {
+    },
+
+    empty_side: function(board, moveVal) {
     }
 
 };

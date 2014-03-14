@@ -9,7 +9,7 @@ AILookahead = {
         suggestedMoves.push(this.block(game.board, game.magic, this.MOVE_VALUE.BLOCK_WIN));
         suggestedMoves.push(this.fork(game, game.board, game.magic, this.MOVE_VALUE.FORK));
         suggestedMoves.push(this.block_fork(game, game.board, game.magic, this.MOVE_VALUE.BLOCK_FORK));
-        suggestedMoves.push(this.center(game.board, this.MOVE_VALUE.RANDOM));
+        suggestedMoves.push(this.empty_center(game.board, this.MOVE_VALUE.RANDOM));
         suggestedMoves.push(this.random(game.board, this.MOVE_VALUE.RANDOM));
         return this.analyze_move(suggestedMoves).num;
     },
