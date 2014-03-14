@@ -66,7 +66,6 @@ var Board = function() {
         },
 
         is_empty: function(num) {
-            console.log(state[num]);
             if (state[num].piece === 0) {
                 return true;
             }

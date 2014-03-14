@@ -38,7 +38,6 @@ var AIScan = {
 
     center: function(board, moveVal) {
         if (board.is_empty('_5')) {
-            console.log('center square is empty');
             return new Move('_5', moveVal);
         }
     }

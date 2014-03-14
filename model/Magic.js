@@ -51,7 +51,7 @@ var Magic = function(board) {
         // We do not need `side` because only the AI will call this.
         // We create a deep clone so as to not modify the state of
         // the game.
-        test: function(num) {
+        test: function(num, side) {
             var dest, prop, src,
                 clone = [],
                 i = 0,
@@ -64,7 +64,7 @@ var Magic = function(board) {
                 clone.push(dest);
             }
             
-            return this.internal_update(num, -1, clone);
+            return this.internal_update(num, side, clone);
         },
 
         each: function(fn) {
