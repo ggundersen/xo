@@ -53,6 +53,28 @@ var Board = function() {
             }
         },
 
+        corners: function() {
+            return [0, 2, 6, 8];
+        },
+
+        sides: function() {
+            return [1, 3, 5, 7];
+        },
+
+        center: function() {
+            return 4;
+        },
+
+        get_square_type: function(type) {
+            if (type === 'corner') {
+                return [0, 2, 6, 8];
+            } else if (type === 'side') {
+                return [1, 3, 5, 7];
+            } else if (type === 'center') {
+                return [4];
+            }
+        },
+
         is_full: function() {
             var i = 0, len = state.length;
             for (; i < len; i++) {

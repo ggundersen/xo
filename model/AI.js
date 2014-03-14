@@ -23,12 +23,13 @@ var AI = function(val, team /*, mixins */) {
         human: 1, // TODO: Why do these options need to be configurable?
 
         // http://en.wikipedia.org/wiki/Tic-tac-toe#Strategy
+        // TODO: Moves these to AIRules.js
         MOVE_VALUE: {
             'WIN': 1,
             'BLOCK_WIN': 2,
             'FORK': 3,
             'BLOCK_FORK': 4,
-            'RANDOM': 5,
+            'EMPTY_CENTER': 5,
             'OPPOSITE_CORNER': 6,
             'EMPTY_CORNER': 7,
             'EMPTY_SIDE': 8,
