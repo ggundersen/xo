@@ -25,5 +25,8 @@
     height: 20px;
     margin: 0 auto;
     top: 30px;
-    width: 300px;
+    width: 302px;
+}
+button {
+    font-size: 11px;
 }

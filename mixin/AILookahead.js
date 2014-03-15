@@ -52,8 +52,6 @@ AILookahead = {
             });
         }
 
-        console.log(candidates);
-
         return candidates[Math.floor(Math.random() * candidates.length)];
     }
 
