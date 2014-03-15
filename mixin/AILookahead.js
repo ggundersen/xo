@@ -48,25 +48,16 @@ AILookahead = {
             }
         });
 
-        console.log(forks);
-/* --------------------------------------------------------------- */
-
         // TODO: This does not prevent the human from blocking *and*
         // forking at the same time.
         if (forks.length > 1) {
             board.each_empty(function(obj, idx) {
-
-                // Test each empty square
-                // See if human *still* has fork after they block
                 testScore = score.test_update(idx, 1);
-                
                 for (i = 0, len = testScore.length; i < len; i++) {
                     if (testScore[i].count === 2) {
                         count++;
                     }
                 }
-
-                
                 if (idx !== forks[0].idx && idx !== forks[1].idx) {
                     candidates.push(new Move(idx, moveVal));
                 }
