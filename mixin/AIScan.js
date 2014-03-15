@@ -3,20 +3,6 @@
 
 var AIScan = {
 
-    /*get_move: function(board, score) {
-        var suggestedMoves = [];
-        suggestedMoves.push(this.win(board, score, this.MOVE_VALUE.WIN));
-        suggestedMoves.push(this.block_win(board, score, this.MOVE_VALUE.BLOCK_WIN));
-        suggestedMoves.push(this.empty_center(board, this.MOVE_VALUE.EMPTY_CENTER));
-        suggestedMoves.push(this.empty_corner(board, this.MOVE_VALUE.EMPTY_CORNER));
-        suggestedMoves.push(this.random(board, this.MOVE_VALUE.RANDOM));
-
-        // `analyze_move` is defined by a separate mixin, which
-        // handles how a move out of the available moves is
-        // selected.
-        return this.analyze_move(suggestedMoves).idx;
-    },*/
-
     win: function(board, score, moveVal) {
         var suggestedIdx, suggestedMove;
         score.each(function(obj, i) {

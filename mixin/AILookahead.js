@@ -3,18 +3,6 @@
 
 AILookahead = {
 
-    /*get_move: function(board, score) {
-        var suggestedMoves = [];
-        suggestedMoves.push(this.win(board, score, this.MOVE_VALUE.WIN));
-        suggestedMoves.push(this.block_win(board, score, this.MOVE_VALUE.BLOCK_WIN));
-        suggestedMoves.push(this.fork(board, score, this.MOVE_VALUE.FORK));
-        suggestedMoves.push(this.block_fork(board, score, this.MOVE_VALUE.BLOCK_FORK));
-        suggestedMoves.push(this.empty_center(board, this.MOVE_VALUE.EMPTY_CENTER));
-        suggestedMoves.push(this.empty_corner(board, this.MOVE_VALUE.EMPTY_CORNER));
-        suggestedMoves.push(this.random(board, this.MOVE_VALUE.RANDOM));
-        return this.analyze_move(suggestedMoves).idx;
-    },*/
-
     fork: function(board, score, moveVal) {
         var i, len, count, testScore, suggestedMove;
 
