@@ -59,14 +59,6 @@ var Score = function(board) {
             x = idx % N,
             y = Math.floor(idx / N);
 
-        /*console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-        console.log('idx: ' + idx);
-        console.log('side: ' + side);
-        console.log('magic: ' + magic);
-        console.log('count: ' + count);
-        console.log('x: ' + x);
-        console.log('y: ' + y);*/
-
         state[x].count += count;
         state[x].magic += magic;
         state[y + N].count += count;
