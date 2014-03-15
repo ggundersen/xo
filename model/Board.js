@@ -30,6 +30,8 @@ var Board = function() {
         { piece: null, magic: 6 }
     ];
 
+    var LEN = state.length;
+
     return {
 
         N: N,
@@ -41,9 +43,9 @@ var Board = function() {
         },
             
         get: function(idx, magic) {
-            var i = 0, len = state.length;
+            var i = 0;
             if (magic) {
-                for (; i < len; i++) {
+                for (; i < LEN; i++) {
                     if (state[i].magic === magic) {
                         return i;
                     }
@@ -54,9 +56,18 @@ var Board = function() {
         },
 
         each: function(fn) {
-            var i = 0, len = state.length;
-            for (; i < len; i++) {
+            var i = 0;
+            for (; i < LEN; i++) {
                 fn(state[i], i);
+            }
+        },
+
+        each_empty: function(fn) {
+            var i = 0;
+            for (; i < LEN; i++) {
+                if (this.is_empty(i)) {
+                    fn(state[i], i);
+                }
             }
         },
 
@@ -83,8 +94,8 @@ var Board = function() {
         },
 
         is_full: function() {
-            var i = 0, len = state.length;
-            for (; i < len; i++) {
+            var i = 0;
+            for (; i < LEN; i++) {
                 if (this.is_empty(i)) {
                     return false;
                 }
