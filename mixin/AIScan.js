@@ -48,14 +48,17 @@ var AIScan = {
         var squareIdx,
             squareIdxs = board.get_square_type(type),
             i = 0,
-            len = squareIdxs.length;
+            len = squareIdxs.length,
+            candidates = [];
        
         for (; i < len; i++) {
             squareIdx = squareIdxs[i];
             if (board.is_empty(squareIdx)) {
-                return new Move(squareIdx, moveVal);
+                candidates.push(new Move(squareIdx, moveVal));
             }
-        }    
+        }
+
+        return candidates[Math.floor(Math.random() * candidates.length)];
     }
 
 };

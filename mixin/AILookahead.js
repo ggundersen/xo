@@ -26,7 +26,8 @@ AILookahead = {
 
     block_fork: function(board, score, moveVal) {
         var i, len, count, testScore, suggestedMove,
-            forkingMoves = [];
+            forkingMoves = [],
+            candidates = [];
 
         board.each(function(obj, idx) {
             count = 0;
@@ -43,18 +44,17 @@ AILookahead = {
             }
         });
 
-
         if (forkingMoves.length > 1) {
             board.each(function(obj, idx) {
                 if (board.is_empty(idx) && idx !== forkingMoves[0].idx && idx !== forkingMoves[1].idx) {
-                    suggestedMove = new Move(idx, moveVal);
+                    candidates.push(new Move(idx, moveVal));
                 }
             });
         }
 
-        return suggestedMove;
+        console.log(candidates);
+
+        return candidates[Math.floor(Math.random() * candidates.length)];
     }
-
-
 
 };

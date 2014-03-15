@@ -1,8 +1,4 @@
 /* AIRules
- *
- * There are different ways of analyzing *which* move to select.
- * Eventually, this could be configured with a probability of
- * selecting the correct rule.
  * --------------------------------------------------------------- */
 
 var AIRules = {
