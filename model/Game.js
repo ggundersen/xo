@@ -6,6 +6,7 @@ var Game = function(options) {
     this.board = new Board();
     this.events = new Events();
     this.ai = new AIFactory(options.ai);
+
     this.score = new Score(this.board);
     
     this.board.view = new BoardView(this, options.bootstrapperEl, options.css);

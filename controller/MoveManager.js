@@ -38,6 +38,8 @@ MoveManager.prototype.handle_move = function(game, idx, player, team) {
     this.board.set(idx, player);
     this.board.view.update(idx);
     this.game.turn += 1;
+    
+    // TODO: It seems really stupid to have to do this all manually. Can we not?
     this.game.score.update(idx, team);
 
     var gameOver = this.game.score.is_over(),

@@ -1,7 +1,7 @@
 /* Score
  *
- * The Score metaobject works against the `state` array. Each object
- * in the array represents a row as follows:
+ * The Score metaobject works against the `state` stateay. Each object
+ * in the stateay represents a row as follows:
  *
  * x1, x2, x3, y1, y2, y3, diag1, diag2
  *
@@ -24,7 +24,7 @@
  * --------------------------------------------------------------- */
 
 var Score = function(board) {
-   
+    
     // These assignments are only for readablility.
     var N = board.N;
     var M = board.M;
@@ -40,66 +40,60 @@ var Score = function(board) {
         { count: 0, magic: 0 }
     ];
     
+    // TODO: Stop baking in these values.
+    board.each(function(squareObj, idx) {
+        if (squareObj.piece === XO.CROSSES) {
+            update(idx, 1);
+        } else if (squareObj.piece === XO.NOUGHTS) {
+            update(idx, -1);
+        }
+    });
+
+    // index <=> (x, y) conversions for board size N
+    // i = x + y * N
+    // x = i % N
+    // y = Math.floor(i / N)
+    function update(idx, side) {
+        var magic = board.get(idx).magic * side,
+            count = side,
+            x = idx % N,
+            y = Math.floor(idx / N);
+
+        /*console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        console.log('idx: ' + idx);
+        console.log('side: ' + side);
+        console.log('magic: ' + magic);
+        console.log('count: ' + count);
+        console.log('x: ' + x);
+        console.log('y: ' + y);*/
+
+        state[x].count += count;
+        state[x].magic += magic;
+        state[y + N].count += count;
+        state[y + N].magic += magic;
+        
+        // (0,0) => (1,1) => (2,2)
+        if (x === y) {
+            state[2 * N].count += count;
+            state[2 * N].magic += magic;
+        }
+        // (0,2) => (1,1) => (2,0)
+        if (x + y === N - 1) {
+            state[2 * N + 1].count += count;
+            state[2 * N + 1].magic += magic;
+        }
+    };
+    
     return {
 
         M: board.M,
+
+        update: update,
 
         each: function(fn) {
             for (var i = 0, len = state.length; i < len; i++) {
                 fn(state[i], [i]);
             }
-        },
-
-        update: function(idx, side) {
-            this.internal_update(idx, side, state);
-        },
-
-        // We create a deep clone so as to not modify the actual 
-        // state of the game.
-        test_update: function(idx, side) {
-            var dest, prop, src,
-                clone = [],
-                i = 0,
-                len = state.length;
-
-            for (; i < len; i++) {
-                dest = {};
-                dest.magic = state[i].magic;
-                dest.count = state[i].count;
-                clone.push(dest);
-            }
-            
-            return this.internal_update(idx, side, clone);
-        },
-
-        // This will update whichever state object you give it.
-        // index <=> (x, y) conversions for board size N
-        // i = x + y * N
-        // x = i % N
-        // y = Math.floor(i / N)
-        internal_update: function(idx, side, arr) {
-            var magic = board.get(idx).magic * side,
-                count = 1 * side,
-                x = idx % N,
-                y = Math.floor(idx / N);
-
-            arr[x].count += count;
-            arr[x].magic += magic;
-            arr[y + N].count += count;
-            arr[y + N].magic += magic;
-            
-            // (0,0) => (1,1) => (2,2)
-            if (x === y) {
-                arr[2 * N].count += count;
-                arr[2 * N].magic += magic;
-            }
-            // (0,2) => (1,1) => (2,0)
-            if (x + y === N - 1) {
-                arr[2 * N + 1].count += count;
-                arr[2 * N + 1].magic += magic;
-            }
-
-            return arr;
         },
 
         is_over: function() {
