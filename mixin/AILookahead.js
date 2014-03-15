@@ -44,6 +44,7 @@ AILookahead = {
             }
         });
 
+        // TODO: This does not prevent the human from blocking *and* forking at the same time.
         if (forkingMoves.length > 1) {
             board.each(function(obj, idx) {
                 if (board.is_empty(idx) && idx !== forkingMoves[0].idx && idx !== forkingMoves[1].idx) {
