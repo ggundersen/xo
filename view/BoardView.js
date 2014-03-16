@@ -1,14 +1,15 @@
 /* BoardView
  * --------------------------------------------------------------- */
 
-var BoardView = function(game, el, css) { 
+var BoardView = function(board, events, css) { 
 
 	var views = [];
+	el = document.getElementById('board');
     el.innerHTML = '';
 	el.style.width = el.style.height = css.boardWidth + 'px';
 
-	game.board.each(function(obj, idx) {
-        views.push(new SquareView(game, idx, el, css));
+	board.each(function(obj, idx) {
+        views.push(new SquareView(idx, board, events, el, css));
 	});
 
 	return {

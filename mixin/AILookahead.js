@@ -43,8 +43,8 @@ AILookahead = {
         });
 
         if (forks.length > 1) {
-            //console.log('The human can fork you here:');
-            //console.log(forks);
+            Log.note('The human can fork you here:');
+            //Log.note(forks.toString());
 
             var forces = [];
             board.each_empty(function(obj, idx) {

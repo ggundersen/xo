@@ -9,7 +9,7 @@ var Game = function(options) {
 
     this.score = new Score(this.board);
     
-    this.board.view = new BoardView(this, options.bootstrapperEl, options.css);
+    this.board.view = new BoardView(this.board, this.events, options.css);
     
     // TODO: This guy has to be instantiate *after* this.score,
     // otherwise the AI won't know the score. This seems too

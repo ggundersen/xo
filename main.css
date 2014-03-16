@@ -1,8 +1,23 @@
 #board,
-#optionsView {
+#options,
+#log,
+#intro {
 	margin: 0 auto;
 	position: relative;
 	top: 20px;
+}
+/* Width is controlled by JavaScript for radius calculations */
+#board {}
+
+#intro,
+#options {
+    width: 255px;
+}
+#intro {
+    color: #aaa;
+    font-family: helvetica, arial, 'san-serif';
+    font-size: 14px;
+    padding-bottom: 10px;
 }
 .square {
     background: #ddd;
@@ -23,10 +38,18 @@
 }
 #options {
     height: 20px;
-    margin: 0 auto;
-    top: 30px;
-    width: 302px;
+    margin-bottom: 20px;
 }
 button {
     font-size: 11px;
+}
+#log {
+    border: 1px solid #bbb;
+    padding: 5px;
+    color: #aaa;
+    font-family: helvetica, arial, 'san-serif';
+    font-size: 10px;
+    height: 75px;
+    margin-top: 10px;
+    width: 242px;
 }

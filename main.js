@@ -22,29 +22,19 @@ window.onload = function() {
         }
     };
 
-    // This config object does not need to be used, but it is a good
-    // one-stop shop for configuration. I believe this is the
-    // Decorator Pattern.
     var config = {
-        // `val` is immutable for scoring; `team` is not.
         human: {
             val: 1,
             team: XO.CROSSES
-            //team: XO.NOUGHTS
         },
         ai: {
             val: -1,
             team: XO.NOUGHTS
-            //team: XO.CROSSES
         },
-        bootstrapperEl: document.getElementById('board'),
         css: {
-            boardWidth: 300,
-            piece: {
-                thickness: 10,
-                xColor: '#ff0000',
-                oColor: '#000000'
-            }
+            boardWidth: 255,
+            crossColor: '#ff0000',
+            noughtColor: '#000000'
         }
     };
 
@@ -60,13 +50,13 @@ window.onload = function() {
         config.ai.team = (config.human.team === XO.CROSSES ? XO.NOUGHTS : XO.CROSSES);
         config.ai.type = ai;
 
-        // Set colors so human is always red
+        // Human is always red.
         if (config.ai.team === XO.CROSSES) {
-            config.css.piece.xColor = '#000000';
-            config.css.piece.oColor = '#ff0000';
+            config.css.crossesColor = '#000000';
+            config.css.noughtsColor = '#ff0000';
         } else {
-            config.css.piece.xColor = '#ff0000';
-            config.css.piece.oColor = '#000000';
+            config.css.crossesColor = '#ff0000';
+            config.css.noughtsColor = '#000000';
         }
 
         game = new Game(config);
