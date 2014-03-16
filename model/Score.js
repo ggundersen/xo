@@ -40,20 +40,11 @@ var Score = function(board) {
         { count: 0, magic: 0 }
     ];
     
-    // TODO: Stop baking in these values.
-    board.each(function(squareObj, idx) {
-        if (squareObj.piece === XO.CROSSES) {
-            update(idx, 1);
-        } else if (squareObj.piece === XO.NOUGHTS) {
-            update(idx, -1);
-        }
-    });
-
     // index <=> (x, y) conversions for board size N
     // i = x + y * N
     // x = i % N
     // y = Math.floor(i / N)
-    function update(idx, side) {
+    var update = function(idx, side) {
         var magic = board.get(idx).magic * side,
             count = side,
             x = idx % N,
@@ -75,7 +66,24 @@ var Score = function(board) {
             state[2 * N + 1].magic += magic;
         }
     };
-    
+ 
+    board.each(function(squareObj, idx) {
+        if (squareObj.piece === XO.CROSSES) {
+            if (XO.human.team === XO.CROSSES) {
+                update(idx, XO.human.VAL);
+            } else {
+                update(idx, XO.ai.VAL);
+            }
+        } else if (squareObj.piece === XO.NOUGHTS) {
+            if (XO.human.team === XO.NOUGHTS) {
+                update(idx, XO.human.VAL);
+            } else {
+                update(idx, XO.ai.VAL);
+            }
+        }
+    });
+
+     
     return {
 
         M: board.M,

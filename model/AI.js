@@ -1,24 +1,23 @@
 /* AI
  * --------------------------------------------------------------- */
 
-var AI = function(val, team /*, mixins */) {
+var AI = function(/* mixins */) {
 
     // `new` is syntactic sugar. `AI` does not return an instance of
     // AI. Rather, it returns an object it builds at runtime.
-    var aiInstance = {
-        val: val,
-        team: team,
-        human: 1, // TODO: Why do these options need to be configurable?
-    };
+    var aiInstance = {};
 
-    var mixin = function(obj, behaviors) {
-        for (var i = 0; i < behaviors.length; i++) {
-            for (var prop in behaviors[i]) {
-                obj[prop] = behaviors[i][prop];
+    var mix = function(obj, mixins) {
+        var i = 0,
+            len = mixins.length;
+
+        for (var i = 0; i < mixins.length; i++) {
+            for (var prop in mixins[i]) {
+                obj[prop] = mixins[i][prop];
             }
         }
         return obj;
     };
 
-    return mixin(aiInstance, Array.prototype.slice.call(arguments, 2));
+    return mix(aiInstance, Array.prototype.slice.call(arguments));
 };

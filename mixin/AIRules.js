@@ -44,19 +44,19 @@ var AIRules = {
 
         move = this.empty_center(board);
         if (this.is_valid(move)) {
-            Log.note('Play center');
+            Log.note('Play open center');
             return move;
         }
         
         move = this.empty_corner(board);
         if (this.is_valid(move)) {
-            Log.note('Play a corner');
+            Log.note('Play open corner');
             return move;
         }
         
         move = this.random(board);
         if (this.is_valid(move)) {
-            Log.note('Play a square randomly');
+            Log.note('Play random square');
             return move;
         }
     },
@@ -68,9 +68,13 @@ var AIRules = {
         return false;
     },
 
-    first_move: function(board, score) {
+    first_move: function(board) {
         if (board.is_empty()) {
-            console.log('ais first move');    
+            if (Math.random() < .2) {
+                return this.empty_center(board);
+            } else {
+                return this.empty_corner(board);
+            }
         }
     }
 

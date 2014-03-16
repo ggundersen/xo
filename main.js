@@ -1,37 +1,35 @@
-/* xo
+/* XO
  * 2014-03-01
  * Gregory Gundersen
- *
- * http://www.ntu.edu.sg/home/ehchua/programming/java/JavaGame_TicTacToe_AI.html
- * http://www.mathworks.com/moler/exm/chapters/tictactoe.pdf
  * =============================================================== */
 
 window.XO = {};
 
 window.onload = function() {
 
-    XO = {
-        CROSSES: 'X',
-        NOUGHTS: 'O',
-        // TODO: These are baked in values here and in the DOM.
-        // Create a view for the options and pass these values in.
-        AI_TYPE: {
-            RANDOM: 'random',
-            SCAN: 'scan',
-            LOOKAHEAD: 'lookahead'
-        },
-        HUMAN_VAL: 1,
-        AI_VAL: -1
+    // Game constants
+    XO.CROSSES = 'X';
+    XO.NOUGHTS = 'O';
+    XO.AI_SKILL = {
+        RANDOM: 'Random',
+        SCAN: 'Scan',
+        LOOKAHEAD: 'Lookahead'
+    };
+    
+    // Globally accessible objects for the human's team and value.
+    XO.human = {
+        VAL: 1,
+        team: 'X'
+    };
+    XO.ai = {
+        VAL: -1,
+        team: 'O'
     };
 
     var config = {
-        human: {
-            val: 1,
-            team: XO.CROSSES
-        },
         ai: {
-            val: -1,
-            team: XO.NOUGHTS
+            team: XO.NOUGHTS,
+            skill: XO.AI_SKILL.LOOKAHEAD
         },
         css: {
             boardWidth: 300,
@@ -40,19 +38,17 @@ window.onload = function() {
         }
     };
 
-    var game = new Game(config);
+    var init_game = function() {
+        var teamNode = document.getElementById('aiTeam'),
+            aiTeam = teamNode.options[teamNode.selectedIndex].text,
+            skillNode = document.getElementById('aiSkill'),
+            aiSkill = skillNode.options[skillNode.selectedIndex].text;
 
-    document.getElementById('newGame').onclick = function() {
-        var aiNode = document.getElementById('ai'),
-            aiType = aiNode.options[aiNode.selectedIndex].text,
-            playerNode = document.getElementById('playersTeam'),
-            playerTeam = playerNode.options[playerNode.selectedIndex].text;
+        config.ai.skill = aiSkill[0] === '(' ? config.ai.skill : aiSkill;
+        XO.ai.team = aiTeam[0] === '(' ? config.ai.team : aiTeam;
+        XO.human.team = (aiTeam === XO.CROSSES ? XO.NOUGHTS : XO.CROSSES);
 
-        config.human.team = playerTeam;
-        config.ai.team = (playerTeam === XO.CROSSES ? XO.NOUGHTS : XO.CROSSES);
-        config.ai.type = aiType;
-
-        // Human is always red.
+        // Ensure the human is always red.
         if (config.ai.team === XO.CROSSES) {
             config.css.crossesColor = '#000000';
             config.css.noughtsColor = '#ff0000';
@@ -61,7 +57,10 @@ window.onload = function() {
             config.css.noughtsColor = '#000000';
         }
 
-        game = new Game(config);
-    };
+        new Game(config);
+    }
+
+    init_game(config);
+    document.getElementById('newGame').onclick = init_game;
 
 };

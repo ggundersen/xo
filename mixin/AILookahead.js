@@ -4,12 +4,12 @@
 AILookahead = {
 
     fork: function(board, score) {
-        return this.get_forks(board, score, XO.AI_VAL)[0];
+        return this.get_forks(board, score, XO.ai.VAL)[0];
     },
 
     block_fork: function(board, score) {
         var move, moves, forces,
-            forks = this.get_forks(board, score, XO.HUMAN_VAL);
+            forks = this.get_forks(board, score, XO.human.VAL);
 
         if (forks.length > 1) {
             Log.whisper('Can be forked on multiple squares: ' + Log.to_string(forks, 'idx'));
@@ -19,9 +19,9 @@ AILookahead = {
             Log.whisper('Filter moves in which opponent can block and fork');
             for (var x = 0; x < forces.length; x++) {
                 var scoreClone = new Score(board);
-                scoreClone.update(forces[x].idx, XO.AI_VAL);
+                scoreClone.update(forces[x].idx, XO.ai.VAL);
                 scoreClone.each(function(scoreObj, i) {
-                    if (scoreClone.is_win(scoreObj, XO.AI_VAL)) {
+                    if (scoreClone.is_win(scoreObj, XO.ai.VAL)) {
                         var magic = board.M + scoreObj.magic;
                         var response =  board.get(undefined, magic);
 
@@ -68,9 +68,9 @@ AILookahead = {
         var forces = [];
         board.each_empty(function(obj, idx) {
             var scoreClone = new Score(board);
-            scoreClone.update(idx, XO.AI_VAL);
+            scoreClone.update(idx, XO.ai.VAL);
             scoreClone.each(function(scoreObj) {
-                if (scoreClone.is_win(scoreObj, XO.AI_VAL)) {
+                if (scoreClone.is_win(scoreObj, XO.ai.VAL)) {
                     forces.push(new Move(idx));
                 }
             });

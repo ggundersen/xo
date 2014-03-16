@@ -1,20 +1,19 @@
 /* AIFactory
  * --------------------------------------------------------------- */
 
-var AIFactory = function(options) {
-    var aiInstance,
-        type = options.type,
-        team = options.team,
-        val = options.val;
-    
+var AIFactory = function(skill) {
+    var aiInstance;
+   
     // TODO: Should this be a switch statement?
-    if (type === XO.AI_TYPE.RANDOM) {
-        aiInstance = new AI(val, team, AIBase, AIRandom, AIRules);
-    } else if (type === XO.AI_TYPE.SCAN) {
-        aiInstance = new AI(val, team, AIBase, AIRandom, AIScan, AIRules);
-    } else {
-        aiInstance = new AI(val, team, AIBase, AIRandom, AIScan, AILookahead, AIRules);
+    if (skill === XO.AI_SKILL.RANDOM) {
+        aiInstance = new AI(AIBase, AIRandom, AIRules);
+    } else if (skill === XO.AI_SKILL.SCAN) {
+        aiInstance = new AI(AIBase, AIRandom, AIScan, AIRules);
+    } else if (skill === XO.AI_SKILL.LOOKAHEAD) {
+        aiInstance = new AI(AIBase, AIRandom, AIScan, AILookahead, AIRules);
     }
+
+    console.log(aiInstance);
 
     return aiInstance;
 };

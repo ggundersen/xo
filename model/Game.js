@@ -6,10 +6,8 @@ var Game = function(options) {
     this.board = new Board();
     this.events = new Events();
     this.human = options.human;
-    this.ai = new AIFactory(options.ai);
-
+    this.ai = new AIFactory(options.ai.skill);
     this.score = new Score(this.board);
-    
     this.board.view = new BoardView(this.board, this.events, options.css);
     
     // TODO: This guy has to be instantiate *after* this.score,
