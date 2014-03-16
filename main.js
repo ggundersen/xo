@@ -42,13 +42,13 @@ window.onload = function() {
 
     document.getElementById('newGame').onclick = function() {
         var aiNode = document.getElementById('ai'),
-            ai = aiNode.options[aiNode.selectedIndex].text,
+            aiType = aiNode.options[aiNode.selectedIndex].text,
             playerNode = document.getElementById('playersTeam'),
             player = playerNode.options[playerNode.selectedIndex].text;
 
         config.human.team = player;
         config.ai.team = (config.human.team === XO.CROSSES ? XO.NOUGHTS : XO.CROSSES);
-        config.ai.type = ai;
+        config.ai.type = aiType;
 
         // Human is always red.
         if (config.ai.team === XO.CROSSES) {

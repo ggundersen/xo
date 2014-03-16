@@ -30,8 +30,8 @@ MoveManager.prototype.handle_human = function(idx) {
 };
 
 MoveManager.prototype.handleAI = function() {
-    var idx = this.game.ai.get_move(this.game.board, this.game.score);
-    this.handle_move(this.game, idx, this.ai.team, this.ai.val);
+    var move = this.game.ai.get_move(this.game.board, this.game.score);
+    this.handle_move(this.game, move.idx, this.ai.team, this.ai.val);
 };
 
 MoveManager.prototype.handle_move = function(game, idx, player, team) {
@@ -55,6 +55,7 @@ MoveManager.prototype.handle_move = function(game, idx, player, team) {
 };
 
 MoveManager.prototype.game_over = function(msg) {
+    Log.clear();
     Log.note(msg);
     this.events.unsubscribe('clickSquare');
 };

@@ -3,48 +3,48 @@
 
 var AIScan = {
 
-    win: function(board, score, moveVal) {
+    win: function(board, score) {
         var suggestedIdx, suggestedMove;
         score.each(function(obj, i) {
             // TODO: Stop baking in the AI's value as a number
             // literal.
             if (score.is_win(obj, -1)) {
                 suggestedIdx = board.get(undefined, score.M + obj.magic);
-                suggestedMove = new Move(suggestedIdx, moveVal);
+                suggestedMove = new Move(suggestedIdx);
             }
         });
         return suggestedMove;
     },
     
-    block_win: function(board, score, moveVal) {
+    block_win: function(board, score) {
         var suggestedIdx, suggestedMove;
         score.each(function(obj, i) {
             if (score.is_win(obj, 1)) {
                 suggestedIdx = board.get(undefined, score.M - obj.magic);
-                suggestedMove = new Move(suggestedIdx, moveVal);
+                suggestedMove = new Move(suggestedIdx);
             }
 
         });
         return suggestedMove;
     },
 
-    empty_center: function(board, moveVal) {
-        return this.empty_square_by_type(board, moveVal, 'center');
+    empty_center: function(board) {
+        return this.empty_square_by_type(board, 'center');
     },
 
     // TODO !!
-    opposite_corner: function(board, moveVal) {
+    opposite_corner: function(board) {
     },
 
-    empty_corner: function(board, moveVal) {
-        return this.empty_square_by_type(board, moveVal, 'corner');
+    empty_corner: function(board) {
+        return this.empty_square_by_type(board, 'corner');
     },
 
-    empty_side: function(board, moveVal) {
-        return this.empty_square_by_type(board, moveVal, 'side');
+    empty_side: function(board) {
+        return this.empty_square_by_type(board, 'side');
     },
 
-    empty_square_by_type: function(board, moveVal, type) {
+    empty_square_by_type: function(board, type) {
         var squareIdx,
             squareIdxs = board.get_square_type(type),
             i = 0,
@@ -54,7 +54,7 @@ var AIScan = {
         for (; i < len; i++) {
             squareIdx = squareIdxs[i];
             if (board.is_empty(squareIdx)) {
-                candidates.push(new Move(squareIdx, moveVal));
+                candidates.push(new Move(squareIdx));
             }
         }
 

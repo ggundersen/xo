@@ -1,41 +1,77 @@
 /* AIRules
+ *
+ * http://en.wikipedia.org/wiki/Tic-tac-toe#Strategy
  * --------------------------------------------------------------- */
 
 var AIRules = {
   
-    // http://en.wikipedia.org/wiki/Tic-tac-toe#Strategy
+    // This is brute-force-y but that seems like the most
+    // straightforward way to lazily evaluate.
     get_move: function(board, score) {
-        var suggestedMoves = [];
-        suggestedMoves.push(this.win(board, score, 1));
-        suggestedMoves.push(this.block_win(board, score, 2));
-        suggestedMoves.push(this.fork(board, score, 3));
-        suggestedMoves.push(this.block_fork(board, score, 4));
-        suggestedMoves.push(this.empty_center(board, 5));
+        var move;
+
+        Log.clear();
+        
+        move = this.win(board, score);
+        if (this.is_valid(move)) {
+            return move;
+        } else {
+            Log.whisper('No winning move');
+        }
+    
+        move = this.block_win(board, score);
+        if (this.is_valid(move)) {
+            return move;
+        } else {
+            Log.whisper('No need to block');
+        }
+
+        move = this.fork(board, score);
+        if (this.is_valid(move)) {
+            return move;
+        } else {
+            Log.whisper('No forking move');
+        }
+
+        move = this.block_fork(board, score);
+        if (this.is_valid(move)) {
+            return move;
+        } else {
+            Log.whisper('No fork to block');
+        }
+
+        move = this.empty_center(board);
+        if (this.is_valid(move)) {
+            Log.note('Play center');
+            return move;
+        } else {
+            Log.whisper('The center is not empty');
+        }
+        
         // opposite corner: 6
-        suggestedMoves.push(this.empty_corner(board, 7));
+        
+        move = this.empty_corner(board);
+        if (this.is_valid(move)) {
+            return move;
+        } else {
+            Log.whisper('The corners are not empty');
+        }
+        
         // empty side: 8
-        suggestedMoves.push(this.random(board, 9));
-        return this.analyze_move(suggestedMoves).idx;
+
+        move = this.random(board);
+        if (this.is_valid(move)) {
+            return move;
+        } else {
+            Log.error('No move was made');
+        }
     },
 
-    analyze_move: function(moves) {
-        var i = 0,
-            finalMove = new Move(undefined, 999),
-            move;
-
-        for (; i < moves.length; i++) {
-            move = moves[i];
-            if (move &&
-                typeof move.idx === 'number' &&
-                move.val < finalMove.val
-            ) {
-                finalMove = move;
-            }
-        };
-
-        return finalMove;
+    is_valid: function(move) {
+        if (move && typeof move.idx === 'number') {
+            return true;
+        }
+        return false;
     }
 
 };
-
-

@@ -1,7 +1,6 @@
 /* Move
  * --------------------------------------------------------------- */
 
-Move = function(idx, val) {
+Move = function(idx) {
     this.idx = idx;
-    this.val = val;
 };
