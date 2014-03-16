@@ -19,7 +19,9 @@ window.onload = function() {
             RANDOM: 'random',
             SCAN: 'scan',
             LOOKAHEAD: 'lookahead'
-        }
+        },
+        HUMAN_VAL: 1,
+        AI_VAL: -1
     };
 
     var config = {
@@ -44,10 +46,10 @@ window.onload = function() {
         var aiNode = document.getElementById('ai'),
             aiType = aiNode.options[aiNode.selectedIndex].text,
             playerNode = document.getElementById('playersTeam'),
-            player = playerNode.options[playerNode.selectedIndex].text;
+            playerTeam = playerNode.options[playerNode.selectedIndex].text;
 
-        config.human.team = player;
-        config.ai.team = (config.human.team === XO.CROSSES ? XO.NOUGHTS : XO.CROSSES);
+        config.human.team = playerTeam;
+        config.ai.team = (playerTeam === XO.CROSSES ? XO.NOUGHTS : XO.CROSSES);
         config.ai.type = aiType;
 
         // Human is always red.

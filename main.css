@@ -17,7 +17,7 @@ button {
 #board - width is handled by JavaScript for noughts radius's calculations */
 #intro,
 #options {
-    width: 265px;
+    width: 250px;
 }
 #intro {
     color: #595959;
@@ -46,6 +46,10 @@ button {
 }
 .whisper {
     color: #aaa;
+}
+.shout {
+    color: #000;
+    font-weight: 700;
 }
 .warn {
     color: #ff0000;

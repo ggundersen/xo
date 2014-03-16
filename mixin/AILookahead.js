@@ -3,48 +3,39 @@
 
 AILookahead = {
 
-    fork: function(board, score, moveVal) {
+    find_forks: function(board, score, side) {
         var forks = [];
 
         board.each_empty(function(obj, idx) {
             var winCount = 0,
                 scoreClone = new Score(board);
             
-            scoreClone.update(idx, -1);
+            scoreClone.update(idx, side);
             scoreClone.each(function(scoreObj) {
-                if (scoreClone.is_win(scoreObj, -1)) {
+                if (scoreClone.is_win(scoreObj, side)) {
                     winCount++;
                 }
             });
             if (winCount > 1) {
-                forks.push(new Move(idx, moveVal));
+                forks.push(new Move(idx));
             }
         });
 
-        return forks[0];
+        return forks;
     },
 
-    block_fork: function(board, score, moveVal) {
-        var forks = [];
+    fork: function(board, score) {
+        // TODO: Stop baking this value in.
+        return this.find_forks(board, score, -1)[0];
+    },
 
-        board.each_empty(function(obj, idx) {
-            var winCount = 0,
-                scoreClone = new Score(board);
-            
-            scoreClone.update(idx, 1);
-            scoreClone.each(function(scoreObj) {
-                if (scoreClone.is_win(scoreObj, 1)) {
-                    winCount++;
-                }
-            });
-            if (winCount > 1) {
-                forks.push(new Move(idx, moveVal));
-            }
-        });
+    block_fork: function(board, score) {
+        var forks = this.find_forks(board, score, 1);
 
         if (forks.length > 1) {
-            Log.note('The human can fork you here:');
-            //Log.note(forks.toString());
+
+            Log.whisper('The human can fork you on ');
+            console.log(forks);
 
             var forces = [];
             board.each_empty(function(obj, idx) {
@@ -53,13 +44,10 @@ AILookahead = {
 
                 scoreClone.each(function(scoreObj) {
                     if (scoreClone.is_win(scoreObj, -1)) {
-                        forces.push(new Move(idx, moveVal));
+                        forces.push(new Move(idx));
                     }
                 });
             });
-
-            //Log.note('You can force the human to respond here:');
-            //Log.note(forces);
 
             for (var x = 0; x < forces.length; x++) {
                 var scoreClone = new Score(board);
@@ -72,26 +60,20 @@ AILookahead = {
 
                         for (var g = 0; g < forks.length; g++) {
                             if (response === forks[g].idx) {
-                                //console.log('If you play this idx: ' + forces[x].idx);
-                                //console.log('The human will block and fork here: ' + forks[g].idx);
                                 forces[x] = undefined; // Kill this move.
                             }
                         }
-                        //console.log('The human will block here MAGIC: ' + board.get(undefined, magic));
-                        //humansBestMoves.push(board.get(undefined, magic));
-                        //forces[x] = undefined;
                     }
                 });
             }
 
-            //console.log(forces);
             var finalMoves = [];
             for (var w = 0; w < forces.length; w++) {
                 if (forces[w] !== undefined) {
                     finalMoves.push(forces[w]);
                 }
             }
-        } // END OF IF FORK
+        }
 
         if (finalMoves) {
             var pickAFuckingMove = finalMoves[Math.floor(Math.random() * finalMoves.length)];

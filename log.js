@@ -21,6 +21,10 @@ Log = {
         this.log(text, 'whisper');
     },
 
+    shout: function(text) {
+        this.log(text, 'shout');
+    },
+
     warn: function(text) {
         this.log(text, 'warn');
     },

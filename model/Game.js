@@ -5,6 +5,7 @@ var Game = function(options) {
     this.turn = 0;
     this.board = new Board();
     this.events = new Events();
+    this.human = options.human;
     this.ai = new AIFactory(options.ai);
 
     this.score = new Score(this.board);
@@ -14,7 +15,7 @@ var Game = function(options) {
     // TODO: This guy has to be instantiate *after* this.score,
     // otherwise the AI won't know the score. This seems too
     // tightly coupled.
-    this.moveManager = new MoveManager(this, options.human, options.ai);
+    this.moveManager = new MoveManager(this, options.ai);
 };
 
 Game.prototype.is_turn = function(team) {

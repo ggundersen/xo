@@ -14,56 +14,48 @@ var AIRules = {
         
         move = this.win(board, score);
         if (this.is_valid(move)) {
+            Log.note('Go for the win.');
             return move;
-        } else {
-            Log.whisper('No winning move');
         }
-    
+
         move = this.block_win(board, score);
         if (this.is_valid(move)) {
+            Log.note('Block a winning move.');
             return move;
-        } else {
-            Log.whisper('No need to block');
         }
 
         move = this.fork(board, score);
         if (this.is_valid(move)) {
+            Log.note('Fork the opponent.');
             return move;
-        } else {
-            Log.whisper('No forking move');
         }
 
         move = this.block_fork(board, score);
         if (this.is_valid(move)) {
+            Log.note('A forking is coming. Block it.');
             return move;
-        } else {
-            Log.whisper('No fork to block');
         }
 
         move = this.empty_center(board);
         if (this.is_valid(move)) {
             Log.note('Play center');
             return move;
-        } else {
-            Log.whisper('The center is not empty');
         }
         
-        // opposite corner: 6
+        // TODO: opposite corner: 6
         
         move = this.empty_corner(board);
         if (this.is_valid(move)) {
+            Log.note('Play a corner');
             return move;
-        } else {
-            Log.whisper('The corners are not empty');
         }
         
-        // empty side: 8
+        // TODO: empty side: 8
 
         move = this.random(board);
         if (this.is_valid(move)) {
+            Log.note('Play a square randomly.');
             return move;
-        } else {
-            Log.error('No move was made');
         }
     },
 
