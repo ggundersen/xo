@@ -58,8 +58,8 @@ AILookahead = {
                 });
             });
 
-            //console.log('You can force the human to respond here:');
-            //console.log(forces);
+            //Log.note('You can force the human to respond here:');
+            //Log.note(forces);
 
             for (var x = 0; x < forces.length; x++) {
                 var scoreClone = new Score(board);
