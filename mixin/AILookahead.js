@@ -3,16 +3,16 @@
 
 AILookahead = {
 
-    find_forks: function(board, score, side) {
+    get_forks: function(board, score, sideVal) {
         var forks = [];
 
         board.each_empty(function(obj, idx) {
             var winCount = 0,
                 scoreClone = new Score(board);
             
-            scoreClone.update(idx, side);
+            scoreClone.update(idx, sideVal);
             scoreClone.each(function(scoreObj) {
-                if (scoreClone.is_win(scoreObj, side)) {
+                if (scoreClone.is_win(scoreObj, sideVal)) {
                     winCount++;
                 }
             });
@@ -24,43 +24,48 @@ AILookahead = {
         return forks;
     },
 
+    get_forces: function(board, score) {
+        var forces = [];
+        board.each_empty(function(obj, idx) {
+            var scoreClone = new Score(board);
+            scoreClone.update(idx, XO.AI_VAL);
+            scoreClone.each(function(scoreObj) {
+                if (scoreClone.is_win(scoreObj, XO.AI_VAL)) {
+                    forces.push(new Move(idx));
+                }
+            });
+        });
+        return forces;
+    },
+
     fork: function(board, score) {
-        // TODO: Stop baking this value in.
-        return this.find_forks(board, score, -1)[0];
+        return this.get_forks(board, score, XO.AI_VAL)[0];
     },
 
     block_fork: function(board, score) {
-        var forks = this.find_forks(board, score, 1);
+        var forces,
+            forks = this.get_forks(board, score, XO.HUMAN_VAL);
 
         if (forks.length > 1) {
+            Log.whisper('Can be forked on multiple squares: ' + Log.to_string(forks, 'idx'));
+            Log.whisper('Look for forcing moves.')
 
-            Log.whisper('The human can fork you on ');
-            console.log(forks);
+            forces = this.get_forces(board, score);
 
-            var forces = [];
-            board.each_empty(function(obj, idx) {
-                var scoreClone = new Score(board);
-                scoreClone.update(idx, -1);
-
-                scoreClone.each(function(scoreObj) {
-                    if (scoreClone.is_win(scoreObj, -1)) {
-                        forces.push(new Move(idx));
-                    }
-                });
-            });
+            Log.whisper('Potential forcing moves are ' + Log.to_string(forces, 'idx'));
 
             for (var x = 0; x < forces.length; x++) {
                 var scoreClone = new Score(board);
 
-                scoreClone.update(forces[x].idx, -1);
+                scoreClone.update(forces[x].idx, XO.AI_VAL);
                 scoreClone.each(function(scoreObj, i) {
-                    if (scoreClone.is_win(scoreObj, -1)) {
-                        var magic = 15 + scoreObj.magic;
+                    if (scoreClone.is_win(scoreObj, XO.AI_VAL)) {
+                        var magic = board.M + scoreObj.magic;
                         var response =  board.get(undefined, magic);
 
                         for (var g = 0; g < forks.length; g++) {
                             if (response === forks[g].idx) {
-                                forces[x] = undefined; // Kill this move.
+                                forces[x] = undefined;
                             }
                         }
                     }

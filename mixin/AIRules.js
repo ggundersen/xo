@@ -14,25 +14,25 @@ var AIRules = {
         
         move = this.win(board, score);
         if (this.is_valid(move)) {
-            Log.note('Go for the win.');
+            Log.note('Go for the win');
             return move;
         }
 
         move = this.block_win(board, score);
         if (this.is_valid(move)) {
-            Log.note('Block a winning move.');
+            Log.note('Block a winning move');
             return move;
         }
 
         move = this.fork(board, score);
         if (this.is_valid(move)) {
-            Log.note('Fork the opponent.');
+            Log.note('Fork the opponent');
             return move;
         }
 
         move = this.block_fork(board, score);
         if (this.is_valid(move)) {
-            Log.note('A forking is coming. Block it.');
+            Log.note('Block potential fork');
             return move;
         }
 
@@ -54,7 +54,7 @@ var AIRules = {
 
         move = this.random(board);
         if (this.is_valid(move)) {
-            Log.note('Play a square randomly.');
+            Log.note('Play a square randomly');
             return move;
         }
     },
