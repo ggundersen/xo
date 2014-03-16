@@ -1,9 +1,16 @@
 /* General */
+body {
+    font-family: helvetica, arial, 'sans-serif';    
+}
 button {
     font-size: 11px;
 }
+h4 {
+    display: inline;
+    font-size: 12px;
+}
 
-/* Container */
+/* Intro, Options, &c. */
 #board,
 #options,
 #log,
@@ -13,8 +20,7 @@ button {
 	top: 20px;
 }
 
-/*
-#board - width is handled by JavaScript for noughts radius's calculations */
+/* board width is handled by JavaScript for noughts radius's calculations */
 #intro,
 #options,
 #log {
@@ -22,20 +28,21 @@ button {
 }
 #intro {
     color: #595959;
-    font-family: helvetica, arial, 'san-serif';
+    font-family: helvetica, arial, 'sans-serif';
     font-size: 14px;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
 }
 #options {
     height: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
+
 /* Log */
 #log {
     border: 1px solid #bbb;
     padding: 5px;
     color: #000;
-    font-family: helvetica, arial, 'san-serif';
+    font-family: helvetica, arial, 'sans-serif';
     font-size: 12px;
     height: 72px;
     margin-top: 10px;
@@ -65,11 +72,4 @@ button {
 }
 .square.highlight {
 	background: #FFFF66;
-}
-.over {
-    font-family: helvetica, arial, 'san-serif';
-    font-size: 14px;
-    position: relative;
-    text-align: center;
-    top: 10px
 }

@@ -44,8 +44,8 @@ window.onload = function() {
             skillNode = document.getElementById('aiSkill'),
             aiSkill = skillNode.options[skillNode.selectedIndex].text;
 
-        config.ai.skill = aiSkill[0] === '(' ? config.ai.skill : aiSkill;
-        XO.ai.team = aiTeam[0] === '(' ? config.ai.team : aiTeam;
+        config.ai.skill = aiSkill ? aiSkill : config.ai.skill;
+        XO.ai.team = aiTeam ? aiTeam : config.ai.team;
         XO.human.team = (aiTeam === XO.CROSSES ? XO.NOUGHTS : XO.CROSSES);
 
         // Ensure the human is always red.

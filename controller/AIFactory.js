@@ -13,7 +13,5 @@ var AIFactory = function(skill) {
         aiInstance = new AI(AIBase, AIRandom, AIScan, AILookahead, AIRules);
     }
 
-    console.log(aiInstance);
-
     return aiInstance;
 };
