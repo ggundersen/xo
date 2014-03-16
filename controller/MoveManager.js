@@ -54,12 +54,7 @@ MoveManager.prototype.handle_move = function(game, idx, player, team) {
     }
 };
 
-// TODO: Make this a proper view
 MoveManager.prototype.game_over = function(msg) {
-    var game_overEl = document.createElement('div'),
-        boardEl = document.getElementById('board');
-    game_overEl.className = 'over';
-    game_overEl.innerHTML = msg;
-    boardEl.appendChild(game_overEl);
+    Log.note(msg);
     this.events.unsubscribe('clickSquare');
 };

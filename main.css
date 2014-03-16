@@ -1,3 +1,9 @@
+/* General */
+button {
+    font-size: 11px;
+}
+
+/* Container */
 #board,
 #options,
 #log,
@@ -6,19 +12,34 @@
 	position: relative;
 	top: 20px;
 }
-/* Width is controlled by JavaScript for radius calculations */
-#board {}
 
+/*
+#board - width is handled by JavaScript for noughts radius's calculations */
 #intro,
 #options {
-    width: 255px;
+    width: 250px;
 }
 #intro {
-    color: #aaa;
+    color: #595959;
     font-family: helvetica, arial, 'san-serif';
     font-size: 14px;
     padding-bottom: 10px;
 }
+#options {
+    height: 20px;
+    margin-bottom: 20px;
+}
+#log {
+    border: 1px solid #bbb;
+    padding: 5px;
+    color: #000;
+    font-family: helvetica, arial, 'san-serif';
+    font-size: 12px;
+    height: 60px;
+    margin-top: 10px;
+    width: 242px;
+}
+/* Board */
 .square {
     background: #ddd;
     font-family: helvetica;
@@ -35,21 +56,4 @@
     position: relative;
     text-align: center;
     top: 10px
-}
-#options {
-    height: 20px;
-    margin-bottom: 20px;
-}
-button {
-    font-size: 11px;
-}
-#log {
-    border: 1px solid #bbb;
-    padding: 5px;
-    color: #aaa;
-    font-family: helvetica, arial, 'san-serif';
-    font-size: 10px;
-    height: 75px;
-    margin-top: 10px;
-    width: 242px;
 }
