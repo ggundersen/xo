@@ -34,7 +34,7 @@ window.onload = function() {
             team: XO.NOUGHTS
         },
         css: {
-            boardWidth: 255,
+            boardWidth: 300,
             crossColor: '#ff0000',
             noughtColor: '#000000'
         }

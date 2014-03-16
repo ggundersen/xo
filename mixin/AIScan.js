@@ -23,7 +23,7 @@ var AIScan = {
             if (score.is_win(obj, 1)) {
                 idx = board.get(undefined, score.M - obj.magic);
                 move = new Move(idx);
-                Log.whisper('Can be forked; block on ' + idx);
+                Log.whisper('Opponent can win on ' + idx);
             }
 
         });

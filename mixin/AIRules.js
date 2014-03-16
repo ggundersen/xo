@@ -42,16 +42,12 @@ var AIRules = {
             return move;
         }
         
-        // TODO: opposite corner: 6
-        
         move = this.empty_corner(board);
         if (this.is_valid(move)) {
             Log.note('Play a corner');
             return move;
         }
         
-        // TODO: empty side: 8
-
         move = this.random(board);
         if (this.is_valid(move)) {
             Log.note('Play a square randomly');

@@ -16,8 +16,9 @@ button {
 /*
 #board - width is handled by JavaScript for noughts radius's calculations */
 #intro,
-#options {
-    width: 250px;
+#options,
+#log {
+    width: 286px;
 }
 #intro {
     color: #595959;
@@ -36,9 +37,8 @@ button {
     color: #000;
     font-family: helvetica, arial, 'san-serif';
     font-size: 12px;
-    height: 100px;
+    height: 72px;
     margin-top: 10px;
-    width: 242px;
     overflow: scroll;
 }
 .note {

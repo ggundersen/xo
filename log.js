@@ -3,7 +3,7 @@ Log = {
     el: document.getElementById('log'),
 
     log: function(text, className) {
-        var html = '<span class="' + className + '">' + text + '</span>',
+        var html = '<span class="' + className + '">&bull; ' + text + '</span>',
             current = this.el.innerHTML;
 
         if (current) {
