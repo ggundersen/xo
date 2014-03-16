@@ -65,7 +65,7 @@ var Board = function() {
         each_empty: function(fn) {
             var i = 0;
             for (; i < LEN; i++) {
-                if (this.is_empty(i)) {
+                if (this.is_empty_idx(i)) {
                     fn(state[i], i);
                 }
             }
@@ -81,22 +81,31 @@ var Board = function() {
             }
         },
 
+        is_empty_idx: function(idx) {
+            if (state[idx].piece === null) {
+                return true;
+            }
+            return false;
+        },
+
         is_full: function() {
             var i = 0;
             for (; i < LEN; i++) {
-                if (this.is_empty(i)) {
+                if (this.is_empty_idx(i)) {
                     return false;
                 }
             }
             return true;
         },
 
-        is_empty: function(idx) {
-            if (state[idx].piece === null) {
-                return true;
+        is_empty: function() {
+            var i = 0;
+            for (; i < LEN; i++) {
+                if (!this.is_empty_idx(i)) {
+                    return false;
+                }
             }
-            return false;
+            return true;
         }
-
     };
 };

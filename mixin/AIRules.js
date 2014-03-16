@@ -12,6 +12,12 @@ var AIRules = {
 
         Log.clear();
         
+        move = this.first_move(board, score);
+        if (this.is_valid(move)) {
+            Log.note('First move. Play a center or corner.');
+            return move;
+        }
+
         move = this.win(board, score);
         if (this.is_valid(move)) {
             Log.note('Go for the win');
@@ -60,6 +66,12 @@ var AIRules = {
             return true;
         }
         return false;
+    },
+
+    first_move: function(board, score) {
+        if (board.is_empty()) {
+            console.log('ais first move');    
+        }
     }
 
 };

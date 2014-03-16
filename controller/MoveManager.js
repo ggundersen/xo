@@ -17,7 +17,8 @@ var MoveManager = function(game) {
 };
 
 MoveManager.prototype.handle_human = function(idx) {
-    if (this.board.is_empty(idx) && this.game.is_turn(this.game.human.team)) {
+    console.log('handling human');
+    if (this.board.is_empty_idx(idx) && this.game.is_turn(this.game.human.team)) {
         this.handle_move(this.game, idx, this.game.human.team, XO.HUMAN_VAL);
     }
 };

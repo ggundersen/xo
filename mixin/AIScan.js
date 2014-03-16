@@ -51,7 +51,7 @@ var AIScan = {
        
         for (; i < len; i++) {
             squareIdx = squareIdxs[i];
-            if (board.is_empty(squareIdx)) {
+            if (board.is_empty_idx(squareIdx)) {
                 candidates.push(new Move(squareIdx));
             }
         }
