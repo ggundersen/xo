@@ -1,11 +1,11 @@
 /* MoveManager
  * --------------------------------------------------------------- */
 
-var MoveManager = function(game) {
+var MoveManager = function(game, board, events) {
     var self = this;
     this.game = game;
-    this.board = game.board;
-    this.events = game.events;
+    this.board = board;
+    this.events = events;
 
 	this.events.subscribe('clickSquare', function(num) {
 	    self.handle_human(num);

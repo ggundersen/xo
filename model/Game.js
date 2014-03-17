@@ -9,11 +9,7 @@ var Game = function(options) {
     this.ai = new AIFactory(options.ai.skill);
     this.score = new Score(this.board);
     this.board.view = new BoardView(this.board, this.events, options.css);
-    
-    // TODO: This guy has to be instantiate *after* this.score,
-    // otherwise the AI won't know the score. This seems too
-    // tightly coupled.
-    this.moveManager = new MoveManager(this, options.ai);
+    this.moveManager = new MoveManager(this, this.board, this.events);
 };
 
 Game.prototype.is_turn = function(team) {

@@ -4,7 +4,6 @@
 var AIFactory = function(skill) {
     var aiInstance;
    
-    // TODO: Should this be a switch statement?
     if (skill === XO.AI_SKILL.RANDOM) {
         aiInstance = new AI(AIBase, AIRandom, AIRules);
     } else if (skill === XO.AI_SKILL.SCAN) {

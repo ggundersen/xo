@@ -9,7 +9,7 @@ var AIScan = {
             if (score.is_win(obj, XO.ai.VAL)) {
                 idx = board.get(undefined, score.M + obj.magic);
                 move = new Move(idx);
-                Log.whisper('Can win on magic index ' + score.M + ' + &#8722;' + (-1 * obj.magic) + ' = ' + board.get(idx).magic);
+                Log.whisper('Can win on ' + score.M + ' + &#8722;' + (-1 * obj.magic) + ' = ' + board.get(idx).magic);
             }
         });
         return move;
@@ -21,7 +21,7 @@ var AIScan = {
             if (score.is_win(obj, XO.human.VAL)) {
                 idx = board.get(undefined, score.M - obj.magic);
                 move = new Move(idx);
-                Log.whisper('Opponent can win on magic index ' + score.M + ' - ' + obj.magic + ' = ' + board.get(idx).magic);
+                Log.whisper('Opponent can win on ' + score.M + ' &#8722 ' + obj.magic + ' = ' + board.get(idx).magic);
             }
 
         });
