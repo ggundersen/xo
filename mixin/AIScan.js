@@ -28,17 +28,6 @@ var AIScan = {
         return move;
     },
 
-    opposite_corner: function(board) {
-        console.log('opposite corners');
-        var corners = board.get_square_type('corner');
-        board.each(function(obj, i) {
-            if (obj.piece === XO.human.team) {
-                console.log(obj);
-            }
-        });
-
-    },
-
     empty_center: function(board) {
         return this.empty_square_by_type(board, board.center);
     },
