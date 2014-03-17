@@ -57,10 +57,8 @@ SquareView.prototype.drawLine = function(x1, y1, x2, y2) {
 };
 
 SquareView.prototype.drawNumbers = function() {
-    this.ctx.font = '400 10pt arial';
+    var fontHeight = 10;
     this.ctx.fillStyle = '#aaa';
-    this.ctx.fillText(this.idx, 10, 45);
-    this.ctx.font = '700 10pt arial';
-    this.ctx.fillText(this.magic, 10, 60);
-
+    this.ctx.font = '700 ' + fontHeight + 'pt arial';
+    this.ctx.fillText(this.magic, 10, (this.squareDim / 2) + (fontHeight / 2));
 };

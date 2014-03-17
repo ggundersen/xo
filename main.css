@@ -1,4 +1,15 @@
 /* General */
+a,
+a:visited,
+a:active {
+    border-bottom: 1px solid #595959;
+    color: #595959;
+    text-decoration: none;
+}
+a:hover {
+    color: #595959;
+    border-bottom: none;
+}
 body {
     font-family: helvetica, arial, 'sans-serif';    
 }
@@ -12,9 +23,10 @@ h4 {
 
 /* Intro, Options, &c. */
 #board,
+#intro,
+#log, 
 #options,
-#log,
-#intro {
+#credits {
 	margin: 0 auto;
 	position: relative;
 	top: 20px;
@@ -23,7 +35,8 @@ h4 {
 /* board width is handled by JavaScript for noughts radius's calculations */
 #intro,
 #options,
-#log {
+#log,
+#credits {
     width: 286px;
 }
 #intro {
@@ -40,13 +53,13 @@ h4 {
 /* Log */
 #log {
     border: 1px solid #bbb;
-    padding: 5px;
     color: #000;
     font-family: helvetica, arial, 'sans-serif';
     font-size: 12px;
     height: 72px;
     margin-top: 10px;
     overflow: scroll;
+    padding: 5px;
 }
 .note {
     color: #000;
@@ -65,11 +78,20 @@ h4 {
 /* Board */
 .square {
     background: #ddd;
+    float: left;
     font-family: helvetica;
     font-size: 40px;
-    float: left;
 	text-align: center;
 }
 .square.highlight {
 	background: #FFFF66;
+}
+
+/* Credits */
+#credits {
+    color: #595959;
+    font-family: courier;
+    font-size: 12px;
+    padding: 10px 0;
+    text-align: center;
 }
