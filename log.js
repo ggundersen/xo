@@ -45,7 +45,6 @@ Log = {
                 str += ', ' + arr[i][prop].toString();
             }
         }
-
         return str;
     }
 
