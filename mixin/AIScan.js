@@ -28,10 +28,6 @@ var AIScan = {
         return move;
     },
 
-    empty_center: function(board) {
-        return this.empty_square_by_type(board, 'center');
-    },
-
     opposite_corner: function(board) {
         console.log('opposite corners');
         var corners = board.get_square_type('corner');
@@ -43,17 +39,20 @@ var AIScan = {
 
     },
 
+    empty_center: function(board) {
+        return this.empty_square_by_type(board, board.center);
+    },
+
     empty_corner: function(board) {
-        return this.empty_square_by_type(board, 'corner');
+        return this.empty_square_by_type(board, board.corner);
     },
 
     empty_side: function(board) {
-        return this.empty_square_by_type(board, 'side');
+        return this.empty_square_by_type(board, board.side);
     },
 
-    empty_square_by_type: function(board, type) {
+    empty_square_by_type: function(board, squareIdxs) {
         var squareIdx,
-            squareIdxs = board.get_square_type(type),
             i = 0,
             len = squareIdxs.length,
             moves = [];

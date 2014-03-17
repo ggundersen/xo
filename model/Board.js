@@ -35,8 +35,10 @@ var Board = function() {
     return {
 
         N: N,
-
         M: M,
+        corner: [0, 2, 6, 8],
+        side: [1, 3, 5, 7],
+        center: [4],
         
         set: function(idx, piece) {
             state[idx].piece = piece;
@@ -68,16 +70,6 @@ var Board = function() {
                 if (this.is_empty_idx(i)) {
                     fn(state[i], i);
                 }
-            }
-        },
-
-        get_square_type: function(type) {
-            if (type === 'corner') {
-                return [0, 2, 6, 8];
-            } else if (type === 'side') {
-                return [1, 3, 5, 7];
-            } else if (type === 'center') {
-                return [4];
             }
         },
 
