@@ -1,16 +1,13 @@
 /* SquareVie:taw
  * --------------------------------------------------------------- */
 
-var SquareView = function(idx, board, events, parentEl, css) {
+var SquareView = function(idx, magic, board, events, parentEl, css) {
+    var borderWidth = 1;
     this.idx = idx;
+    this.magic = magic;
     this.board = board;
     this.css = css;
-
-    var borderWidth = 1;
-
     this.pieceThickness = 5;
-
-    
     this.radius = ((css.boardWidth / board.N) / 2) - (this.pieceThickness / 2) - 1;
     this.squareDim = (css.boardWidth / board.N) - (2 * borderWidth);
 
@@ -22,6 +19,7 @@ var SquareView = function(idx, board, events, parentEl, css) {
     parentEl.appendChild( el );
 
     this.ctx = el.getContext('2d');
+    this.drawNumbers();
     events.on(el, 'click', 'clickSquare', this.idx);
 };
 
@@ -31,11 +29,6 @@ SquareView.prototype.update = function() {
     } else if (this.board.get(this.idx).piece === XO.NOUGHTS) {
         this.drawNoughts();
     }
-};
-
-SquareView.prototype.drawCrosses = function() {
-    this.drawLine(0, 0, this.squareDim, this.squareDim);
-    this.drawLine(0, this.squareDim, this.squareDim, 0);
 };
 
 SquareView.prototype.drawNoughts = function() {
@@ -48,6 +41,11 @@ SquareView.prototype.drawNoughts = function() {
     this.ctx.closePath();
 };
 
+SquareView.prototype.drawCrosses = function() {
+    this.drawLine(0, 0, this.squareDim, this.squareDim);
+    this.drawLine(0, this.squareDim, this.squareDim, 0);
+};
+
 SquareView.prototype.drawLine = function(x1, y1, x2, y2) {
     this.ctx.strokeStyle = this.css.crossColor;
     this.ctx.beginPath();
@@ -56,4 +54,13 @@ SquareView.prototype.drawLine = function(x1, y1, x2, y2) {
     this.ctx.lineWidth = this.pieceThickness;
     this.ctx.stroke();
     this.ctx.closePath();
+};
+
+SquareView.prototype.drawNumbers = function() {
+    this.ctx.font = '400 10pt arial';
+    this.ctx.fillStyle = '#aaa';
+    this.ctx.fillText(this.idx, 10, 45);
+    this.ctx.font = '700 10pt arial';
+    this.ctx.fillText(this.magic, 10, 60);
+
 };

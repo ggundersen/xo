@@ -9,7 +9,7 @@ var BoardView = function(board, events, css) {
 	el.style.width = el.style.height = css.boardWidth + 'px';
 
 	board.each(function(obj, idx) {
-        views.push(new SquareView(idx, board, events, el, css));
+        views.push(new SquareView(idx, obj.magic, board, events, el, css));
 	});
 
 	return {

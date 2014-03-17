@@ -32,6 +32,17 @@ var AIScan = {
         return this.empty_square_by_type(board, 'center');
     },
 
+    opposite_corner: function(board) {
+        console.log('opposite corners');
+        var corners = board.get_square_type('corner');
+        board.each(function(obj, i) {
+            if (obj.piece === XO.human.team) {
+                console.log(obj);
+            }
+        });
+
+    },
+
     empty_corner: function(board) {
         return this.empty_square_by_type(board, 'corner');
     },

@@ -22,6 +22,7 @@ AIBase = {
     fork: function() {},
     block_fork: function() {},
     empty_center: function() {},
+    opposite_corner: function() {},
     empty_corner: function() {},
     random: function() {}
 

@@ -47,7 +47,13 @@ var AIRules = {
             Log.note('Play open center');
             return move;
         }
-        
+       
+        move = this.opposite_corner(board);
+        if (this.is_valid(move)) {
+            Log.note('Play opposite corner');
+            return move;
+        }
+
         move = this.empty_corner(board);
         if (this.is_valid(move)) {
             Log.note('Play open corner');

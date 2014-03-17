@@ -7,7 +7,6 @@ window.XO = {};
 
 window.onload = function() {
 
-    // Game constants
     XO.CROSSES = 'X';
     XO.NOUGHTS = 'O';
     XO.AI_SKILL = {
@@ -15,8 +14,6 @@ window.onload = function() {
         SCAN: 'Scan',
         LOOKAHEAD: 'Lookahead'
     };
-    
-    // Globally accessible objects for the human's team and value.
     XO.human = {
         VAL: 1,
         team: 'X'
@@ -50,11 +47,11 @@ window.onload = function() {
 
         // Ensure the human is always red.
         if (config.ai.team === XO.CROSSES) {
-            config.css.crossesColor = '#000000';
-            config.css.noughtsColor = '#ff0000';
+            config.css.crossColor = '#000';
+            config.css.noughtColor = '#ff0000';
         } else {
-            config.css.crossesColor = '#ff0000';
-            config.css.noughtsColor = '#000000';
+            config.css.crossColor = '#ff0000';
+            config.css.noughtColor = '#000';
         }
 
         new Game(config);
