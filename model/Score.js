@@ -1,7 +1,7 @@
 /* Score
  *
- * The Score metaobject works against the `state` stateay. Each object
- * in the stateay represents a row as follows:
+ * The Score metaobject works against the `state` array. Each object
+ * in the state array represents a row as follows:
  *
  * x1, x2, x3, y1, y2, y3, diag1, diag2
  *
