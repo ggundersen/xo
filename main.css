@@ -35,9 +35,8 @@ h4 {
 /* board width is handled by JavaScript for noughts radius's calculations */
 #intro,
 #options,
-#log,
 #credits {
-    width: 286px;
+    width: 292px;
 }
 #intro {
     color: #595959;
@@ -60,6 +59,7 @@ h4 {
     margin-top: 10px;
     overflow: scroll;
     padding: 5px;
+    width: 286px;
 }
 .note {
     color: #000;
