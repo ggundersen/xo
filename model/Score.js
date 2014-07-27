@@ -12,7 +12,7 @@
  * board's size, N, that row wins.
  *
  * The `magic` property allows us to calculate *which* square in the
- * row is would be the winning square without having to do a bunch of
+ * row would be the winning square without having to do a bunch of
  * iteration and addition. Consider this top row in a magic square:
  *
  * 4  9  2
